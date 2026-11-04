@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><h1 id="appTitle"></h1><div class="sub" id="appSub"></div></div>
+  <nav class="lens-tabs" id="lensTabs" role="tablist" aria-label="Lenses"></nav>
+  <div class="top-actions">
+    <span id="media"></span>
+    <div class="legend" id="legend"></div>
+    <button id="themeToggle" class="btn" type="button">Theme</button>
+  </div>
+</header>
+<main id="stage"></main>
+<aside class="panel" id="panel" aria-hidden="true">
+  <button class="close" type="button" aria-label="Close">&times;</button>
+  <h2 class="ptitle"></h2>
+  <div class="ptags"></div>
+  <div class="pbody"></div>
+  <div class="links"></div>
+</aside>
+<script id="model-data" type="application/json">__MODEL__</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+__CORE__
+</script>
+<script>
+__LENSES__
+</script>
+<script>Lenses.start();</script>
+</body>
+</html>

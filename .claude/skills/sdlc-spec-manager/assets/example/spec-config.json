@@ -1,0 +1,11 @@
+{
+  "specs_root": "specs",
+  "scenarios_root": "scenarios",
+  "index_files": ["specs/README.md"],
+  "roles": ["Member", "Librarian", "Branch Manager"],
+  "role_implies": {"Librarian": "Branch Manager"},
+  "cross_spec_id_pattern": "\\b[A-Z]{2,5}-\\d{3}\\b",
+  "forbidden_paths": ["internal/"],
+  "rules_line_max": 12,
+  "label_sources": ["app"]
+}

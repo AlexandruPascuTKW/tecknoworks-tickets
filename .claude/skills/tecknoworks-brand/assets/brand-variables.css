@@ -1,0 +1,168 @@
+/* Tecknoworks Brand CSS Variables
+ * Use these variables when creating HTML slides or web content
+ * for conversion to PowerPoint presentations
+ */
+
+/* Google Fonts import for web use */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+:root {
+  /* === PRIMARY COLORS === */
+  --tw-dark-gray: #515455;
+  --tw-deep-purple: #320063;
+  --tw-plum: #7D1C4B;
+  --tw-magenta: #EA2775;
+  --tw-coral: #EA8170;
+  
+  /* === TEXT COLORS === */
+  --tw-text-primary: #000000;
+  --tw-text-secondary: #515455;
+  --tw-text-title: rgb(102, 0, 51);
+  --tw-text-subtitle: rgb(204, 0, 102);
+  
+  /* === BACKGROUND COLORS === */
+  --tw-bg-primary: #FFFFFF;
+  --tw-bg-accent: #320063;
+  
+  /* === COLOR TINTS (70%, 50%, 30%) === */
+  --tw-dark-gray-70: rgba(77, 80, 88, 0.7);
+  --tw-dark-gray-50: rgba(77, 80, 88, 0.5);
+  --tw-dark-gray-30: rgba(77, 80, 88, 0.3);
+  
+  --tw-deep-purple-70: rgba(54, 47, 102, 0.7);
+  --tw-deep-purple-50: rgba(54, 47, 102, 0.5);
+  --tw-deep-purple-30: rgba(54, 47, 102, 0.3);
+  
+  --tw-plum-70: rgba(149, 50, 99, 0.7);
+  --tw-plum-50: rgba(149, 50, 99, 0.5);
+  --tw-plum-30: rgba(149, 50, 99, 0.3);
+  
+  --tw-magenta-70: rgba(225, 48, 104, 0.7);
+  --tw-magenta-50: rgba(225, 48, 104, 0.5);
+  --tw-magenta-30: rgba(225, 48, 104, 0.3);
+  
+  --tw-coral-70: rgba(237, 129, 111, 0.7);
+  --tw-coral-50: rgba(237, 129, 111, 0.5);
+  --tw-coral-30: rgba(237, 129, 111, 0.3);
+  
+  /* === TYPOGRAPHY === */
+  --tw-font-primary: 'Nunito', Arial, sans-serif;
+  --tw-font-body: 'Nunito', Arial, sans-serif;
+  
+  /* === FONT SIZES (PowerPoint) === */
+  --tw-font-title: 32pt;
+  --tw-font-subtitle: 28pt;
+  --tw-font-body-large: 24pt;
+  --tw-font-body: 18pt;
+  --tw-font-footnote: 12pt;
+  
+  /* === SPACING === */
+  --tw-spacing-xs: 8px;
+  --tw-spacing-sm: 16px;
+  --tw-spacing-md: 24px;
+  --tw-spacing-lg: 32px;
+  --tw-spacing-xl: 48px;
+  
+  /* === SLIDE DIMENSIONS === */
+  --tw-slide-width: 960px;
+  --tw-slide-height: 540px;
+}
+
+/* === BASE STYLES === */
+body {
+  font-family: var(--tw-font-body);
+  color: var(--tw-text-primary);
+  background-color: var(--tw-bg-primary);
+  margin: 0;
+  padding: 0;
+}
+
+/* === TYPOGRAPHY STYLES === */
+h1, .tw-title {
+  font-family: var(--tw-font-primary);
+  font-size: var(--tw-font-title);
+  color: var(--tw-text-title);
+  font-weight: bold;
+}
+
+h2, .tw-subtitle {
+  font-family: var(--tw-font-body);
+  font-size: var(--tw-font-subtitle);
+  color: var(--tw-text-subtitle);
+}
+
+p, .tw-body {
+  font-family: var(--tw-font-body);
+  font-size: var(--tw-font-body);
+  color: var(--tw-text-primary);
+  line-height: 1.4;
+}
+
+.tw-footnote {
+  font-family: var(--tw-font-body);
+  font-size: var(--tw-font-footnote);
+  color: var(--tw-text-secondary);
+}
+
+/* === SLIDE CONTAINER === */
+.tw-slide {
+  width: var(--tw-slide-width);
+  height: var(--tw-slide-height);
+  background-color: var(--tw-bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* === LOGO CONTAINER === */
+.tw-logo {
+  position: absolute;
+  top: var(--tw-spacing-sm);
+  right: var(--tw-spacing-sm);
+  /* Logo should be approximately 1/3 slide width */
+  max-width: 320px;
+}
+
+/* === TITLE SLIDE === */
+.tw-slide--title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--tw-spacing-xl);
+}
+
+/* === CONTENT SLIDE === */
+.tw-slide--content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: var(--tw-spacing-md);
+}
+
+/* === GEOMETRIC ACCENT === */
+.tw-geometric {
+  background: linear-gradient(135deg, 
+    var(--tw-deep-purple) 0%, 
+    var(--tw-plum) 25%, 
+    var(--tw-magenta) 50%, 
+    var(--tw-coral) 100%
+  );
+}
+
+/* === TAGLINE === */
+.tw-tagline {
+  font-family: var(--tw-font-primary);
+  color: white;
+  font-size: 24pt;
+  letter-spacing: 0.05em;
+}
+
+/* === UTILITY CLASSES === */
+.tw-text-center { text-align: center; }
+.tw-text-right { text-align: right; }
+.tw-text-white { color: white; }
+.tw-bg-gradient {
+  background: linear-gradient(135deg, 
+    var(--tw-deep-purple), 
+    var(--tw-magenta), 
+    var(--tw-coral)
+  );
+}

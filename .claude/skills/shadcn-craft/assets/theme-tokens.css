@@ -1,0 +1,150 @@
+/* ---------------------------------------------------------------------------
+   Starter token contract — Tailwind v4 / shadcn.
+   Copy the blocks you need into the project's global CSS file (the one
+   `npx shadcn@latest info --json` reports as `tailwindCssFile`). Never create a
+   separate token file.
+
+   Edit three things and the app stops looking default:
+     1. NEUTRAL_HUE  — one hue for every grey (keep it consistent)
+     2. --primary    — one action/brand colour
+     3. --radius     — one corner decision for the whole app
+
+   oklch(L C H): L 0–1 lightness · C 0 = grey · H 0–360 hue.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* Neutrals — tinted at hue 265. A pure-grey UI (C = 0) reads generic;
+     C between 0.003 and 0.012 is enough to feel authored. */
+  --background: oklch(0.995 0.002 265);
+  --foreground: oklch(0.21 0.012 265);
+
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+  --surface: oklch(0.985 0.003 265);
+  --surface-foreground: var(--foreground);
+
+  --muted: oklch(0.968 0.004 265);
+  --muted-foreground: oklch(0.552 0.014 265);
+  --accent: oklch(0.968 0.004 265);
+  --accent-foreground: oklch(0.21 0.012 265);
+  --secondary: oklch(0.968 0.004 265);
+  --secondary-foreground: oklch(0.21 0.012 265);
+
+  --border: oklch(0.922 0.005 265);
+  --input: oklch(0.922 0.005 265);
+
+  /* Primary — one colour carries actions and brand.
+     Saturated brand:  oklch(0.55 0.16 265)
+     Near-black (sharpest for internal tools): oklch(0.21 0.012 265) */
+  --primary: oklch(0.55 0.16 265);
+  --primary-foreground: oklch(0.985 0.005 265);
+  --ring: oklch(0.55 0.16 265);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0.01 27);
+
+  /* Semantic extras — add these instead of inlining text-emerald-600. */
+  --success: oklch(0.62 0.14 150);
+  --success-foreground: oklch(0.985 0.01 150);
+  --warning: oklch(0.84 0.16 84);
+  --warning-foreground: oklch(0.28 0.07 46);
+  --info: oklch(0.62 0.13 240);
+  --info-foreground: oklch(0.985 0.01 240);
+
+  /* Charts — a palette, not five random colours. Even perceptual lightness for
+     categorical series; walk one hue's lightness for sequential data. */
+  --chart-1: oklch(0.60 0.16 265);
+  --chart-2: oklch(0.62 0.13 195);
+  --chart-3: oklch(0.66 0.14 150);
+  --chart-4: oklch(0.72 0.15 85);
+  --chart-5: oklch(0.62 0.18 25);
+
+  /* Sidebar has its own surface family so the rail can differ from the page. */
+  --sidebar: oklch(0.985 0.003 265);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.955 0.006 265);
+  --sidebar-accent-foreground: oklch(0.21 0.012 265);
+  --sidebar-border: oklch(0.922 0.005 265);
+  --sidebar-ring: var(--ring);
+
+  /* One radius decision: 0.35rem sharp/dense · 0.625rem neutral · 0.85rem soft. */
+  --radius: 0.625rem;
+}
+
+.dark {
+  /* Elevation inverts in dark: raised surfaces are LIGHTER, not shadowed.
+     Chroma comes down and lightness up on saturated colours so nothing glows. */
+  --background: oklch(0.16 0.008 265);
+  --foreground: oklch(0.975 0.004 265);
+
+  --card: oklch(0.205 0.010 265);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.225 0.010 265);
+  --popover-foreground: var(--foreground);
+  --surface: oklch(0.19 0.009 265);
+  --surface-foreground: var(--foreground);
+
+  --muted: oklch(0.255 0.010 265);
+  --muted-foreground: oklch(0.712 0.014 265);
+  --accent: oklch(0.275 0.011 265);
+  --accent-foreground: oklch(0.975 0.004 265);
+  --secondary: oklch(0.255 0.010 265);
+  --secondary-foreground: oklch(0.975 0.004 265);
+
+  /* Alpha borders hold up better than flat greys on dark surfaces. */
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+
+  --primary: oklch(0.68 0.13 265);
+  --primary-foreground: oklch(0.16 0.008 265);
+  --ring: oklch(0.68 0.13 265);
+
+  --destructive: oklch(0.62 0.19 25);
+  --destructive-foreground: oklch(0.98 0.01 25);
+
+  --success: oklch(0.58 0.12 150);
+  --success-foreground: oklch(0.98 0.01 150);
+  --warning: oklch(0.52 0.12 70);
+  --warning-foreground: oklch(0.98 0.02 95);
+  --info: oklch(0.60 0.11 240);
+  --info-foreground: oklch(0.98 0.01 240);
+
+  --chart-1: oklch(0.66 0.15 265);
+  --chart-2: oklch(0.68 0.12 195);
+  --chart-3: oklch(0.70 0.13 150);
+  --chart-4: oklch(0.76 0.14 85);
+  --chart-5: oklch(0.66 0.17 25);
+
+  --sidebar: oklch(0.19 0.009 265);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.265 0.011 265);
+  --sidebar-accent-foreground: oklch(0.975 0.004 265);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: var(--ring);
+}
+
+/* Register anything the default shadcn theme block doesn't already expose.
+   Only the EXTRA tokens need adding — the stock ones are already mapped. */
+@theme inline {
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+}
+
+/* Optional: Tailwind v4 ships buttons as cursor: default. Restore the pointer
+   once, globally, instead of sprinkling cursor-pointer. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

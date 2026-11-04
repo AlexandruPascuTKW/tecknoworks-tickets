@@ -1,0 +1,137 @@
+{
+  "id": "http-caching",
+  "title": "HTTP caching",
+  "subtitle": "How a browser or CDN decides to reuse a response — RFC 9111",
+  "source": "RFC 9111 (HTTP Caching), from model knowledge — not checked against the RFC text line by line",
+  "summary": [
+    "A cache stores responses and reuses them while they are **fresh**. When a response is **stale**, the cache asks the origin server if it is still valid. This is **revalidation**.",
+    {"type": "note", "title": "The one idea to keep", "text": "Freshness decides *whether to ask*. Validators (`ETag`, `Last-Modified`) decide *what to ask*."}
+  ],
+  "lenses": ["map", "reference", "states", "walkthrough", "questions", "quiz"],
+  "legend": [
+    {"id": "confirmed", "label": "Confirmed", "tone": "good", "description": "Stated in the RFC"},
+    {"id": "inferred", "label": "Inferred", "tone": "warn", "description": "Common practice, not required by the RFC"},
+    {"id": "open", "label": "Open", "tone": "bad", "description": "Left to implementations or unclear"}
+  ],
+  "sections": [
+    {"id": "store", "title": "What gets stored", "status": "confirmed",
+     "summary": "A cache can store a response only when the response allows it.",
+     "blocks": [
+       "`Cache-Control: no-store` forbids storing. `private` forbids **shared** caches (CDNs, proxies) but allows the browser cache.",
+       {"type": "table", "head": ["Directive", "Browser cache", "Shared cache"],
+        "rows": [["`no-store`", "No", "No"], ["`private`", "Yes", "No"], ["`public`", "Yes", "Yes"], ["*(none)*", "Yes, if cacheable by default", "Yes, if cacheable by default"]]}
+     ]},
+    {"id": "freshness", "title": "Freshness", "status": "confirmed",
+     "summary": "A stored response is fresh while its age is below its freshness lifetime.",
+     "blocks": [
+       "The lifetime comes from `max-age` (or `s-maxage` for shared caches), then from `Expires`.",
+       {"type": "p", "status": "open", "text": "If none is present, a cache may guess a **heuristic** lifetime. The RFC suggests 10% of the time since `Last-Modified`, but does not require it."}
+     ]},
+    {"id": "revalidation", "title": "Revalidation", "status": "confirmed",
+     "summary": "A stale response is checked, not thrown away.",
+     "blocks": [
+       "The cache sends a conditional request: `If-None-Match` with the `ETag`, or `If-Modified-Since` with `Last-Modified`.",
+       "A `304 Not Modified` answer means the stored copy is still good; the cache refreshes its metadata and serves it. See [[states:entry.revalidating|the entry states]]."
+     ]},
+    {"id": "nocache", "title": "no-cache is not no-store", "status": "confirmed",
+     "blocks": [
+       {"type": "quote", "text": "no-cache: the response MUST NOT be used to satisfy any other request without forwarding it for validation", "cite": "RFC 9111 §5.2.2.4"},
+       "So `no-cache` means *store it, but always ask first*. People often confuse it with `no-store`."
+     ]}
+  ],
+  "map": {
+    "direction": "LR",
+    "hint": "Follow a request from the left. Click any node.",
+    "groups": [{"id": "cache", "label": "Inside the cache"}],
+    "nodes": [
+      {"id": "request", "label": "Request\narrives", "status": "confirmed", "shape": "pill",
+       "detail": ["A client asks for a URL. The cache looks for a stored response with a matching key (method + URL, plus any `Vary` headers)."]},
+      {"id": "stored", "label": "Stored\nresponse?", "status": "confirmed", "shape": "diamond", "group": "cache", "section": "store",
+       "detail": ["No match means a **miss**: forward to the origin."]},
+      {"id": "fresh", "label": "Fresh?", "status": "confirmed", "shape": "diamond", "group": "cache", "section": "freshness",
+       "detail": ["Fresh when age < lifetime. {{open}} With no lifetime headers, the lifetime is a heuristic guess."]},
+      {"id": "serve", "label": "Serve from\ncache", "status": "confirmed", "group": "cache",
+       "detail": ["No network trip. This is the whole point of caching."]},
+      {"id": "conditional", "label": "Conditional\nrequest", "status": "confirmed", "section": "revalidation",
+       "detail": ["`If-None-Match` / `If-Modified-Since` sent to the origin."]},
+      {"id": "origin", "label": "Origin\nserver", "status": "confirmed", "shape": "db",
+       "detail": ["Answers `304` (still valid) or `200` with a new body."]},
+      {"id": "store_new", "label": "Store new\nresponse", "status": "inferred", "group": "cache", "section": "store",
+       "detail": ["Stored only if `Cache-Control` allows it. {{inferred}} Most caches store by default when there is a validator or lifetime."]}
+    ],
+    "edges": [
+      {"from": "request", "to": "stored"},
+      {"from": "stored", "to": "fresh", "label": "hit"},
+      {"from": "stored", "to": "origin", "label": "miss"},
+      {"from": "fresh", "to": "serve", "label": "yes"},
+      {"from": "fresh", "to": "conditional", "label": "stale"},
+      {"from": "conditional", "to": "origin"},
+      {"from": "origin", "to": "serve", "label": "304", "style": "dashed"},
+      {"from": "origin", "to": "store_new", "label": "200"},
+      {"from": "store_new", "to": "serve"}
+    ]
+  },
+  "scenarios": [
+    {"id": "nostore", "title": "If the response says no-store",
+     "summary": "Amber = behaves differently. Red dashed = never happens. Grey = unchanged.",
+     "changes": {
+       "store_new": {"effect": "removed", "note": "Nothing is stored, so the next request is a miss again."},
+       "fresh": {"effect": "removed", "note": "There is never a stored copy to judge."},
+       "serve": {"effect": "changed", "label": "Serve\n(pass-through)", "note": "The body goes straight to the client."}
+     }}
+  ],
+  "machines": [
+    {"id": "entry", "title": "A cache entry over time", "status": "confirmed",
+     "summary": "One stored response moves between these states.",
+     "states": [
+       {"id": "fresh", "label": "Fresh", "initial": true, "status": "confirmed", "detail": ["Served without asking the origin."]},
+       {"id": "stale", "label": "Stale", "status": "confirmed", "detail": ["Must be revalidated before use, unless `stale-while-revalidate` or `stale-if-error` allows otherwise."]},
+       {"id": "revalidating", "label": "Revalidating", "status": "confirmed", "section": "revalidation", "detail": ["A conditional request is in flight."]},
+       {"id": "evicted", "label": "Evicted", "terminal": true, "status": "inferred", "detail": ["Removed to free space. {{inferred}} Eviction policy (LRU and so on) is up to the implementation."]}
+     ],
+     "transitions": [
+       {"from": "fresh", "to": "stale", "label": "age passes lifetime"},
+       {"from": "stale", "to": "revalidating", "label": "request arrives", "guard": "has `ETag` or `Last-Modified`"},
+       {"from": "revalidating", "to": "fresh", "label": "304 Not Modified"},
+       {"from": "revalidating", "to": "evicted", "label": "200 with new body", "guard": "old entry replaced"},
+       {"from": "stale", "to": "evicted", "label": "space needed"},
+       {"from": "fresh", "to": "evicted", "label": "space needed", "style": "dashed"}
+     ]}
+  ],
+  "walkthroughs": [
+    {"id": "logo", "title": "Follow one request: /logo.png", "intro": "The CDN stored `/logo.png` an hour ago with `Cache-Control: max-age=600` and an `ETag`.",
+     "steps": [
+       {"id": "arrive", "title": "A request arrives", "highlight": ["request", "stored"],
+        "blocks": ["The CDN finds the stored response. It was stored 3600 seconds ago."],
+        "choices": [{"label": "Serve it straight away", "goto": "wrong_serve"}, {"label": "Check freshness first", "goto": "check"}]},
+       {"id": "wrong_serve", "title": "Not yet", "highlight": ["fresh"], "next": "check",
+        "blocks": ["Age 3600 is above `max-age=600`. The copy is **stale**. Serving it without asking breaks the rules (unless `stale-while-revalidate` allows it)."]},
+       {"id": "check", "title": "It is stale, so revalidate", "highlight": ["fresh", "conditional", "origin"],
+        "blocks": ["The CDN sends `If-None-Match: \"abc123\"` to the origin."],
+        "choices": [{"label": "The logo did not change", "goto": "notmod"}, {"label": "The logo changed", "goto": "changed"}]},
+       {"id": "notmod", "title": "304 Not Modified", "highlight": ["origin", "serve"], "end": true,
+        "blocks": ["No body crosses the network. The CDN resets the entry's age and serves the stored logo. Fresh again for 600 seconds."]},
+       {"id": "changed", "title": "200 with the new logo", "highlight": ["origin", "store_new", "serve"], "end": true,
+        "blocks": ["The CDN replaces the old entry and serves the new body."]}
+     ]}
+  ],
+  "questions": [
+    {"id": "heuristic", "title": "How long is a response fresh with no lifetime headers?", "status": "open", "owner": "Each cache implementation",
+     "affects": ["fresh"], "refs": ["freshness"],
+     "blocks": ["The RFC allows a heuristic but only suggests 10% of the time since `Last-Modified`. Browsers and CDNs differ."]},
+    {"id": "vary", "title": "Do `Vary: *` responses ever hit?", "state": "resolved", "status": "confirmed", "affects": ["stored"],
+     "blocks": ["No. `Vary: *` always fails to match, so every request goes to the origin."]}
+  ],
+  "quiz": [
+    {"id": "q1", "q": "A response has `Cache-Control: no-cache`. Can the browser store it?",
+     "choices": ["No, never", "Yes, but it must revalidate before every use", "Yes, and reuse it freely"], "answer": 1,
+     "explain": ["`no-cache` means *store, but always ask first*. `no-store` is the one that forbids storing."], "ref": "reference/nocache"},
+    {"id": "q2", "q": "The origin answers a conditional request with `304`. What does the cache do?",
+     "answer": "Serves its stored copy and refreshes its age — no new body is sent.", "ref": "states/entry.revalidating"},
+    {"id": "q3", "q": "Which header makes a CDN skip a response but still lets the browser cache it?",
+     "choices": ["`public`", "`private`", "`no-store`"], "answer": 1, "ref": "reference/store"}
+  ],
+  "suggested_lenses": [
+    {"lens": "timeline", "title": "Timeline", "why": "HTTP caching changed across RFC 2616 → 7234 → 9111; a timeline would show what moved."}
+  ]
+}

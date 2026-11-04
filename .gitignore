@@ -1,0 +1,17 @@
+# Personal scratch space — never shared, never pushed
+private/
+
+# Common build/dependency noise — harmless to keep even before source-code/ has a stack
+node_modules/
+bin/
+obj/
+.vs/
+*.user
+*.db
+*.db-shm
+*.db-wal
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
