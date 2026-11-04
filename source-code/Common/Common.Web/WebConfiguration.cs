@@ -35,5 +35,6 @@ public static class WebConfiguration
             .AddProblemDetails()
             .AddExceptionHandler<ValidationExceptionHandler>()
             .AddExceptionHandler<NotFoundExceptionHandler>()
+            .AddExceptionHandler<ForbiddenExceptionHandler>()
             .AddExceptionHandler<DomainExceptionHandler>();
 }

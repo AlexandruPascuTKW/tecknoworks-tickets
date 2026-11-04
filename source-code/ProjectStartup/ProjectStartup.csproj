@@ -11,6 +11,14 @@
         <!-- The host is the only project allowed to see more than one context. Each bounded context adds
              its <Ctx>.Infrastructure and <Ctx>.Web projects here (see CLAUDE.md in this folder). -->
         <ProjectReference Include="..\Common\Common.Web\Common.Web.csproj" />
+        <ProjectReference Include="..\Accounts\Accounts.Infrastructure\Accounts.Infrastructure.csproj" />
+        <ProjectReference Include="..\Accounts\Accounts.Web\Accounts.Web.csproj" />
+        <ProjectReference Include="..\Events\Events.Infrastructure\Events.Infrastructure.csproj" />
+        <ProjectReference Include="..\Events\Events.Web\Events.Web.csproj" />
+        <ProjectReference Include="..\Sales\Sales.Infrastructure\Sales.Infrastructure.csproj" />
+        <ProjectReference Include="..\Sales\Sales.Web\Sales.Web.csproj" />
+        <ProjectReference Include="..\Admission\Admission.Infrastructure\Admission.Infrastructure.csproj" />
+        <ProjectReference Include="..\Admission\Admission.Web\Admission.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup>

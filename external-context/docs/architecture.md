@@ -748,3 +748,30 @@ Each step is usable on its own and unlocks the next.
 
 After each context: run `ProjectReferenceTests` and `EventContractTests`, then the context's
 scenarios in `scenarios/<CODE>/`.
+
+## As built — where the code differs from this plan
+
+The four contexts are implemented as planned. These are the places the build departed from the text above;
+the plan was not changed, so read this as the current truth.
+
+- **Table names are prefixed per context** (`Sales_Orders`, `Admission_Performances`). All contexts share one
+  SQLite file and Sales and Admission both have a `Performances` table, so `BaseDbContext` prefixes every
+  table with its context's name. Each context still owns its own tables and migrations.
+- **Event pictures travel as base64 in JSON**, not as a multipart form, so the Application layer never sees
+  an ASP.NET type (`ImageUpload.Content`). The 2 MB limit and the first-bytes check are in
+  `Events.Application`, not in `EventsSettings`.
+- **`TeamAccess` in Events is `EventAccess`**, and also loads the Event and the sales figures (EVT-R8).
+- **Events are deferred.** `Entity.RaiseEvent(Func<IDomainEvent>)` builds a payload at save time, once EF has
+  given new children their Ids, so a snapshot can mention a Performance added in the same save.
+- **SAL-V2 is asked per Event**, not per Performance: `GET Performances/Availability?eventId=` answers for all
+  the Event's Performances at once.
+- **The simulated payment page** lives behind `ISimulatedPaymentPages` in Application and is reachable only in
+  Development (`SimulatedPaymentsController`).
+- **`DataRepository.Save` is `virtual`**, so the Order repository can turn a concurrency conflict into
+  `ConcurrencyConflictException` (ADR-002).
+- **Queries read aggregates and map in memory** rather than `ProjectTo`: the Price and Money value objects are
+  stored as cents through converters, which EF cannot project through.
+- **Platform staff are seeded from configuration** (`Accounts:SeededStaff`); no use case in the specs creates
+  a Platform admin or the Finance manager.
+- **Eventual consistency window.** Events learns of a new Order about a second after it is placed, so for that
+  moment a Performance can still be removed (EVT-R8). ADR-005 documents the delay.

@@ -12,6 +12,8 @@ public static class ApplicationBuilderExtensions
                 .WithOrigins("http://localhost:5173") // the web/ dev server
                 .AllowAnyHeader()
                 .AllowAnyMethod())
+            .UseAuthentication()
+            .UseAuthorization()
             .UseEndpoints(endpoints => endpoints
                 .MapControllers());
 

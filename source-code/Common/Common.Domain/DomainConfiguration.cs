@@ -17,7 +17,7 @@ public static class DomainConfiguration
             .Scan(scan => scan
                 .FromAssemblies(assembly)
                 .AddClasses(classes => classes
-                    .AssignableTo(typeof(IFactory<>)))
+                    .AssignableTo(typeof(IFactory<>)), publicOnly: false)
                 .AsMatchingInterface()
                 .WithTransientLifetime());
 
@@ -28,7 +28,7 @@ public static class DomainConfiguration
             .Scan(scan => scan
                 .FromAssemblies(assembly)
                 .AddClasses(classes => classes
-                    .AssignableTo(typeof(IInitialData)))
+                    .AssignableTo(typeof(IInitialData)), publicOnly: false)
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
 }

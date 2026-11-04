@@ -14,6 +14,10 @@
     protected void RaiseEvent(IDomainEvent domainEvent)
         => events.Add(domainEvent);
 
+    /// <summary>Raises an event whose payload is built at save time, when new Ids exist.</summary>
+    protected void RaiseEvent(Func<IDomainEvent> build)
+        => events.Add(new DeferredDomainEvent(build));
+
     public override bool Equals(object? obj)
     {
         if (obj is not Entity other)

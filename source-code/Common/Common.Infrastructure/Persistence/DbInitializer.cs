@@ -20,6 +20,9 @@ public abstract class DbInitializer : IDbInitializer
 
     public virtual void Initialize()
     {
+        // ADR-002: WAL, so reads do not wait on the single SQLite writer. The mode is stored in the file.
+        db.Database.ExecuteSqlRaw("PRAGMA journal_mode=WAL;");
+
         db.Database.Migrate();
 
         foreach (var initialDataProvider in initialDataProviders)

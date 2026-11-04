@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 public static class InfrastructureConfiguration
@@ -15,7 +16,9 @@ public static class InfrastructureConfiguration
         where TDbContext : DbContext
         => services
             .AddDatabase<TDbContext>(configuration)
-            .AddRepositories(assembly);
+            .AddRepositories(assembly)
+            // ADR-005: one outbox dispatcher per context.
+            .AddHostedService<OutboxDispatcher<TDbContext>>();
 
     public static IServiceCollection AddTokenAuthentication(
         this IServiceCollection services,
@@ -83,8 +86,7 @@ public static class InfrastructureConfiguration
             .Scan(scan => scan
                 .FromAssemblies(assembly)
                 .AddClasses(classes => classes
-                    .AssignableTo(typeof(IDomainRepository<>))
-                    .AssignableTo(typeof(IQueryRepository<>)))
+                    .AssignableToAny(typeof(IDomainRepository<>), typeof(IQueryRepository<>)), publicOnly: false)
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
 }

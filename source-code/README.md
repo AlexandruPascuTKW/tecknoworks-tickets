@@ -1,7 +1,7 @@
 # source-code
 
-The TecknoworksTickets implementation. Bootstrapped, not built: a .NET backend foundation and a React
-frontend foundation, with no domain features. The workshop builds those one spec at a time.
+The TecknoworksTickets implementation. A .NET modular monolith and a React frontend, built from the specs in
+`../external-context/specs/`: Accounts, Events, Sales and Admission (increment 1).
 
 ```
 source-code/
@@ -17,8 +17,8 @@ source-code/
 
 Structure follows the `dotnet-ddd-architecture` skill: each bounded context is its own folder with
 four projects (`<Ctx>.Domain`, `.Application`, `.Infrastructure`, `.Web`) that compile into the one
-host. There are **no contexts yet** — each is created from its spec (the skill's "Adding a new
-bounded context" checklist is the recipe). The solution comes with .NET 10, MediatR, EF Core on
+host. There are four contexts — `Accounts`, `Events`, `Sales`, `Admission` — one per spec; how they fit
+together is in `../external-context/docs/architecture.md`. The solution comes with .NET 10, MediatR, EF Core on
 **SQLite** (a single local file, so no database server is needed), Swagger in development, and
 Problem Details error handling.
 
@@ -29,9 +29,9 @@ dotnet test                         # architecture tests
 dotnet run --project ProjectStartup # http://localhost:5151, Swagger at /swagger
 ```
 
-Authentication is not wired up yet: when the Access context is built, add
-`AddTokenAuthentication` and `UseAuthentication`/`UseAuthorization` in the host (see the comments in
-`ProjectStartup/Program.cs`).
+Sign-in tokens are issued by Accounts. In Development the host seeds two staff accounts from
+`ProjectStartup/appsettings.Development.json` (a Platform admin and the Finance manager), and the
+payment provider is simulated. Invitation links, which stand in for emails, are written to the host's log.
 
 ## Frontend — `web/`
 

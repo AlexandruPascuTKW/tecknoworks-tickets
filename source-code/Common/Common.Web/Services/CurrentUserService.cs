@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Http;
 
 public class CurrentUserService : ICurrentUser
 {
+    private readonly ClaimsPrincipal? user;
+
     public CurrentUserService(IHttpContextAccessor httpContextAccessor)
-    {
-        var user = httpContextAccessor.HttpContext?.User;
+        => user = httpContextAccessor.HttpContext?.User;
 
-        if (user == null)
-        {
-            throw new InvalidOperationException("This request does not have an authenticated user.");
-        }
+    public Guid? UserId
+        => Guid.TryParse(user?.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : null;
 
-        UserId = user.FindFirstValue(ClaimTypes.NameIdentifier);
-    }
+    public string? Name => user?.FindFirstValue(ClaimTypes.Name);
 
-    public string UserId { get; }
+    public string? Email => user?.FindFirstValue(ClaimTypes.Email);
+
+    public bool IsInRole(string role) => user?.IsInRole(role) ?? false;
 }
