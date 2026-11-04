@@ -1,0 +1,27 @@
+{
+  "specs_root": "specs",
+  "scenarios_root": "scenarios",
+  "index_files": [
+    "specs/README.md"
+  ],
+  "roles": [
+    "Visitor",
+    "Attendee",
+    "Owner",
+    "Manager",
+    "Platform admin",
+    "Finance manager"
+  ],
+  "cross_spec_id_pattern": "\\b[A-Z]{2,5}-\\d{3}\\b",
+  "forbidden_paths": [
+    "internal-context/",
+    "private/"
+  ],
+  "rules_line_max": 12,
+  "role_implies": {
+    "Manager": "Owner"
+  },
+  "label_sources": [
+    "../source-code/web/src"
+  ]
+}
