@@ -10,6 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.Web\Common.Web.csproj" />
+    <ProjectReference Include="..\Admission.Application\Admission.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Using Include="Microsoft.AspNetCore.Mvc" />
