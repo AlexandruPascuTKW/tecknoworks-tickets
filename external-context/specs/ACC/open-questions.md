@@ -69,9 +69,10 @@ the Finance manager, but the read-back at the end of the call gave it to the Org
 **Proposed:** a role of its own for TecknoworksTickets staff, which sees every Organizer's sales for
 each Performance. The door list is printed by the Organizer's Team.
 
-**Spec references.** Finance manager (glossary), `SAL-R1`, `SAL-V3`, `ADM-V2`
+**Spec references.** Finance manager (glossary), `SAL-R1`, `SAL-V3`, `ADM-V2`, `ADM-V3`
 
-**Ask.** Agree? And should the Finance manager see door lists too?
+**Ask.** Agree? And should the Finance manager see door lists and each Performance's check-in
+counts (sold, checked in, no-shows) too? *(Check-in counts added 2026-11-05, before sending.)*
 
 **Asked by:** Alexandru Pascu · **Status.** ✏️ Not yet sent — drafted 2026-11-04
 
@@ -82,6 +83,19 @@ each Performance. The door list is printed by the Organizer's Team.
   inviting them to choose their own password.
 - An Owner can do everything a Manager does — add Venues, set up and change Events, see the door
   list — as well as publish and run the Team. *(Left over from question 1.)*
-- Everyone on the Team, Managers included, can see who is on it. *(Left over from question 1.)*
+- Owners and Managers can see who is on the Team. *(Left over from question 1. Updated 2026-11-05:
+  door staff can't, since they only scan and see the check-in count.)*
 - An Owner can change a Team member's role, as long as the Organizer keeps an Owner. *(Left over
   from question 2.)*
+
+---
+
+## Raised 2026-11-05
+
+Checked first against `specs/ACC/accounts.md` and the increment 2 transcript. No new questions; two
+assumptions.
+
+### Assumptions — tell us if any is wrong
+
+- An Owner can move someone to or from door staff, like any other change of role.
+- Platform admins see who is on each Organizer's Team, with their email addresses.

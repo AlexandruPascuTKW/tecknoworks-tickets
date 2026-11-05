@@ -13,6 +13,7 @@ what we understand and what we propose, so a yes or a correction is enough.
 | 3 | 8 tickets per order, or 8 per person for a Performance? | ✅ Closed 2026-11-04 |
 | 4 | Show how many tickets are left? | ✅ Closed 2026-11-04 |
 | 5 | Does VAT need to be shown separately? | ⏳ Open — with the Finance manager, asked at the increment 1 kickoff |
+| 6 | What if an Order that was replaced is paid for after all? | ✏️ Not yet sent — drafted 2026-11-05 |
 
 ⛔ marks a blocker: the answer shapes the foundation of the build, so we need it before building
 that part.
@@ -119,3 +120,29 @@ accountant), asked at the increment 1 kickoff
 - Organizers don't get that sales list for now.
 - "Sold out" is shown for a single ticket type ("Early bird — sold out") as well as for the whole
   Performance.
+
+---
+
+## Raised 2026-11-05
+
+Checked first against `specs/SAL/sales.md`, questions 1–5 above and the increment 2 transcript.
+
+#### 6. What if an Order that was replaced is paid for after all?
+
+**Our understanding.** Someone checks out 2 tickets for Friday's Hamlet, goes back and checks out 3
+instead, which replaces the first Order (question 2). If their card for the first Order still goes
+through afterwards, they would pay for both.
+
+**Proposed:** the first Order is not confirmed. That payment is refunded automatically and they're
+told, as when the tickets have gone (question 1).
+
+**Spec references.** `SAL-R13`, `SAL-R15`
+
+**Ask.** Agree, or disagree?
+
+**Asked by:** Alexandru Pascu · **Status.** ✏️ Not yet sent — drafted 2026-11-05
+
+### Assumptions — tell us if any is wrong
+
+- A Performance shows "Sold out" when every ticket type still on sale is sold out, even if a ticket
+  type taken off sale still has tickets left.

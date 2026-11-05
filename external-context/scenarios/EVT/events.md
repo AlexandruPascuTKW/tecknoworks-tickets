@@ -1,22 +1,24 @@
 # Scenarios: Events
 
-> Spec: [`specs/EVT/events.md`](../../specs/EVT/events.md) · Last reviewed: 2026-11-04
+> Spec: [`specs/EVT/events.md`](../../specs/EVT/events.md) · Last reviewed: 2026-11-05
 
 ## Contents
 
 - [Test data](#test-data)
 - [EVT-V1 — See the Organizer's Venues](#evt-v1--see-the-organizers-venues)
-  - [SC-EVT-001 — Another Organizer's Team, and the public, never see an Organizer's Venues or Draft Events](#sc-evt-001--another-organizers-team-and-the-public-never-see-an-organizers-venues-or-draft-events) 🔴
+  - [SC-EVT-001 — Another Organizer's Team, and the public, never see an Organizer's Venues or Draft Events](#sc-evt-001--another-organizers-team-and-the-public-never-see-an-organizers-venues-or-draft-events) 🟢
+- [EVT-A12 — Set a Venue's Doors](#evt-a12--set-a-venues-doors)
+  - [SC-EVT-008 — A Venue's Doors are set up once on the Venue, each with its own name](#sc-evt-008--a-venues-doors-are-set-up-once-on-the-venue-each-with-its-own-name) 🔴
 - [EVT-A5 — Change a Performance](#evt-a5--change-a-performance)
-  - [SC-EVT-002 — A Performance with sales is not moved or removed; one without sales can be removed](#sc-evt-002--a-performance-with-sales-is-not-moved-or-removed-one-without-sales-can-be-removed) 🔴
+  - [SC-EVT-002 — A Performance with sales is not moved or removed; one without sales can be removed](#sc-evt-002--a-performance-with-sales-is-not-moved-or-removed-one-without-sales-can-be-removed) 🟢
 - [EVT-A8 — Change a Ticket type](#evt-a8--change-a-ticket-type)
-  - [SC-EVT-003 — A Published Event's Ticket types stay between what is sold and what the Venue holds](#sc-evt-003--a-published-events-ticket-types-stay-between-what-is-sold-and-what-the-venue-holds) 🔴
+  - [SC-EVT-003 — A Published Event's Ticket types stay between what is sold and what the Venue holds](#sc-evt-003--a-published-events-ticket-types-stay-between-what-is-sold-and-what-the-venue-holds) 🟢
 - [EVT-A11 — Take a Ticket type off sale](#evt-a11--take-a-ticket-type-off-sale)
-  - [SC-EVT-004 — A Ticket type with sales is taken off sale instead of removed, and its Tickets stay](#sc-evt-004--a-ticket-type-with-sales-is-taken-off-sale-instead-of-removed-and-its-tickets-stay) 🔴
+  - [SC-EVT-004 — A Ticket type with sales is taken off sale instead of removed, and its Tickets stay](#sc-evt-004--a-ticket-type-with-sales-is-taken-off-sale-instead-of-removed-and-its-tickets-stay) 🟢
 - [EVT-A10 — Publish an Event](#evt-a10--publish-an-event)
-  - [SC-EVT-005 — Spine: a Manager sets an Event up, its Owner publishes it, and the public can see it](#sc-evt-005--spine-a-manager-sets-an-event-up-its-owner-publishes-it-and-the-public-can-see-it) 🔴
-  - [SC-EVT-006 — A Manager cannot publish an Event](#sc-evt-006--a-manager-cannot-publish-an-event) 🔴
-  - [SC-EVT-007 — An Event with nothing to sell is not published](#sc-evt-007--an-event-with-nothing-to-sell-is-not-published) 🔴
+  - [SC-EVT-005 — Spine: a Manager sets an Event up, its Owner publishes it, and the public can see it](#sc-evt-005--spine-a-manager-sets-an-event-up-its-owner-publishes-it-and-the-public-can-see-it) 🟢
+  - [SC-EVT-006 — A Manager cannot publish an Event](#sc-evt-006--a-manager-cannot-publish-an-event) 🟢
+  - [SC-EVT-007 — An Event with nothing to sell is not published](#sc-evt-007--an-event-with-nothing-to-sell-is-not-published) 🟢
 
 ## Test data
 
@@ -28,6 +30,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 | **Organizer 1**, **Owner 1**, **Manager 1** | An Organizer, with Owner 1 an Owner and Manager 1 a Manager on its Team |
 | **Organizer 2**, **Manager 2** | Another Organizer, with Manager 2 a Manager on its Team and on no other Team |
 | **Venue 1** | A Venue of Organizer 1 |
+| **Venue 2** | A Venue of Organizer 1 with no Doors set up |
 | **Event 1** | A *Draft* Event of Organizer 1 at Venue 1 |
 | **Event 2** | A *Draft* Event of Organizer 1 with an Event name, Description, Image, Venue, a Performance still to come and a Ticket type |
 | **Event 3** | A *Draft* Event of Organizer 1 with an Event name, Description, Image, Venue and a Performance still to come, but no Ticket type |
@@ -43,7 +46,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** EVT-R1, EVT-R2
 - **Use cases:** EVT-V1, EVT-V2, EVT-A2, EVT-V3, EVT-V4, EVT-V5
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Manager 2
 - **PO Feedback:** none yet
 
@@ -64,13 +67,39 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 ---
 
+## EVT-A12 — Set a Venue's Doors
+
+### SC-EVT-008 — A Venue's Doors are set up once on the Venue, each with its own name
+
+- **Covers:** EVT-R11
+- **Use cases:** EVT-A12, EVT-V1
+- **Status:** 🔴 Not built
+- **Setup:** sign in as Manager 1
+- **PO Feedback:** none yet
+
+1. Open "Venues" and click "Doors" on Venue 2
+   - → no Doors are listed
+2. Click "Add door", enter "Door 1" in "Door name", and again "Add door" with "Door 2"
+3. Click "Add door", enter "Door 1" in "Door name", and click "Save"
+   - → refused: "Door 1" is used twice
+4. Remove the second "Door 1" and click "Save"
+   - → "Doors saved"
+5. Open "Venues"
+   - → Venue 2 is listed with the Doors "Door 1" and "Door 2"
+6. Try, as Manager 1, to give Venue 2 two Doors both named "Door 3" another way than the screen — a
+   saved link, or a direct request to the system
+   - → refused
+   - → Venue 2's Doors are still "Door 1" and "Door 2"
+
+---
+
 ## EVT-A5 — Change a Performance
 
 ### SC-EVT-002 — A Performance with sales is not moved or removed; one without sales can be removed
 
 - **Covers:** EVT-R8
 - **Use cases:** EVT-A5, EVT-A6, EVT-V3
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Manager 1
 - **PO Feedback:** none yet
 
@@ -98,7 +127,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** EVT-R6, EVT-R8
 - **Use cases:** EVT-A8, EVT-A7, EVT-V3
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Manager 1
 - **PO Feedback:** none yet
 
@@ -130,7 +159,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** EVT-R8, EVT-R10
 - **Use cases:** EVT-A11, EVT-A9, EVT-V3, EVT-V5
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Manager 1
 - **PO Feedback:** none yet
 
@@ -156,7 +185,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** EVT-R1, EVT-R3
 - **Use cases:** EVT-A10, EVT-A1, EVT-V1, EVT-A2, EVT-V2, EVT-A4, EVT-A7, EVT-V3, EVT-V4, EVT-V5
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Manager 1
 - **PO Feedback:** none yet
 
@@ -191,7 +220,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** EVT-A10
 - **Use cases:** EVT-A10, EVT-V3
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Manager 1
 - **PO Feedback:** none yet
 
@@ -208,7 +237,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** EVT-R9
 - **Use cases:** EVT-A10, EVT-V3, EVT-V4
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Owner 1
 - **PO Feedback:** none yet
 

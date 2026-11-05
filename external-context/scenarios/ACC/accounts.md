@@ -1,17 +1,18 @@
 # Scenarios: Accounts
 
-> Spec: [`specs/ACC/accounts.md`](../../specs/ACC/accounts.md) · Last reviewed: 2026-11-04
+> Spec: [`specs/ACC/accounts.md`](../../specs/ACC/accounts.md) · Last reviewed: 2026-11-05
 
 ## Contents
 
 - [Test data](#test-data)
 - [ACC-A4 — Add a Team member](#acc-a4--add-a-team-member)
   - [SC-ACC-001 — Spine: an Organizer is onboarded with its first Owner, who signs in and adds a Manager](#sc-acc-001--spine-an-organizer-is-onboarded-with-its-first-owner-who-signs-in-and-adds-a-manager) 🔴
-  - [SC-ACC-002 — Someone who registered as an Attendee joins a Team with the same Account](#sc-acc-002--someone-who-registered-as-an-attendee-joins-a-team-with-the-same-account) 🔴
-  - [SC-ACC-003 — A Manager cannot add, remove or change the Team role of anyone on the Team](#sc-acc-003--a-manager-cannot-add-remove-or-change-the-team-role-of-anyone-on-the-team) 🔴
+  - [SC-ACC-002 — Someone who registered as an Attendee joins a Team with the same Account](#sc-acc-002--someone-who-registered-as-an-attendee-joins-a-team-with-the-same-account) 🟢
+  - [SC-ACC-003 — A Manager cannot add, remove or change the Team role of anyone on the Team](#sc-acc-003--a-manager-cannot-add-remove-or-change-the-team-role-of-anyone-on-the-team) 🟢
+  - [SC-ACC-006 — An Owner adds Door staff, who stay on the Team but cannot see it](#sc-acc-006--an-owner-adds-door-staff-who-stay-on-the-team-but-cannot-see-it) 🔴
 - [ACC-A5 — Remove a Team member](#acc-a5--remove-a-team-member)
-  - [SC-ACC-004 — A removed Team member keeps their Account and Tickets but can no longer work for the Organizer](#sc-acc-004--a-removed-team-member-keeps-their-account-and-tickets-but-can-no-longer-work-for-the-organizer) 🔴
-  - [SC-ACC-005 — The last Owner is never taken off the Team or made a Manager](#sc-acc-005--the-last-owner-is-never-taken-off-the-team-or-made-a-manager) 🔴
+  - [SC-ACC-004 — A removed Team member keeps their Account and Tickets but can no longer work for the Organizer](#sc-acc-004--a-removed-team-member-keeps-their-account-and-tickets-but-can-no-longer-work-for-the-organizer) 🟢
+  - [SC-ACC-005 — The last Owner is never taken off the Team or given another Team role](#sc-acc-005--the-last-owner-is-never-taken-off-the-team-or-given-another-team-role) 🟢
 
 ## Test data
 
@@ -28,6 +29,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 | **Manager 1**, **Manager 2** | Managers on Organizer 1's Team, and on no other Team |
 | **Manager 3** | A Manager on Organizer 1's Team and on no other Team, who holds a Ticket they bought for any Performance |
 | **Organizer 2**, **Owner 2**, **Manager 4** | Another Organizer, whose Team is Owner 2, its only Owner, and Manager 4 |
+| **Attendee 1**, **Email address 4** | An Account on no Organizer's Team, whose Email address is Email address 4 |
 
 ---
 
@@ -64,7 +66,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** ACC-R2, ACC-R5
 - **Use cases:** ACC-A4, ACC-A1, ACC-A2, ACC-V2
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** not signed in
 - **PO Feedback:** none yet
 
@@ -90,7 +92,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** ACC-A4, ACC-A5, ACC-A6
 - **Use cases:** ACC-A4, ACC-V2, ACC-A5, ACC-A6
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Manager 1
 - **PO Feedback:** none yet
 
@@ -104,6 +106,28 @@ do. Where a step says "any", the choice does not affect the outcome.
 3. Reload "Team"
    - → Manager 2 is still listed as "Manager", and no one new is listed
 
+### SC-ACC-006 — An Owner adds Door staff, who stay on the Team but cannot see it
+
+- **Covers:** ACC-R5, ACC-V2
+- **Use cases:** ACC-A4, ACC-V2
+- **Status:** 🔴 Not built
+- **Setup:** sign in as Owner 1
+- **PO Feedback:** none yet
+
+1. Open "Team" and click "Add team member"
+2. Enter Email address 4 in "Email address"
+3. Choose "Door staff" in "Team role" and click "Add"
+   - → "Team member added"
+   - → "Team" lists Attendee 1 as "Door staff"
+4. Sign out, and sign in as Attendee 1
+   - → signed in, with Organizer 1's "Scan tickets" offered and no "Team" control
+5. Try to open Organizer 1's "Team" as Attendee 1 another way than the screen — a saved link, or a
+   direct request to the system
+   - → refused
+6. Sign out, and sign in as Owner 1
+7. Open "Team"
+   - → Attendee 1 is still listed as "Door staff"
+
 ---
 
 ## ACC-A5 — Remove a Team member
@@ -112,7 +136,7 @@ do. Where a step says "any", the choice does not affect the outcome.
 
 - **Covers:** ACC-R1
 - **Use cases:** ACC-A5, ACC-V2, ACC-A2
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Owner 1
 - **PO Feedback:** none yet
 
@@ -127,11 +151,11 @@ do. Where a step says "any", the choice does not affect the outcome.
    direct request to the system
    - → refused
 
-### SC-ACC-005 — The last Owner is never taken off the Team or made a Manager
+### SC-ACC-005 — The last Owner is never taken off the Team or given another Team role
 
 - **Covers:** ACC-R6
 - **Use cases:** ACC-A5, ACC-A6, ACC-V2
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Owner 2
 - **PO Feedback:** none yet
 

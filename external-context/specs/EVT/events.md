@@ -8,34 +8,36 @@
   - [Ticket types and publishing](#ticket-types-and-publishing)
   - [Owned by other specs](#owned-by-other-specs)
 - [Use Cases](#use-cases)
-  - [Setting up Venues](#setting-up-venues)
-    - [EVT-A1 — Add a Venue](#evt-a1--add-a-venue) 🔴 ❓
-    - [EVT-V1 — See the Organizer's Venues](#evt-v1--see-the-organizers-venues) 🔴
+  - [Setting up Venues and their Doors](#setting-up-venues-and-their-doors)
+    - [EVT-A1 — Add a Venue](#evt-a1--add-a-venue) 🟢 ❓
+    - [EVT-V1 — See the Organizer's Venues](#evt-v1--see-the-organizers-venues) 🟡
+    - [EVT-A12 — Set a Venue's Doors](#evt-a12--set-a-venues-doors) 🔴 ❓
   - [Setting up an Event](#setting-up-an-event)
-    - [EVT-A2 — Create an Event](#evt-a2--create-an-event) 🔴 ❓ via EVT-R3
-    - [EVT-A3 — Change an Event's details](#evt-a3--change-an-events-details) 🔴 ❓ via EVT-R8
-    - [EVT-A4 — Add a Performance](#evt-a4--add-a-performance) 🔴 ❓ via EVT-R7, EVT-R8
-    - [EVT-A5 — Change a Performance](#evt-a5--change-a-performance) 🔴 ❓ via EVT-R7, EVT-R8
-    - [EVT-A6 — Remove a Performance](#evt-a6--remove-a-performance) 🔴 ❓ via EVT-R8
-    - [EVT-A7 — Add a Ticket type](#evt-a7--add-a-ticket-type) 🔴 ❓ via EVT-R8
-    - [EVT-A8 — Change a Ticket type](#evt-a8--change-a-ticket-type) 🔴 ❓ via EVT-R8
-    - [EVT-A9 — Remove a Ticket type](#evt-a9--remove-a-ticket-type) 🔴 ❓ via EVT-R8
-    - [EVT-A11 — Take a Ticket type off sale](#evt-a11--take-a-ticket-type-off-sale) 🔴 ❓ via EVT-R8
-    - [EVT-V2 — See the Organizer's Events](#evt-v2--see-the-organizers-events) 🔴 ❓ · via EVT-R3
-    - [EVT-V3 — See an Event as its Team](#evt-v3--see-an-event-as-its-team) 🔴 ❓ via EVT-R3
+    - [EVT-A2 — Create an Event](#evt-a2--create-an-event) 🟢 ❓ via EVT-R3
+    - [EVT-A3 — Change an Event's details](#evt-a3--change-an-events-details) 🟢 ❓ via EVT-R8
+    - [EVT-A4 — Add a Performance](#evt-a4--add-a-performance) 🟡 ❓ via EVT-R7, EVT-R8
+    - [EVT-A5 — Change a Performance](#evt-a5--change-a-performance) 🟢 ❓ via EVT-R7, EVT-R8
+    - [EVT-A6 — Remove a Performance](#evt-a6--remove-a-performance) 🟢 ❓ via EVT-R8
+    - [EVT-A7 — Add a Ticket type](#evt-a7--add-a-ticket-type) 🟢 ❓ via EVT-R8
+    - [EVT-A8 — Change a Ticket type](#evt-a8--change-a-ticket-type) 🟢 ❓ via EVT-R8
+    - [EVT-A9 — Remove a Ticket type](#evt-a9--remove-a-ticket-type) 🟢 ❓ via EVT-R8
+    - [EVT-A11 — Take a Ticket type off sale](#evt-a11--take-a-ticket-type-off-sale) 🟢 ❓ via EVT-R8
+    - [EVT-V2 — See the Organizer's Events](#evt-v2--see-the-organizers-events) 🟡 ❓ · via EVT-R3
+    - [EVT-V3 — See an Event as its Team](#evt-v3--see-an-event-as-its-team) 🟢 ❓ via EVT-R3
   - [Publishing and finding what's on](#publishing-and-finding-whats-on)
-    - [EVT-A10 — Publish an Event](#evt-a10--publish-an-event) 🔴 ❓ via EVT-R3, EVT-R8, EVT-R9
-    - [EVT-V4 — Find what's on](#evt-v4--find-whats-on) 🔴
-    - [EVT-V5 — See an Event](#evt-v5--see-an-event) 🔴
+    - [EVT-A10 — Publish an Event](#evt-a10--publish-an-event) 🟢 ❓ via EVT-R3, EVT-R9
+    - [EVT-V4 — Find what's on](#evt-v4--find-whats-on) 🟢
+    - [EVT-V5 — See an Event](#evt-v5--see-an-event) 🟢
 - [Fields](#fields)
   - [Venue](#venue)
   - [Event](#event)
   - [Performance](#performance)
   - [Ticket type](#ticket-type)
 - [Domain Rules](#domain-rules)
-  - [Scope and Venues](#scope-and-venues)
+  - [Scope and Event status](#scope-and-event-status) ❓ 1
+  - [Venues and Doors](#venues-and-doors)
   - [Events, Performances and Ticket types](#events-performances-and-ticket-types) ❓ 2
-  - [Event status and publishing](#event-status-and-publishing) ❓ 2
+  - [Publishing](#publishing) ❓ 1
 
 ## Context
 
@@ -51,8 +53,8 @@ once for the Event, and every Performance offers that many of each. What a Perfo
 never add up to more than its Venue holds: overselling a room is how you end up with a fire officer
 at the door. All pilots are in one country, so dates and times are simply local time at the Venue.
 
-This domain covers what an Organizer puts on: its Venues, its Events with their Performances and
-Ticket types, and publishing an Event so the public can see it and buy. It starts once an Organizer
+This domain covers what an Organizer puts on: its Venues and the Doors at them, its Events with their
+Performances and Ticket types, and publishing an Event so the public can see it and buy. It starts once an Organizer
 and its Team exist (Accounts spec, ACC-001) and ends when an Event is Published. Holding, buying and
 selling out are the Sales spec's (SAL-001).
 
@@ -64,10 +66,11 @@ selling out are the Sales spec's (SAL-001).
 |------|-----------|
 | **Venue** | A place where an Organizer holds Performances, such as the Old Tram Depot |
 | **Capacity** | The most people a Venue lets in at one Performance |
+| **Door** | A way into a Venue where Tickets are checked, with its own Door name — "Door 1", "Side door". Not the same as Doors time, which is when people can start coming in, nor the Door list (ADM-001), the printable list of a Performance's Tickets |
 | **General admission** | Tickets with no seat attached: everyone with a ticket stands or sits anywhere in the Venue |
 | **Event** | A show an Organizer puts on sale — "Hamlet", "Northgate presents Ana Lux" — at one Venue, with one or more Performances |
 | **Performance** | One dated occurrence of an Event at its Venue — "Hamlet, Friday 14th, 19:30". A conference's "day one" is a Performance too |
-| **Doors time** | When people can start coming in to a Performance, as opposed to its Start time, when the Performance begins |
+| **Doors time** | When people can start coming in to a Performance, as opposed to its Start time, when the Performance begins. Not a Door, which is a way into the Venue |
 
 ### Ticket types and publishing
 
@@ -76,7 +79,7 @@ selling out are the Sales spec's (SAL-001).
 | **Ticket type** | A kind of ticket an Event sells, with its own name, Price and Quantity — "Standard €28", "Concession €22", "Early bird €20". The box office calls these price levels |
 | **Price** | What one ticket of a Ticket type costs |
 | **Quantity** | How many tickets of a Ticket type are on offer (EVT-R5) |
-| **Event status** | Whether an Event is still being set up or is on sale: *Draft* or *Published* |
+| **Event status** | Whether an Event is still being set up or can be seen and bought: *Draft* or *Published*. Unrelated to a Ticket type being On sale |
 | **Draft** | The Event status of an Event its Organizer's Team is still setting up |
 | **Published** | The Event status of an Event the public can see and buy tickets for |
 
@@ -88,7 +91,9 @@ selling out are the Sales spec's (SAL-001).
 | **Team member**, **Owner**, **Manager** | People on an Organizer's Team and their Team roles. Owned by the Accounts spec (ACC-001) |
 | **Platform admin** | TecknoworksTickets' own staff. Owned by the Accounts spec (ACC-001) |
 | **Visitor** | Anyone using TecknoworksTickets without being signed in. Owned by the Accounts spec (ACC-001) |
-| **Attendee** | Anyone signed in with their Account, acting for themselves — buying tickets and owning the Tickets that come from them. Every Account is an Attendee, whatever Team roles it also holds. Owned by the Accounts spec (ACC-001) |
+| **Attendee** | Anyone signed in with their Account, acting for themselves — buying tickets and holding Tickets, whether bought or transferred to them. Owned by the Accounts spec (ACC-001) |
+| **Ticket**, **Scan** | One person's way in to a Performance, and one reading of a code at a Door. Owned by the Admission spec (ADM-001) |
+| **Order**, **Confirmed**, **Pending payment** | An Attendee's purchase for one Performance, and the Order statuses of an Order that is paid for and of one still being paid for. Owned by the Sales spec (SAL-001) |
 
 ## Use Cases
 
@@ -102,9 +107,10 @@ change) or 🔴 Not built. Anywhere in this spec, *❓ Needs PO clarification* m
 product owner has not yet clarified; everything unmarked is clarified. **⛔ Blocker** marks the few
 open points that shape the foundation of the build, where a wrong answer would mean reworking it.
 
-### Setting up Venues
+### Setting up Venues and their Doors
 
-Recording the places an Organizer holds its Performances, so its Events can be set up at them.
+Recording the places an Organizer holds its Performances, so its Events can be set up at them, and
+the Doors at each where Tickets are checked.
 
 #### EVT-A1 — Add a Venue
 
@@ -113,21 +119,40 @@ Record a place the Organizer holds Performances, with how many people it lets in
 - **Who can:** Manager, Owner
 - **Input:** Venue name (required), Address (required), Capacity (required)
 - **Rules:** EVT-R2
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 *[❓ Needs PO clarification — can a Venue be changed once it is added — its name, address or
 Capacity — and what happens to Events already set up there if its Capacity goes down? Working
-answer: no, a Venue can't be changed once added, so changing a Venue is not in this spec yet. Not
-discussed. Listed as an assumption in the open questions.]*
+answer: no, a Venue's name, Address and Capacity can't be changed once added, so changing them is
+not in this spec yet; its Doors can (EVT-A12). Not discussed. Listed as an assumption in the open
+questions.]*
 
 #### EVT-V1 — See the Organizer's Venues
 
-See the Venues the Organizer has added, to pick one when setting up an Event.
+See the Venues the Organizer has added, to pick one when setting up an Event and to check its Doors.
 
 - **Who can:** Manager, Owner
-- **Returns:** for each Venue, its Venue name, Address and Capacity
+- **Returns:** for each Venue, its Venue name, Address, Capacity and the Door name of each of its Doors
 - **Rules:** EVT-R2
+- **Status:** 🟡 Partly built
+- **Gaps:** EVT-F16
+- **To reach 🟢:** give each Venue's Door names with it (EVT-F16).
+
+#### EVT-A12 — Set a Venue's Doors
+
+Give a Venue its Doors, the ways in where its Tickets are checked, so each Scan can record which Door
+the person came through (ADM-001).
+
+- **Who can:** Manager, Owner
+- **Input:** Venue (required), Door name (required, one for each Door)
+- **Rules:** EVT-R2, EVT-R11
 - **Status:** 🔴 Not built
+
+*[❓ Needs PO clarification — who sets up a Venue's Doors? Working answer: the Organizer's Managers
+and Owner, as for Venues. The PO said only that Doors are "on the venue" and "should be a list". Listed as an assumption in the open questions.]*
+*[❓ Needs PO clarification — can a Venue's Doors be changed later, including once Events there are
+Published or Tickets are sold? Working answer: yes, at any time. Not discussed; a Venue's name,
+Address and Capacity can't be changed (EVT-A1). Listed as an assumption in the open questions.]*
 
 ### Setting up an Event
 
@@ -141,7 +166,7 @@ Start setting up a show at one of the Organizer's Venues.
 - **Who can:** Manager, Owner
 - **Input:** Event name (required), Venue (required), Description, Image
 - **Rules:** EVT-R3, EVT-R4
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-A3 — Change an Event's details
 
@@ -150,7 +175,7 @@ Change what an Event is called, how it is described and pictured, or where it is
 - **Who can:** Manager, Owner
 - **Input:** Event name, Description, Image, Venue
 - **Rules:** EVT-R4, EVT-R6, EVT-R8
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-A4 — Add a Performance
 
@@ -159,7 +184,9 @@ Add a date and time the Event takes place.
 - **Who can:** Manager, Owner
 - **Input:** Date (required), Start time (required), Doors time (required)
 - **Rules:** EVT-R7, EVT-R8
-- **Status:** 🔴 Not built
+- **Status:** 🟡 Partly built
+- **Gaps:** EVT-F10, EVT-F11
+- **To reach 🟢:** refuse a Performance added without a Start time or a Doors time, instead of quietly treating a missing time as midnight (EVT-F10, EVT-F11).
 
 #### EVT-A5 — Change a Performance
 
@@ -168,7 +195,7 @@ Move a Performance to another date or time.
 - **Who can:** Manager, Owner
 - **Input:** Date, Start time, Doors time
 - **Rules:** EVT-R7, EVT-R8
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-A6 — Remove a Performance
 
@@ -177,7 +204,7 @@ Take a Performance off the Event.
 - **Who can:** Manager, Owner
 - **Input:** —
 - **Rules:** EVT-R8
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-A7 — Add a Ticket type
 
@@ -185,8 +212,8 @@ Add a kind of ticket every Performance of the Event sells.
 
 - **Who can:** Manager, Owner
 - **Input:** Ticket type name (required), Price (required), Quantity (required)
-- **Rules:** EVT-R5, EVT-R6, EVT-R8
-- **Status:** 🔴 Not built
+- **Rules:** EVT-R5, EVT-R6, EVT-R8, EVT-R10
+- **Status:** 🟢 Built
 
 #### EVT-A8 — Change a Ticket type
 
@@ -195,7 +222,7 @@ Change a Ticket type's name, Price or Quantity.
 - **Who can:** Manager, Owner
 - **Input:** Ticket type name, Price, Quantity
 - **Rules:** EVT-R5, EVT-R6, EVT-R8
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-A9 — Remove a Ticket type
 
@@ -204,17 +231,17 @@ Stop offering a kind of ticket for the Event, and remove it from the Event altog
 - **Who can:** Manager, Owner
 - **Input:** —
 - **Rules:** EVT-R8
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-A11 — Take a Ticket type off sale
 
-Stop selling a kind of ticket that has already sold, keeping it on the Event for the tickets
+Stop selling a kind of ticket that *has sales* (EVT-R8), keeping it on the Event for the tickets
 bought.
 
 - **Who can:** Manager, Owner
 - **Input:** —
 - **Rules:** EVT-R8, EVT-R10
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-V2 — See the Organizer's Events
 
@@ -224,7 +251,9 @@ See every Event the Organizer has, Draft or Published, to pick one to work on.
 - **Returns:** for each Event, its Event name, Venue, Event status, and the Date of each of its Performances
 - **Can filter by:** Event status
 - **Rules:** EVT-R3
-- **Status:** 🔴 Not built
+- **Status:** 🟡 Partly built
+- **Gaps:** EVT-F8
+- **To reach 🟢:** let the Team filter its Events by Event status (EVT-F8).
 
 *[❓ Needs PO clarification — can Platform admins see an Organizer's Events as its Team does, here
 and in EVT-V3? Working answer: no. A Draft Event is seen by the Organizer's Team only, as the PO
@@ -239,38 +268,38 @@ publishing.
 - **Who can:** Manager, Owner
 - **Returns:** the whole Event, with each of its Performances and Ticket types
 - **Rules:** EVT-R3, EVT-R5
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 ### Publishing and finding what's on
 
-Putting an Event on sale, and the public finding Events and looking at one before buying.
+Publishing an Event, and the public finding Events and looking at one before buying.
 
 #### EVT-A10 — Publish an Event
 
-Put a Draft Event on sale, so the public can see it and buy tickets for its Performances.
+Make a Draft Event Published, so the public can see it and buy tickets for its Performances.
 
 - **Who can:** Owner
 - **Input:** —
-- **Rules:** EVT-R3, EVT-R8, EVT-R9
-- **Status:** 🔴 Not built
+- **Rules:** EVT-R3, EVT-R9
+- **Status:** 🟢 Built
 
 #### EVT-V4 — Find what's on
 
-See the Events on sale, to choose one to look at.
+See the Published Events, to choose one to look at.
 
 - **Who can:** Visitor, Attendee
 - **Returns:** for each Published Event, its Event name, Image, Venue name, and the Date of each of its Performances
 - **Rules:** EVT-R1
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### EVT-V5 — See an Event
 
-See everything about one Event on sale before choosing a Performance and tickets.
+See everything about one Published Event before choosing a Performance and tickets.
 
 - **Who can:** Visitor, Attendee
 - **Returns:** the Event's Event name, Description and Image; its Venue's Venue name and Address; for each Performance its Date, Doors time and Start time; and for each Ticket type that is On sale, its Ticket type name and Price
 - **Rules:** EVT-R1, EVT-R5, EVT-R10
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 ## Fields
 
@@ -283,13 +312,15 @@ always needs is stated with the concept.
 
 ### Venue
 
-A Venue always has a Venue name, an Address, a Capacity and the Organizer it belongs to.
+A Venue always has a Venue name, an Address, a Capacity and the Organizer it belongs to. It has no
+Doors until they are set up (EVT-A12).
 
 | ID | Field | Allowed values and validation |
 |----|-------|-------------------------------|
 | **EVT-F1** | Venue name | Free text — "Old Tram Depot" |
 | **EVT-F2** | Address | Free text |
 | **EVT-F3** | Capacity | A whole number above zero — 450 |
+| **EVT-F16** | Door name | Free text — "Door 1", "Side door"; different from the Venue's other Door names |
 
 ### Event
 
@@ -322,7 +353,7 @@ to.
 
 | ID | Field | Allowed values and validation |
 |----|-------|-------------------------------|
-| **EVT-F12** | Ticket type name | Free text — "Standard", "Concession" |
+| **EVT-F12** | Ticket type name | Free text — "Standard", "Concession"; different from the Event's other Ticket type names |
 | **EVT-F13** | Price | An amount in euros, above zero, to two decimal places — €28.00 |
 | **EVT-F14** | Quantity | A whole number above zero (EVT-R5, EVT-R6, EVT-R8) |
 | **EVT-F15** | On sale | *Yes* or *No* (EVT-R10) |
@@ -331,15 +362,27 @@ to.
 
 ## Domain Rules
 
-### Scope and Venues
+### Scope and Event status
 
 **EVT-R1 — Scope.** Every Venue and every Event belongs to one Organizer. Team members see and act
 only on their own Organizer's Venues and Events. A *Draft* Event is seen by its own Organizer's
 Team alone; a *Published* Event is seen by everyone, signed in or not.
 
+**EVT-R3 — Event status.** Every new Event starts as *Draft*, and becomes *Published* through
+EVT-A10.
+*[❓ Needs PO clarification — can a Published Event be withdrawn, or go back to Draft? Working
+answer: no. Not on the list of what can change once Published. Listed as an assumption in the open
+questions.]*
+
+### Venues and Doors
+
 **EVT-R2 — Each Organizer keeps its own Venues.** A Venue belongs to the Organizer that added it and
 is never shared with another Organizer: when Northgate Live and the Saltmarsh Folk Club both put
 shows on at the Old Tram Depot, each keeps its own Venue for it.
+
+**EVT-R11 — Doors belong to their Venue.** A Venue's Doors are set up on the Venue, not per
+Performance or at the door: the Door of every Scan is one of the Doors of the Scanned Performance's
+Venue (ADM-001).
 
 ### Events, Performances and Ticket types
 
@@ -396,13 +439,7 @@ the open questions.]*
 taken off sale stays on the Event, with the tickets already bought, but the public no longer sees or
 buys it (SAL-001).
 
-### Event status and publishing
-
-**EVT-R3 — Event status.** Every new Event starts as *Draft*, and becomes *Published* through
-EVT-A10.
-*[❓ Needs PO clarification — can a Published Event be taken off sale, or go back to Draft? Working
-answer: no. Not on the list of what can change once Published. Listed as an assumption in the open
-questions.]*
+### Publishing
 
 **EVT-R9 — What an Event needs to be Published.** An Event is not published unless it has an Event
 name, a Description, an Image and a Venue, at least one Performance and at least one Ticket type.

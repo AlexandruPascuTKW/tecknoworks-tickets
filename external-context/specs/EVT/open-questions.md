@@ -100,5 +100,18 @@ taking the Event off sale — are now assumptions below.
 - A Ticket type that has sales can't be renamed. *(Left over from question 2.)*
 - Tickets held in someone's checkout count as sales — so a Performance with tickets held can't be
   moved or deleted, just as quantity can't go below what's held. *(Left over from question 2.)*
-- A Venue can't be changed once added, for now. *(Left over from question 2.)*
+- A Venue's name, address and capacity can't be changed once added, for now. *(Left over from
+  question 2. Updated 2026-11-05: its doors can be.)*
 - A Published Event can't be taken off sale or go back to Draft. *(Left over from question 2.)*
+
+---
+
+## Raised 2026-11-05
+
+Checked first against `specs/EVT/events.md` and the increment 2 transcript. No new questions; two
+assumptions.
+
+### Assumptions — tell us if any is wrong
+
+- Owners and Managers set up a Venue's doors, as they do the Venue itself.
+- A Venue's doors can be changed at any time, also once its shows are on sale.

@@ -1,15 +1,15 @@
 # Scenarios: Sales
 
-> Spec: [`specs/SAL/sales.md`](../../specs/SAL/sales.md) · Last reviewed: 2026-11-04
+> Spec: [`specs/SAL/sales.md`](../../specs/SAL/sales.md) · Last reviewed: 2026-11-05
 
 ## Contents
 
 - [Test data](#test-data)
 - [SAL-A1 — Start checkout](#sal-a1--start-checkout)
-  - [SC-SAL-001 — An Order holds at most eight tickets, counted across its Ticket types](#sc-sal-001--an-order-holds-at-most-eight-tickets-counted-across-its-ticket-types) 🔴
-  - [SC-SAL-002 — A new checkout for the same Performance replaces the earlier one and frees its tickets](#sc-sal-002--a-new-checkout-for-the-same-performance-replaces-the-earlier-one-and-frees-its-tickets) 🔴
+  - [SC-SAL-001 — An Order holds at most eight tickets, counted across its Ticket types](#sc-sal-001--an-order-holds-at-most-eight-tickets-counted-across-its-ticket-types) 🟢
+  - [SC-SAL-002 — A new checkout for the same Performance replaces the earlier one and frees its tickets](#sc-sal-002--a-new-checkout-for-the-same-performance-replaces-the-earlier-one-and-frees-its-tickets) 🟢
   - [SC-SAL-003 — Held tickets can't be bought by anyone else, and go back on sale when the Hold runs out](#sc-sal-003--held-tickets-cant-be-bought-by-anyone-else-and-go-back-on-sale-when-the-hold-runs-out) 🔴
-  - [SC-SAL-004 — The last ticket goes to one Attendee only, even when two try at once](#sc-sal-004--the-last-ticket-goes-to-one-attendee-only-even-when-two-try-at-once) 🔴
+  - [SC-SAL-004 — The last ticket goes to one Attendee only, even when two try at once](#sc-sal-004--the-last-ticket-goes-to-one-attendee-only-even-when-two-try-at-once) 🟢
 - [SAL-V1 — See an Order in checkout](#sal-v1--see-an-order-in-checkout)
   - [SC-SAL-005 — An Order keeps the Price it was placed at when the Ticket type's Price changes](#sc-sal-005--an-order-keeps-the-price-it-was-placed-at-when-the-ticket-types-price-changes) 🔴
 - [SAL-A2 — Pay for an Order](#sal-a2--pay-for-an-order)
@@ -17,8 +17,10 @@
   - [SC-SAL-007 — A declined card leaves the tickets held, to pay again](#sc-sal-007--a-declined-card-leaves-the-tickets-held-to-pay-again) 🔴
   - [SC-SAL-008 — A card approved after the Hold ran out confirms the Order while its tickets are still free](#sc-sal-008--a-card-approved-after-the-hold-ran-out-confirms-the-order-while-its-tickets-are-still-free) 🔴
   - [SC-SAL-009 — A card approved after the Hold ran out, once its tickets are gone, is refunded automatically](#sc-sal-009--a-card-approved-after-the-hold-ran-out-once-its-tickets-are-gone-is-refunded-automatically) 🔴
+- [SAL-V4 — See my Orders](#sal-v4--see-my-orders)
+  - [SC-SAL-011 — An Attendee's Expired Order stays in their order history, and gives no Tickets](#sc-sal-011--an-attendees-expired-order-stays-in-their-order-history-and-gives-no-tickets) 🔴
 - [SAL-V3 — See a Performance's sales](#sal-v3--see-a-performances-sales)
-  - [SC-SAL-010 — A Performance's sales add up to what was paid for it, and only the Finance manager sees them](#sc-sal-010--a-performances-sales-add-up-to-what-was-paid-for-it-and-only-the-finance-manager-sees-them) 🔴
+  - [SC-SAL-010 — A Performance's sales add up to what was paid for it, and only the Finance manager sees them](#sc-sal-010--a-performances-sales-add-up-to-what-was-paid-for-it-and-only-the-finance-manager-sees-them) 🟢
 
 ## Test data
 
@@ -43,6 +45,7 @@ steps easier to read. "Availability" is what the Performance can still sell of t
 | **Performance 8** | Offers Standard, with Availability of at least 1 |
 | **Performance 9** | Offers Standard, with Availability of at least 4 |
 | **Performance 10** | Offers only Standard, with Availability exactly 2 |
+| **Attendee 15**, **Performance 12**, **Performance 13** | Attendee 15 is on no Organizer's Team; their only Orders are an *Expired* one with no Payment for 2 Standard for Performance 12, and a *Confirmed* one for 1 Standard for Performance 13 |
 | **Performance 11**, **Attendee 13**, **Attendee 14** | Performance 11 has exactly these Orders: a *Confirmed* one by Attendee 13 for 2 Standard at €28.00, a *Confirmed* one by Attendee 14 for 1 Concession at €22.00, and an *Expired* one with no Payment, by any other Attendee |
 
 Two steps are written short, after the spine (SC-SAL-006) walks them in full:
@@ -60,7 +63,7 @@ Two steps are written short, after the spine (SC-SAL-006) walks them in full:
 
 - **Covers:** SAL-R4
 - **Use cases:** SAL-A1
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Attendee 2
 - **PO Feedback:** none yet
 
@@ -78,7 +81,7 @@ Two steps are written short, after the spine (SC-SAL-006) walks them in full:
 
 - **Covers:** SAL-R15
 - **Use cases:** SAL-A1, SAL-V1
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Attendee 3, in two browser tabs
 - **PO Feedback:** none yet
 
@@ -124,7 +127,7 @@ Two steps are written short, after the spine (SC-SAL-006) walks them in full:
 
 - **Covers:** SAL-R6
 - **Use cases:** SAL-A1, SAL-V2
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Attendee 6 in one browser, and as Attendee 7 in another
 - **PO Feedback:** none yet
 
@@ -249,13 +252,35 @@ Two steps are written short, after the spine (SC-SAL-006) walks them in full:
 
 ---
 
+## SAL-V4 — See my Orders
+
+### SC-SAL-011 — An Attendee's Expired Order stays in their order history, and gives no Tickets
+
+- **Covers:** SAL-R2
+- **Use cases:** SAL-V4
+- **Status:** 🔴 Not built
+- **Setup:** sign in as Attendee 15
+- **PO Feedback:** none yet
+
+1. Open "My orders"
+   - → the Order for Performance 12 is listed as "Expired", for 2 Standard, with its Placed at and
+     Order total
+   - → the Order for Performance 13 is listed as "Confirmed", for 1 Standard
+2. Open "My tickets"
+   - → one Standard Ticket for Performance 13 is listed, and none for Performance 12
+3. Try to see another Attendee's Orders as Attendee 15 another way than the screen — a saved link, or
+   a direct request to the system
+   - → refused, and no other Attendee's Order is shown
+
+---
+
 ## SAL-V3 — See a Performance's sales
 
 ### SC-SAL-010 — A Performance's sales add up to what was paid for it, and only the Finance manager sees them
 
 - **Covers:** SAL-V3, SAL-R8, SAL-R9
 - **Use cases:** SAL-V3
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 - **Setup:** sign in as Finance manager 1
 - **PO Feedback:** none yet
 

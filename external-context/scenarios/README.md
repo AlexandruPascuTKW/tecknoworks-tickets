@@ -11,10 +11,10 @@
 
 | File | Spec | Actions and views with scenarios | Scenarios |
 |------|------|----------------------------------|-----------|
-| [ACC/accounts.md](ACC/accounts.md) | [Accounts](../specs/ACC/accounts.md) | ACC-A4, ACC-A5 | 5 |
-| [EVT/events.md](EVT/events.md) | [Events](../specs/EVT/events.md) | EVT-V1, EVT-A5, EVT-A8, EVT-A11, EVT-A10 | 7 |
-| [SAL/sales.md](SAL/sales.md) | [Sales](../specs/SAL/sales.md) | SAL-A1, SAL-V1, SAL-A2, SAL-V3 | 10 |
-| [ADM/admission.md](ADM/admission.md) | [Admission](../specs/ADM/admission.md) | ADM-V1, ADM-V2 | 3 |
+| [ACC/accounts.md](ACC/accounts.md) | [Accounts](../specs/ACC/accounts.md) | ACC-A4, ACC-A5 | 6 |
+| [EVT/events.md](EVT/events.md) | [Events](../specs/EVT/events.md) | EVT-V1, EVT-A12, EVT-A5, EVT-A8, EVT-A11, EVT-A10 | 8 |
+| [SAL/sales.md](SAL/sales.md) | [Sales](../specs/SAL/sales.md) | SAL-A1, SAL-V1, SAL-A2, SAL-V4, SAL-V3 | 11 |
+| [ADM/admission.md](ADM/admission.md) | [Admission](../specs/ADM/admission.md) | ADM-V1, ADM-A2, ADM-V2, ADM-A1, ADM-V4 | 8 |
 
 ## What gets a scenario
 

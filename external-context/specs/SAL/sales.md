@@ -10,21 +10,22 @@
   - [Owned by other specs](#owned-by-other-specs)
 - [Use Cases](#use-cases)
   - [Checking out and paying](#checking-out-and-paying)
-    - [SAL-A1 — Start checkout](#sal-a1--start-checkout) 🔴 ❓ via SAL-R3
-    - [SAL-V1 — See an Order in checkout](#sal-v1--see-an-order-in-checkout) 🔴 ❓ via SAL-R10
-    - [SAL-A2 — Pay for an Order](#sal-a2--pay-for-an-order) 🔴
+    - [SAL-A1 — Start checkout](#sal-a1--start-checkout) 🟢 ❓ via SAL-R3, SAL-R6
+    - [SAL-V1 — See an Order in checkout](#sal-v1--see-an-order-in-checkout) 🟢 ❓ via SAL-R10
+    - [SAL-A2 — Pay for an Order](#sal-a2--pay-for-an-order) 🟢 ❓ via SAL-R13
+    - [SAL-V4 — See my Orders](#sal-v4--see-my-orders) 🔴
   - [Availability and sales per Performance](#availability-and-sales-per-performance)
-    - [SAL-V2 — See what's left for a Performance](#sal-v2--see-whats-left-for-a-performance) 🔴 ❓ via SAL-R14
-    - [SAL-V3 — See a Performance's sales](#sal-v3--see-a-performances-sales) 🔴 ❓
+    - [SAL-V2 — See what's left for a Performance](#sal-v2--see-whats-left-for-a-performance) 🟢 ❓ via SAL-R6, SAL-R14
+    - [SAL-V3 — See a Performance's sales](#sal-v3--see-a-performances-sales) 🟢 ❓ · via SAL-R13
 - [Fields](#fields)
   - [Order](#order)
   - [Order line](#order-line)
   - [Payment](#payment)
 - [Domain Rules](#domain-rules)
   - [Scope and Order status](#scope-and-order-status) ❓ 1
-  - [Holding tickets](#holding-tickets) ❓ 1
-  - [Fees and paying](#fees-and-paying) ❓ 1
-  - [Availability and sales](#availability-and-sales) ❓ 1
+  - [Placing an Order and holding its tickets](#placing-an-order-and-holding-its-tickets) ❓ 1
+  - [Fees and paying](#fees-and-paying) ❓ 2
+  - [Availability and Sold out](#availability-and-sold-out) ❓ 2
 
 ## Context
 
@@ -58,7 +59,7 @@ Admission spec's (ADM-001).
 | **Hold period** | How long a Hold lasts from the moment the Attendee starts checkout |
 | **Order status** | Where an Order is in its life: *Pending payment*, *Confirmed* or *Expired* |
 | **Pending payment** | The Order status of an Order still in checkout: its Hold is running and it is not yet Confirmed |
-| **Confirmed** | The Order status of an Order that is paid for and holds its tickets: its Payment came back *Paid* while its Hold lasted, or after it with the same tickets still free (SAL-R13) |
+| **Confirmed** | The Order status of an Order that is paid for and holds its tickets (SAL-R2) |
 | **Expired** | The Order status of an Order whose Hold ran out, or was replaced by a newer checkout, before it was Confirmed |
 
 ### Availability
@@ -66,15 +67,15 @@ Admission spec's (ADM-001).
 | Term | Definition |
 |------|-----------|
 | **Availability** | How many tickets of a Ticket type a Performance can still sell |
-| **Sold out** | A Ticket type at a Performance with no Availability left; a Performance whose Ticket types all have none |
+| **Sold out** | A Ticket type at a Performance with no Availability left, or a Performance with nothing left to buy (SAL-R6) |
 
 ### Fees and payment
 
 | Term | Definition |
 |------|-----------|
 | **Face value** | What an Order's tickets cost at their Ticket prices, before the Booking fee |
-| **Booking fee** | What the Attendee pays TecknoworksTickets on an Order, on top of its Face value |
-| **Order total** | What the Attendee pays for an Order: its Face value plus its Booking fee |
+| **Booking fee** | What the Attendee pays TecknoworksTickets on an Order (SAL-R8) |
+| **Order total** | What the Attendee pays for an Order, Booking fee included (SAL-R9) |
 | **Payment** | An attempt to pay an Order's total by card through the Payment provider |
 | **Payment provider** | The card payment company that takes the Attendee's card details and the money |
 | **Paid** | The Payment result of a Payment the Payment provider took the money for |
@@ -86,13 +87,15 @@ Admission spec's (ADM-001).
 | Term | Definition |
 |------|-----------|
 | **Visitor** | Anyone using TecknoworksTickets without being signed in. Owned by the Accounts spec (ACC-001) |
-| **Attendee** | Anyone signed in with their Account, acting for themselves — buying tickets and owning the Tickets that come from them. Every Account is an Attendee, whatever Team roles it also holds. Owned by the Accounts spec (ACC-001) |
+| **Attendee** | Anyone signed in with their Account, acting for themselves — buying tickets and holding Tickets, whether bought or transferred to them. Owned by the Accounts spec (ACC-001) |
+| **Account** | A person's login to TecknoworksTickets. Owned by the Accounts spec (ACC-001) |
 | **Organizer** | An organisation that puts events on sale. Owned by the Accounts spec (ACC-001) |
 | **Finance manager** | TecknoworksTickets' finance lead, who reconciles what was sold for each Performance. Owned by the Accounts spec (ACC-001) |
 | **Event**, **Performance** | A show, and one dated occurrence of it. Owned by the Events spec (EVT-001) |
 | **Ticket type**, **Price**, **Quantity** | What a Performance offers and at what Price. Owned by the Events spec (EVT-001); this domain sells against them |
 | **Published** | An Event the public can see and buy for. Owned by the Events spec (EVT-001) |
-| **Ticket** | One person's way in to a Performance, issued from a Confirmed Order. Not the same as the tickets counted on an Order line. Owned by the Admission spec (ADM-001) |
+| **On sale** | Whether a Ticket type can still be bought; one taken off sale stays on its Event. Owned by the Events spec (EVT-001) |
+| **Ticket**, **Buyer** | One person's way in to a Performance, issued from a Confirmed Order — not the same as the tickets counted on an Order line — and the Attendee whose Order it was issued from. Owned by the Admission spec (ADM-001) |
 
 ## Use Cases
 
@@ -109,7 +112,8 @@ wrong answer would mean reworking it.
 
 ### Checking out and paying
 
-Choosing tickets for a Performance, having them held, and paying for them while they are.
+Choosing tickets for a Performance, having them held, paying for them while they are, and looking
+back at one's Orders.
 
 #### SAL-A1 — Start checkout
 
@@ -117,18 +121,18 @@ Choose how many tickets of each Ticket type to buy for one Performance, placing 
 the tickets for the Attendee. Each Ticket type chosen, with its Number of tickets, is one Order line.
 
 - **Who can:** Attendee
-- **Input:** Performance (required), Ticket type (required), Number of tickets (required)
+- **Input:** Performance (required), Order line (required, at least one), Ticket type (required, for each Order line), Number of tickets (required, for each Order line)
 - **Rules:** SAL-R2, SAL-R3, SAL-R4, SAL-R5, SAL-R6, SAL-R7, SAL-R8, SAL-R9, SAL-R15
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### SAL-V1 — See an Order in checkout
 
 See what is being bought and how long the tickets stay held, to pay before the Hold runs out.
 
 - **Who can:** Attendee
-- **Returns:** the whole Order, and for each Order line its Ticket type, Number of tickets and Ticket price, and the Payment result of its latest Payment
+- **Returns:** the whole Order, with the Payment result of its latest Payment; and for each Order line its Ticket type, Number of tickets and Ticket price
 - **Rules:** SAL-R5, SAL-R7, SAL-R8, SAL-R9, SAL-R10
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### SAL-A2 — Pay for an Order
 
@@ -137,6 +141,16 @@ Pay an Order's total by card through the Payment provider, so the Order is Confi
 - **Who can:** Attendee
 - **Input:** —
 - **Rules:** SAL-R2, SAL-R11, SAL-R12, SAL-R13
+- **Status:** 🟢 Built
+
+#### SAL-V4 — See my Orders
+
+See every Order the Attendee has placed, Expired ones included, to look back at what they bought or
+tried to buy.
+
+- **Who can:** Attendee
+- **Returns:** for each of their Orders, its Performance with the Event name and Date (EVT-001), Placed at, Order status and Order total, and for each Order line its Ticket type and Number of tickets
+- **Rules:** SAL-R2
 - **Status:** 🔴 Not built
 
 ### Availability and sales per Performance
@@ -151,16 +165,16 @@ checkout.
 - **Who can:** Visitor, Attendee
 - **Returns:** for the Performance and for each of its Ticket types that is On sale (EVT-001), whether it is Sold out
 - **Rules:** SAL-R6, SAL-R14
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 #### SAL-V3 — See a Performance's sales
 
-See everything sold for one Performance, to reconcile it.
+See what was sold, and what was refunded, for one Performance, to reconcile it.
 
 - **Who can:** Finance manager
-- **Returns:** for each Order that is *Confirmed*, or *Expired* with a *Refunded* Payment (SAL-R13): its Attendee, with their Name and Email address (ACC-001), Placed at, Order status, each Order line's Ticket type, Number of tickets and Ticket price, its Face value, Booking fee and Order total; and for the Performance, the tickets sold of each Ticket type and the total Face value and Booking fee
+- **Returns:** for each Order that is *Confirmed*, or *Expired* with a *Refunded* Payment (SAL-R13): its Attendee, with their Name and Email address (ACC-001), Placed at, Order status, each Order line's Ticket type, Number of tickets and Ticket price, its Face value, Booking fee and Order total; and for the Performance, over its *Confirmed* Orders only, the number of tickets of each Ticket type and the total Face value and Booking fee
 - **Rules:** SAL-R8, SAL-R9, SAL-R13
-- **Status:** 🔴 Not built
+- **Status:** 🟢 Built
 
 *[❓ Needs PO clarification — what does the Finance manager need on the list of what was sold for
 each Performance? Working answer: every Confirmed Order with its buyer, tickets and amounts, plus
@@ -185,7 +199,7 @@ status and the time it was placed.
 
 | ID | Field | Allowed values and validation |
 |----|-------|-------------------------------|
-| **SAL-F1** | Attendee | The Account that placed the Order (ACC-001) |
+| **SAL-F1** | Attendee | The Account that placed the Order (ACC-001) — the Buyer of its Tickets (ADM-001) |
 | **SAL-F2** | Performance | A Performance (EVT-001) |
 | **SAL-F3** | Placed at | The date and time checkout started |
 | **SAL-F4** | Order status | *Pending payment*, *Confirmed* or *Expired* (SAL-R2) |
@@ -231,7 +245,7 @@ checkout starts. It becomes *Confirmed* when a Payment for it comes back *Paid* 
 (SAL-R15). An *Expired* Order becomes *Confirmed* only through a late Payment (SAL-R13). Every Order
 is in exactly one of these at a time.
 
-### Holding tickets
+### Placing an Order and holding its tickets
 
 **SAL-R3 — What refuses checkout.** Checkout does not start while any of these holds:
 
@@ -288,25 +302,33 @@ back after it follows SAL-R13. A *Declined* Payment leaves the Order *Pending pa
 Order can be paid again until its Hold ends at. No Payment is started for an Order that is
 *Confirmed* or *Expired*.
 
-**SAL-R13 — A Payment that completes after the Hold ran out.** When a Payment for an *Expired*
-Order comes back *Paid*, the Order becomes *Confirmed* if the Performance still has Availability for
-every Order line — the same Ticket types, in the same Numbers of tickets, at the Order's own Ticket
-prices. Nothing on the Order is swapped for something else. Otherwise the Order stays *Expired*, the
-whole Payment is refunded automatically through the Payment provider, its Payment result becomes
-*Refunded*, and the Attendee is told. Such Orders are on the Performance's sales list (SAL-V3).
+**SAL-R13 — A Payment that completes after the Hold ran out.** When a Payment for an Order whose
+Hold ran out (SAL-R5) comes back *Paid*, the Order becomes *Confirmed* if the Performance still has
+Availability for every Order line — the same Ticket types, in the same Numbers of tickets, at the
+Order's own Ticket prices. Nothing on the Order is swapped for something else. Otherwise the Order
+stays *Expired*, the whole Payment is refunded automatically through the Payment provider, its
+Payment result becomes *Refunded*, and the Attendee is told.
+*[❓ Needs PO clarification — what happens when a Payment comes back Paid for an Order that was
+replaced by a newer checkout for the same Performance (SAL-R15)? Working answer: it is refunded
+automatically, as when the tickets are gone, so the Attendee never ends up with both Orders. Not
+discussed; the late-payment answer covered only a Hold running out. Open question 6.]*
 
-### Availability and sales
+### Availability and Sold out
 
 **SAL-R6 — Availability.** A Performance's Availability for a Ticket type is its Quantity, less the
 tickets of that Ticket type on the Performance's *Confirmed* Orders and on its *Pending payment*
 Orders. It never goes below zero. A Ticket type is *Sold out* for a Performance when its
-Availability is zero, and the Performance is *Sold out* when all its Ticket types are — whether
-their tickets are sold or only held. Either stops being Sold out as soon as a Hold runs out and frees
-tickets.
+Availability is zero, and the Performance is *Sold out* when every Ticket type it has On sale is —
+whether their tickets are sold or only held. Either stops being Sold out as soon as its Availability
+is above zero again, for example when a Hold runs out.
+*[❓ Needs PO clarification — is a Performance Sold out when every Ticket type still On sale has no
+Availability, even if a Ticket type taken off sale still has some? Working answer: yes, only Ticket
+types On sale count, since one taken off sale can't be bought (EVT-001). Not discussed; taking a
+Ticket type off sale came after the sold-out rule. Listed as an assumption in the open questions.]*
 *Engineering decision: [ADR-002](../../docs/adr/002-no-overselling-on-sqlite.md) — how overselling is prevented when many checkouts run at once.*
 
-**SAL-R14 — Sold out, not how many are left.** The public sees whether a Performance and each of its
-Ticket types is Sold out (SAL-R6), but not how many tickets are left.
+**SAL-R14 — Sold out, not how many are left.** Visitors and Attendees see whether a Performance and
+each of its Ticket types is Sold out (SAL-R6), but not how many tickets are left.
 *[❓ Needs PO clarification — should the public see Sold out for a single Ticket type ("Early bird —
 sold out") as well as for the whole Performance? Working answer: yes. The PO spoke only of a
 Performance being sold out. Listed as an assumption in the open questions.]*
