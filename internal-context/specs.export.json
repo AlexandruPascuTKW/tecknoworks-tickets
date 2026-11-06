@@ -1,0 +1,4219 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-11-06T08:57:22+00:00",
+  "sourceCommit": "ded718d",
+  "specs": [
+    {
+      "code": "ACC",
+      "specId": "ACC-001",
+      "title": "Accounts",
+      "path": "external-context/specs/ACC/accounts.md",
+      "owns": "Accounts and signing in, Organizers and their Teams (Owner, Manager, Door staff), Platform admins",
+      "context": "TecknoworksTickets lets organizers — a theatre company, a concert promoter, a conference team, a folk\nclub — put events on sale, and lets people buy tickets and get in at the door. Four pilot Organizers\nhave signed: the Lantern Theatre Company, Northgate Live, DevHarbour Conference and the Saltmarsh\nFolk Club.\n\nTwo very different groups of people use it. Organizers are businesses the TecknoworksTickets team\nhas signed a contract with. The team sets each one up on the platform; an Organizer never signs\nitself up. Each works through a small Team: Owners run the Team and add people to it, Managers set\nup the shows, Door staff — often volunteers who change from week to week — check tickets at the\ndoor, and only an Owner puts a show on sale. Attendees are members of the public who sign\nthemselves up to buy tickets. Browsing what's on needs no Account; buying does, because that is\nwhere a person's tickets live. The two groups overlap: someone on the Lantern's Team goes to\nNorthgate gigs, and should not need a second login to do it.\n\nThis domain covers who people are on the platform: their Accounts, the Organizers and their Teams,\nand the Platform admins who onboard Organizers. It decides who someone is and which roles they hold.\nWhat each role may do with Events, Performances, Ticket types and Tickets is decided by the Events\nspec (EVT-001), the Sales spec (SAL-001) and the Admission spec (ADM-001). Platform admins look after\nthe platform and can see every Organizer, but they never set up Events or sell Tickets on an\nOrganizer's behalf.",
+      "glossary": [
+        {
+          "title": "Accounts and Organizers",
+          "anchor": "accounts-and-organizers",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Account"
+                }
+              ],
+              "definition": "A person's login to TecknoworksTickets, identified by their Email address",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Organizer"
+                }
+              ],
+              "definition": "An organisation that puts events on sale on TecknoworksTickets — the Lantern Theatre Company, Northgate Live",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Team"
+                }
+              ],
+              "definition": "The people who work on one Organizer's behalf on TecknoworksTickets",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Team member"
+                }
+              ],
+              "definition": "An Account on an Organizer's Team, holding a Team role there",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Team role"
+                }
+              ],
+              "definition": "What a Team member does for their Organizer: *Owner*, *Manager* or *Door staff*",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Onboarding"
+                }
+              ],
+              "definition": "Setting up a newly contracted Organizer on TecknoworksTickets together with its first Owner",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "People and roles",
+          "anchor": "people-and-roles",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Visitor"
+                }
+              ],
+              "definition": "Anyone using TecknoworksTickets without being signed in",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Attendee"
+                }
+              ],
+              "definition": "Anyone signed in with their Account, acting for themselves — buying tickets and holding Tickets, whether bought or transferred to them",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Owner"
+                }
+              ],
+              "definition": "The Team role that runs an Organizer's Team, adds people to it and publishes its Events, and does everything a Manager does",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Manager"
+                }
+              ],
+              "definition": "The Team role that sets up an Organizer's Events and Ticket types and changes them",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Door staff"
+                }
+              ],
+              "definition": "The Team role of a person who checks Tickets at the door for their Organizer's Performances",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Platform admin"
+                }
+              ],
+              "definition": "One of the TecknoworksTickets team's own staff, who onboards Organizers and looks after the platform",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Finance manager"
+                }
+              ],
+              "definition": "TecknoworksTickets' finance lead, who reconciles what was sold for each Performance",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "Owned by other specs",
+          "anchor": "owned-by-other-specs",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Event"
+                }
+              ],
+              "definition": "A show an Organizer puts on sale. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Performance"
+                }
+              ],
+              "definition": "One dated occurrence of an Event. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Ticket type"
+                }
+              ],
+              "definition": "A kind of ticket an Event sells, with its price. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Ticket"
+                }
+              ],
+              "definition": "One person's way in to a Performance. Owned by the Admission spec (ADM-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ADM-001"
+                ]
+              },
+              "ownedBy": "ADM-001"
+            }
+          ]
+        }
+      ],
+      "useCases": {
+        "intro": "What people can do and look up in this domain. Each use case is either an **action** — something a\nperson does that changes an Account, an Organizer or a Team — or a **view** — something a person\nlooks up to decide what to do. Who can lists everyone allowed; anyone not listed cannot. Every action\nand view applies only within the user's scope (ACC-R1). Each entry's **Status** is 🟢 Built\n(everything it states is met), 🟡 Partly built (usable end to end, with a **Gaps** line naming the\nrules or fields not yet met, and a **To reach 🟢** line saying what has to change) or 🔴 Not built.\nAnywhere in this spec, *❓ Needs PO clarification* marks something the product owner has not yet\nclarified; everything unmarked is clarified. **⛔ Blocker** marks the few open points that shape the\nfoundation of the build, where a wrong answer would mean reworking it.",
+        "groups": [
+          {
+            "title": "Registering and signing in",
+            "anchor": "registering-and-signing-in",
+            "description": "A person getting an Account of their own, and signing in with it.",
+            "entries": [
+              {
+                "id": "ACC-A1",
+                "kind": "action",
+                "title": "Register",
+                "anchor": "acc-a1--register",
+                "summary": "Create an Account, so the person can buy tickets and keep them in one place.",
+                "whoCan": [
+                  "Visitor"
+                ],
+                "ruleIds": [
+                  "ACC-R2"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Name (required), Email address (required), Password (required)",
+                  "items": [
+                    {
+                      "name": "Name",
+                      "required": true,
+                      "fieldId": "ACC-F1"
+                    },
+                    {
+                      "name": "Email address",
+                      "required": true,
+                      "fieldId": "ACC-F2"
+                    },
+                    {
+                      "name": "Password",
+                      "required": true,
+                      "fieldId": "ACC-F3"
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "ACC-R2"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-A2",
+                "kind": "action",
+                "title": "Sign in",
+                "anchor": "acc-a2--sign-in",
+                "summary": "Start using TecknoworksTickets as the person an Account belongs to, in every role they hold.",
+                "whoCan": [
+                  "Visitor"
+                ],
+                "ruleIds": [
+                  "ACC-R2",
+                  "ACC-R3"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Email address (required), Password (required)",
+                  "items": [
+                    {
+                      "name": "Email address",
+                      "required": true,
+                      "fieldId": "ACC-F2"
+                    },
+                    {
+                      "name": "Password",
+                      "required": true,
+                      "fieldId": "ACC-F3"
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "ACC-R2",
+                    "ACC-R3"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Onboarding and overseeing Organizers",
+            "anchor": "onboarding-and-overseeing-organizers",
+            "description": "Setting up a newly contracted Organizer with its first Owner, and keeping an eye on every Organizer\non the platform.",
+            "entries": [
+              {
+                "id": "ACC-A3",
+                "kind": "action",
+                "title": "Onboard an Organizer",
+                "anchor": "acc-a3--onboard-an-organizer",
+                "summary": "Set up an Organizer on TecknoworksTickets and make the person named its first Owner. The Name and\nEmail address are the first Owner's.",
+                "whoCan": [
+                  "Platform admin"
+                ],
+                "ruleIds": [
+                  "ACC-R2",
+                  "ACC-R3",
+                  "ACC-R4"
+                ],
+                "status": "partlyBuilt",
+                "input": {
+                  "text": "Organizer name (required), Name, Email address (required)",
+                  "items": [
+                    {
+                      "name": "Organizer name",
+                      "required": true,
+                      "fieldId": "ACC-F4"
+                    },
+                    {
+                      "name": "Name",
+                      "required": false,
+                      "fieldId": "ACC-F1"
+                    },
+                    {
+                      "name": "Email address",
+                      "required": true,
+                      "fieldId": "ACC-F2"
+                    }
+                  ]
+                },
+                "gaps": [
+                  "ACC-R3"
+                ],
+                "toReachBuilt": "send the first Owner a real invitation by email, so they can choose their own Password (ACC-R3).",
+                "references": {
+                  "ids": [
+                    "ACC-R2",
+                    "ACC-R3",
+                    "ACC-R4"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-V1",
+                "kind": "view",
+                "title": "See all Organizers",
+                "anchor": "acc-v1--see-all-organizers",
+                "summary": "See every Organizer on the platform and who is on its Team.",
+                "whoCan": [
+                  "Platform admin"
+                ],
+                "ruleIds": [
+                  "ACC-R1"
+                ],
+                "status": "built",
+                "returns": "for each Organizer, its Organizer name, and for each of its Team members their Name, Email address and Team role",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "may Platform admins see who is on each Organizer's Team, with their Email addresses? Working answer: yes. Inferred from \"they can see every organizer\"; the Team and its Email addresses were not mentioned. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ACC-R1"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Running a Team",
+            "anchor": "running-a-team",
+            "description": "An Owner bringing people onto their Organizer's Team, changing their Team roles and taking them off\nit, and Owners and Managers seeing who is on it.",
+            "entries": [
+              {
+                "id": "ACC-A4",
+                "kind": "action",
+                "title": "Add a Team member",
+                "anchor": "acc-a4--add-a-team-member",
+                "summary": "Put a person on the Organizer's Team with a Team role, so they can work on its behalf.",
+                "whoCan": [
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ACC-R2",
+                  "ACC-R3",
+                  "ACC-R5"
+                ],
+                "status": "partlyBuilt",
+                "input": {
+                  "text": "Email address (required), Team role (required), Name",
+                  "items": [
+                    {
+                      "name": "Email address",
+                      "required": true,
+                      "fieldId": "ACC-F2"
+                    },
+                    {
+                      "name": "Team role",
+                      "required": true,
+                      "fieldId": "ACC-F5"
+                    },
+                    {
+                      "name": "Name",
+                      "required": false,
+                      "fieldId": "ACC-F1"
+                    }
+                  ]
+                },
+                "gaps": [
+                  "ACC-F5",
+                  "ACC-R3",
+                  "ACC-R5"
+                ],
+                "toReachBuilt": "let an Owner give the Door staff Team role as well as Owner and Manager (ACC-F5, ACC-R5), and send a newly created Team member a real invitation by email (ACC-R3).",
+                "references": {
+                  "ids": [
+                    "ACC-R2",
+                    "ACC-R3",
+                    "ACC-R5",
+                    "ACC-F5"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-A5",
+                "kind": "action",
+                "title": "Remove a Team member",
+                "anchor": "acc-a5--remove-a-team-member",
+                "summary": "Take a person off the Organizer's Team, so they no longer work on its behalf. Their Account stays,\nwith any Tickets they hold.",
+                "whoCan": [
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ACC-R5",
+                  "ACC-R6"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Team member (required)",
+                  "items": [
+                    {
+                      "name": "Team member",
+                      "required": true
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "ACC-R5",
+                    "ACC-R6"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-A6",
+                "kind": "action",
+                "title": "Change a Team member's Team role",
+                "anchor": "acc-a6--change-a-team-members-team-role",
+                "summary": "Give a Team member a different Team role — for example, make a Manager an Owner.",
+                "whoCan": [
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ACC-R6"
+                ],
+                "status": "partlyBuilt",
+                "input": {
+                  "text": "Team member (required), Team role (required)",
+                  "items": [
+                    {
+                      "name": "Team member",
+                      "required": true
+                    },
+                    {
+                      "name": "Team role",
+                      "required": true,
+                      "fieldId": "ACC-F5"
+                    }
+                  ]
+                },
+                "gaps": [
+                  "ACC-F5"
+                ],
+                "toReachBuilt": "let an Owner move a Team member to or from the Door staff Team role, as well as between Owner and Manager (ACC-F5).",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can an Owner change a Team member's Team role? Working answer: yes, as long as the Organizer keeps an Owner. Not discussed; inferred from an Owner being able to add and remove Team members in any Team role. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  },
+                  {
+                    "blocker": false,
+                    "text": "can an Owner also move a Team member to or from Door staff? Working answer: yes, any Team role to any other. Not discussed; Door staff were only described as added and later removed by an Owner. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ACC-R6",
+                    "ACC-F5"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-V2",
+                "kind": "view",
+                "title": "See the Team",
+                "anchor": "acc-v2--see-the-team",
+                "summary": "See who is on the Organizer's Team and what Team role each holds.",
+                "whoCan": [
+                  "Owner",
+                  "Manager"
+                ],
+                "ruleIds": [],
+                "status": "built",
+                "returns": "for each Team member, their Name, Email address and Team role",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can Managers see the Team, or only the Owner? Working answer: Owners and Managers can; Door staff can't, since they only scan and see the check-in count (increment 2). Not discussed for Managers. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "intro": "The fields of this domain's concepts, each defined once with what makes a value valid. The\ndatabase, domain model, application layer and front end all enforce the same definition and cite\nits ID. Actions and views name a whole concept where they take or return all of it, and its fields\nwhere they use only some. Whether a field is required depends on where it is used: each action's\n*Input* marks what it requires, and rules that span fields set the conditional cases. What a concept\nalways needs is stated with the concept.",
+        "groups": [
+          {
+            "concept": "Account",
+            "anchor": "account",
+            "description": "An Account always has a Name and an Email address, and a Password once its person has chosen one\n(ACC-R3).",
+            "fields": [
+              {
+                "id": "ACC-F1",
+                "name": "Name",
+                "validation": "The person's name, as free text",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-F2",
+                "name": "Email address",
+                "validation": "A valid email address, used by no other Account (ACC-R2)",
+                "references": {
+                  "ids": [
+                    "ACC-R2"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-F3",
+                "name": "Password",
+                "validation": "Meets the password rules engineering sets",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ],
+            "engineeringDecisions": [
+              {
+                "adr": "ADR-001",
+                "path": "external-context/docs/adr/001-identity-tokens-and-team-roles.md",
+                "summary": "password rules and storage, sign-in tokens, and how Team roles are checked in other domains."
+              }
+            ]
+          },
+          {
+            "concept": "Organizer",
+            "anchor": "organizer",
+            "description": "An Organizer always has an Organizer name and at least one Owner on its Team (ACC-R4, ACC-R6).",
+            "fields": [
+              {
+                "id": "ACC-F4",
+                "name": "Organizer name",
+                "validation": "The organisation's name, as free text — \"Lantern Theatre Company\"",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "concept": "Team member",
+            "anchor": "team-member",
+            "description": "A Team member always has an Account, the Organizer whose Team they are on, and a Team role.",
+            "fields": [
+              {
+                "id": "ACC-F5",
+                "name": "Team role",
+                "validation": "*Owner*, *Manager* or *Door staff*",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "intro": "",
+        "groups": [
+          {
+            "title": "Scope and Accounts",
+            "anchor": "scope-and-accounts",
+            "rules": [
+              {
+                "id": "ACC-R1",
+                "title": "Scope",
+                "body": "A person sees and changes only their own Account. A Team member acts only for\nthe Organizers whose Teams they are on, holding on each the Team role they hold there. Platform\nadmins see every Organizer and its Team.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can one Account be on the Teams of two Organizers, with a Team role in each? Working answer: yes. Not discussed; inferred from one person being allowed to be both an Attendee and a Team member. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-R2",
+                "title": "One Account per person",
+                "body": "Each Email address belongs to at most one Account, and it is\nwhat the person signs in with. Every Account is an Attendee, whatever Team roles it also holds: the\nsame Account buys tickets and works on an Organizer's Team, and nobody needs a second Account for a\nsecond role.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-R3",
+                "title": "An Account made for someone else",
+                "body": "An Account is created for a person by someone else —\na Platform admin at Onboarding, or an Owner adding them to a Team — only when no Account has their\nEmail address (ACC-R2); the Name given is then required. The person is sent an invitation to their\nEmail address to choose their own Password before they first sign in.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "how does someone whose Account was created for them get into it? Working answer: an emailed invitation to choose their own Password. Not discussed; inferred from Organizers being set up by the TecknoworksTickets team and Owners adding people, rather than Team members signing up. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "engineeringDecisions": [
+                  {
+                    "adr": "ADR-007",
+                    "path": "external-context/docs/adr/007-invitation-delivery.md",
+                    "summary": "how the invitation is delivered and how long it lasts."
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ACC-R2"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Organizers and their Teams",
+            "anchor": "organizers-and-their-teams",
+            "rules": [
+              {
+                "id": "ACC-R4",
+                "title": "An Organizer starts with its Owner",
+                "body": "Onboarding sets up the Organizer and makes the\nperson named its Owner in one step: an Organizer never exists without an Owner on its Team. If the\nfirst Owner's Email address already belongs to an Account, that Account becomes the Owner;\notherwise one is created for them (ACC-R3).",
+                "references": {
+                  "ids": [
+                    "ACC-R3"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-R5",
+                "title": "Adding someone to a Team",
+                "body": "A person is added to a Team by their Email address, with the\nTeam role they will hold. If the Email address already belongs to an Account, that Account joins the\nTeam; otherwise one is created for them (ACC-R3). Someone already on the Team is not added again.\nAny Team role (ACC-F5) can be given, Owner included. A Team member, Door staff included, stays on\nthe Team until an Owner removes them.",
+                "references": {
+                  "ids": [
+                    "ACC-R3",
+                    "ACC-F5"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ACC-R6",
+                "title": "Always an Owner",
+                "body": "A Team may have more than one Owner, and always keeps at least one: the\nlast Owner is not taken off the Team or given another Team role.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ADM",
+      "specId": "ADM-001",
+      "title": "Admission",
+      "path": "external-context/specs/ADM/admission.md",
+      "owns": "Tickets and their codes, an Attendee's tickets, the Door list, scanning and check-in counts, Transfers",
+      "context": "Once an Attendee has paid, what they need is something that gets each person through the door.\nEvery person getting in has a Ticket of their own with its own Ticket code: an Order of four is four\nTickets and four codes. Attendees keep their Tickets in their Account and find them there.\n\nFor each Performance a Door list can be printed of every Ticket — its code, its Ticket type and the\nHolder's name — and the Front of house team ticks people off as they come in.\n\nDoor staff — usually volunteers who change from week to week — check Tickets with their own phones:\nthe phone reads the code the Attendee shows from their Tickets, or the code is typed in. A scan tells\nstaff at once whether to let someone in, refuses a Ticket shown a second time, and gives the\nOrganizer a live count of who has come in, at which Door. Once in, in: there is no re-entry through\nthe platform, and a queue standing still because a phone has no signal is worse than the risk of a\nduplicate getting in.\n\nAttendees can also give a Ticket to a friend. The Ticket then belongs to the friend and gets a new\ncode, so a forwarded screenshot of the old one stops working. The person who paid is not always the\nperson who comes — a parent buys four for their children — so a Ticket has a Buyer, who paid, and a\nHolder, who has it now; the door sees the Holder.\n\nThis domain covers Tickets from the moment an Order is Confirmed (Sales spec, SAL-001): issuing them,\nshowing them to the Attendee who holds them, transferring them, providing the Door list for each\nPerformance, and checking Tickets in at the door with the counts that come from it. What is on, when\nand where comes from the Events spec (EVT-001).",
+      "glossary": [
+        {
+          "title": "Tickets and the door",
+          "anchor": "tickets-and-the-door",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Ticket"
+                }
+              ],
+              "definition": "One person's way in to one Performance, issued from a Confirmed Order",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Ticket code"
+                }
+              ],
+              "definition": "The code that identifies one Ticket at the door",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Buyer"
+                }
+              ],
+              "definition": "The Attendee who placed the Order a Ticket was issued from, and who paid for it",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Holder"
+                }
+              ],
+              "definition": "The person a Ticket belongs to now, known by name and Email address (ADM-R2, ADM-R11). Not to be confused with the Buyer",
+              "references": {
+                "ids": [
+                  "ADM-R2",
+                  "ADM-R11"
+                ],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Transfer"
+                }
+              ],
+              "definition": "Giving one Ticket to another person, who becomes its Holder",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Scan"
+                }
+              ],
+              "definition": "One reading of a code at a Door of a Performance, which ends in the person being admitted or refused",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Checked in"
+                }
+              ],
+              "definition": "Of a Ticket: admitted to its Performance, at a Door, by a Scan",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Sold"
+                },
+                {
+                  "term": "Checked-in count"
+                },
+                {
+                  "term": "Not yet arrived"
+                }
+              ],
+              "definition": "For a Performance: how many Tickets were issued for it, how many of them are Checked in, and how many are not yet (ADM-R10) — once the Performance is over, its no-shows. Sold counts Tickets issued, not Orders still being paid for",
+              "references": {
+                "ids": [
+                  "ADM-R10"
+                ],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Door list"
+                }
+              ],
+              "definition": "A printable list of every Ticket for one Performance, which the Front of house team ticks off as people come in. Not the Doors of a Venue (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Front of house"
+                }
+              ],
+              "definition": "The Organizer's people who let the audience in at the door, whether or not they are on its Team. Those who scan hold the Door staff Team role",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "Owned by other specs",
+          "anchor": "owned-by-other-specs",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Attendee"
+                }
+              ],
+              "definition": "Anyone signed in with their Account, acting for themselves — buying tickets and holding Tickets, whether bought or transferred to them. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Account"
+                },
+                {
+                  "term": "Team member"
+                }
+              ],
+              "definition": "A person's login, and an Account on an Organizer's Team. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Organizer"
+                },
+                {
+                  "term": "Owner"
+                },
+                {
+                  "term": "Manager"
+                },
+                {
+                  "term": "Door staff"
+                }
+              ],
+              "definition": "An organisation that puts events on sale, and the Team roles that work for it. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Event"
+                },
+                {
+                  "term": "Performance"
+                },
+                {
+                  "term": "Venue"
+                }
+              ],
+              "definition": "A show, one dated occurrence of it, and where it happens. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Door"
+                },
+                {
+                  "term": "Doors time"
+                }
+              ],
+              "definition": "A way into a Venue where Tickets are checked, and when people can start coming in to a Performance. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Ticket type"
+                }
+              ],
+              "definition": "A kind of ticket an Event sells. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Order"
+                },
+                {
+                  "term": "Order line"
+                },
+                {
+                  "term": "Confirmed"
+                }
+              ],
+              "definition": "An Attendee's purchase for one Performance, one Ticket type on it, and the Order status of an Order that is paid for and holds its tickets. Owned by the Sales spec (SAL-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "SAL-001"
+                ]
+              },
+              "ownedBy": "SAL-001"
+            }
+          ]
+        }
+      ],
+      "useCases": {
+        "intro": "What people can do and look up in this domain. Each use case is either an **action** — something a person\ndoes that changes a Ticket — or a **view** — something a person looks up to decide what to do.\nIssuing Tickets happens by itself when an Order is Confirmed, so it is a domain rule. Who can lists\neveryone allowed; anyone not listed cannot. Every action and view applies only within the user's\nscope (ADM-R1). Each entry's **Status** is 🟢 Built (everything it states is met), 🟡 Partly built\n(usable end to end, with a **Gaps** line naming the rules or fields not yet met, and a **To reach\n🟢** line saying what has to change) or 🔴 Not built. Anywhere in this spec, *❓ Needs PO\nclarification* marks something the product owner has not yet clarified; everything unmarked is\nclarified. **⛔ Blocker** marks the few open points that shape the foundation of the build, where a\nwrong answer would mean reworking it.",
+        "groups": [
+          {
+            "title": "An Attendee's Tickets",
+            "anchor": "an-attendees-tickets",
+            "description": "An Attendee finding the Tickets they hold, and giving one to someone else.",
+            "entries": [
+              {
+                "id": "ADM-V1",
+                "kind": "view",
+                "title": "See my Tickets",
+                "anchor": "adm-v1--see-my-tickets",
+                "summary": "See every Ticket the Attendee holds — bought, or transferred to them — with its code, shown so a\nphone can read it at the door, and where and when it gets the person in.",
+                "whoCan": [
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "ADM-R2",
+                  "ADM-R3",
+                  "ADM-R11"
+                ],
+                "status": "partlyBuilt",
+                "returns": "for each Ticket, its Ticket code, Ticket type and Performance, with the Performance's Event name, Venue name, Date, Doors time and Start time (EVT-001)",
+                "gaps": [
+                  "ADM-R11"
+                ],
+                "toReachBuilt": "let a Ticket be transferred, so each Ticket shows in the Tickets of whoever holds it (ADM-R11).",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "does someone who transferred a Ticket away still see it in their Tickets? Working answer: no, they see only the Tickets they hold. Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ADM-R2",
+                    "ADM-R3",
+                    "ADM-R11"
+                  ],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-A2",
+                "kind": "action",
+                "title": "Transfer a Ticket",
+                "anchor": "adm-a2--transfer-a-ticket",
+                "summary": "Give one Ticket to another person, who becomes its Holder, with a new Ticket code; the old code stops\nworking. It lands in the recipient's Tickets without them accepting it. The name and Email address\ntaken are the new Holder's.",
+                "whoCan": [
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "ADM-R3",
+                  "ADM-R11",
+                  "ADM-R12",
+                  "ADM-R13"
+                ],
+                "status": "notBuilt",
+                "input": {
+                  "text": "Ticket (required), Holder's name (required), Holder's email address (required)",
+                  "items": [
+                    {
+                      "name": "Ticket",
+                      "required": true
+                    },
+                    {
+                      "name": "Holder's name",
+                      "required": true,
+                      "fieldId": "ADM-F6"
+                    },
+                    {
+                      "name": "Holder's email address",
+                      "required": true,
+                      "fieldId": "ADM-F7"
+                    }
+                  ]
+                },
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can the sender take back a Transfer, such as one sent to the wrong Email address? No position yet. Open question 5.",
+                    "openQuestion": {
+                      "number": 5
+                    }
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ADM-R3",
+                    "ADM-R11",
+                    "ADM-R12",
+                    "ADM-R13"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Admitting people at the door",
+            "anchor": "admitting-people-at-the-door",
+            "description": "The Door list the Front of house team works from, and Door staff, Managers and Owners checking\nTickets in with a phone and seeing how many have come in.",
+            "entries": [
+              {
+                "id": "ADM-V2",
+                "kind": "view",
+                "title": "See a Performance's Door list",
+                "anchor": "adm-v2--see-a-performances-door-list",
+                "summary": "See every Ticket for one Performance, ready to print for the Front of house team to tick off at the\ndoor.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ADM-R2",
+                  "ADM-R3",
+                  "ADM-R11"
+                ],
+                "status": "partlyBuilt",
+                "returns": "the Performance's Event name, Date and Start time (EVT-001); and for each of its Tickets, in order of the Holder's surname, its Ticket code, Ticket type and Holder's name",
+                "gaps": [
+                  "ADM-F6"
+                ],
+                "toReachBuilt": "show the Holder's name on the Door list instead of the Buyer's (ADM-F6).",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "who prints the Door list: the Organizer's Managers and Owner, the Finance manager, or both? Working answer: the Organizer's Team. The Finance manager said \"I need that list\", but the summary at the end of the kickoff gave it to the Organizer. Accounts open question 3 (ACC-001).",
+                    "openQuestion": {
+                      "number": 3,
+                      "spec": "ACC-001"
+                    }
+                  },
+                  {
+                    "blocker": false,
+                    "text": "how is a Holder's surname found, when their name is one piece of free text? Working answer: the last word of the Holder's name. The Door list is sorted by surname because the door searches by surname (increment 1 answers); the name has no separate surname. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ADM-R2",
+                    "ADM-R3",
+                    "ADM-R11",
+                    "ADM-F6"
+                  ],
+                  "specs": [
+                    "EVT-001",
+                    "ACC-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-V5",
+                "kind": "view",
+                "title": "See where I can scan",
+                "anchor": "adm-v5--see-where-i-can-scan",
+                "summary": "See the Performances that can be scanned now and the Doors of their Venue, to choose where to scan —\nand nothing else about the Organizer's Events.",
+                "whoCan": [
+                  "Door staff",
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ADM-R9"
+                ],
+                "status": "notBuilt",
+                "returns": "for each Performance open for scanning, its Event name, Date and Start time (EVT-001), and the Door name of each of its Venue's Doors (EVT-F16)",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "which Performances do Door staff see to choose from? Working answer: only those open for scanning now (ADM-R9). Inferred from the door person picking their Door when they open the scanner, and from Door staff seeing no events otherwise. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-F16",
+                    "ADM-R9"
+                  ],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-A1",
+                "kind": "action",
+                "title": "Scan a Ticket",
+                "anchor": "adm-a1--scan-a-ticket",
+                "summary": "Read a code at a Door of a Performance — with the phone's camera, or typed in by hand — to admit the\nperson or to refuse them with the reason. An admitted Ticket becomes Checked in.",
+                "whoCan": [
+                  "Door staff",
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ADM-R4",
+                  "ADM-R5",
+                  "ADM-R6",
+                  "ADM-R7",
+                  "ADM-R8",
+                  "ADM-R9",
+                  "ADM-R14"
+                ],
+                "status": "notBuilt",
+                "input": {
+                  "text": "Scanned Performance (required), Door (required), Code read (required)",
+                  "items": [
+                    {
+                      "name": "Scanned Performance",
+                      "required": true,
+                      "fieldId": "ADM-F9"
+                    },
+                    {
+                      "name": "Door",
+                      "required": true,
+                      "fieldId": "ADM-F10"
+                    },
+                    {
+                      "name": "Code read",
+                      "required": true,
+                      "fieldId": "ADM-F13"
+                    }
+                  ]
+                },
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can a mistaken check-in be undone (the person behind in the queue held their phone up too early), and who may do it? No position yet: the PO said she does not know who should be allowed to. Open question 2.",
+                    "openQuestion": {
+                      "number": 2
+                    }
+                  },
+                  {
+                    "blocker": false,
+                    "text": "can staff admit someone anyway after a refused Scan, such as an \"already checked in\" where the person swears the Ticket is theirs, and which roles may? Working answer: no override for now; if one is added, not for Door staff. In real life the Front of house lead lets them in and sorts it out after; the PO said that if the platform has it, probably not for volunteers. Open question 3.",
+                    "openQuestion": {
+                      "number": 3
+                    }
+                  },
+                  {
+                    "blocker": false,
+                    "text": "what happens at a Venue with no Doors set up (EVT-A12)? Working answer: nobody can Scan there until the Venue has at least one Door. Not discussed; the Door of every Scan is one of its Venue's Doors (EVT-R11). Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ADM-R4",
+                    "ADM-R5",
+                    "ADM-R6",
+                    "ADM-R7",
+                    "ADM-R8",
+                    "ADM-R9",
+                    "ADM-R14",
+                    "EVT-A12",
+                    "EVT-R11"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-V3",
+                "kind": "view",
+                "title": "See a Performance's attendance",
+                "anchor": "adm-v3--see-a-performances-attendance",
+                "summary": "See how many Tickets a Performance has Sold, its Checked-in count and how many have Not yet arrived,\nand how many each Door has checked in.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ADM-R10"
+                ],
+                "status": "notBuilt",
+                "returns": "the Performance's Event name, Date and Start time (EVT-001); its Sold, Checked-in count and Not yet arrived; and for each Door, the number Checked in there",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "does the Finance manager see these counts too, for every Organizer, to reconcile at the end of the night? Working answer: no, the Organizer's Team only. The Finance manager asked for them (\"sold, checked in, no-shows, per performance, and which door\"), but the summary at the end of the kickoff gave them to Owner and Manager. Accounts open question 3 (ACC-001).",
+                    "openQuestion": {
+                      "number": 3,
+                      "spec": "ACC-001"
+                    }
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ADM-R10"
+                  ],
+                  "specs": [
+                    "EVT-001",
+                    "ACC-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-V4",
+                "kind": "view",
+                "title": "See a Performance's check-in count",
+                "anchor": "adm-v4--see-a-performances-check-in-count",
+                "summary": "See how many Tickets are Checked in for a Performance, and nothing else about its sales.",
+                "whoCan": [
+                  "Door staff",
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "ADM-R10"
+                ],
+                "status": "notBuilt",
+                "returns": "the Performance's Checked-in count",
+                "references": {
+                  "ids": [
+                    "ADM-R10"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "intro": "The fields of this domain's concepts, each defined once with what makes a value valid. The\ndatabase, domain model, application layer and front end all enforce the same definition and cite\nits ID. Actions and views name a whole concept where they take or return all of it, and its fields\nwhere they use only some. Whether a field is required depends on where it is used: each action's\n*Input* marks what it requires, and rules that span fields set the conditional cases. What a concept\nalways needs is stated with the concept.",
+        "groups": [
+          {
+            "concept": "Ticket",
+            "anchor": "ticket",
+            "description": "A Ticket always has a Ticket code, the Order it was issued from, a Performance, a Ticket type, a\nBuyer (the Attendee of its Order, ADM-F2) and a Holder.",
+            "fields": [
+              {
+                "id": "ADM-F1",
+                "name": "Ticket code",
+                "validation": "A code (ADM-R3), in a form engineering sets",
+                "references": {
+                  "ids": [
+                    "ADM-R3"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F2",
+                "name": "Order",
+                "validation": "The Confirmed Order the Ticket was issued from (SAL-001)",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "SAL-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-F3",
+                "name": "Performance",
+                "validation": "The Performance of that Order (EVT-001)",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-F4",
+                "name": "Ticket type",
+                "validation": "The Ticket type of the Order line the Ticket was issued from (EVT-001)",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-F5",
+                "name": "Buyer's name",
+                "withdrawn": {
+                  "date": "2026-11-05",
+                  "reason": "the Door list and the scan show the Holder's name, not the Buyer's (ADM-F6)"
+                },
+                "references": {
+                  "ids": [
+                    "ADM-F6"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F6",
+                "name": "Holder's name",
+                "validation": "Free text (ADM-R2, ADM-R11)",
+                "references": {
+                  "ids": [
+                    "ADM-R2",
+                    "ADM-R11"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F7",
+                "name": "Holder's email address",
+                "validation": "A valid email address, in the form ACC-F2 sets; it need not belong to an Account yet (ADM-R11)",
+                "references": {
+                  "ids": [
+                    "ACC-F2",
+                    "ADM-R11"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F8",
+                "name": "Check-in",
+                "validation": "None yet, or the Scan that admitted the Ticket (ADM-R4)",
+                "references": {
+                  "ids": [
+                    "ADM-R4"
+                  ],
+                  "specs": []
+                }
+              }
+            ],
+            "engineeringDecisions": [
+              {
+                "adr": "ADR-009",
+                "path": "external-context/docs/adr/009-ticket-code-format.md",
+                "summary": "the form of a Ticket code."
+              }
+            ]
+          },
+          {
+            "concept": "Scan",
+            "anchor": "scan",
+            "description": "A Scan always has a Scanned Performance, a Door, the Team member who scanned, the time, the code read\nand a Result, and a Refusal reason when it is Refused (ADM-R4, ADM-R5).",
+            "fields": [
+              {
+                "id": "ADM-F9",
+                "name": "Scanned Performance",
+                "validation": "A Performance of the scanning person's own Organizer (ADM-R1, EVT-001)",
+                "references": {
+                  "ids": [
+                    "ADM-R1"
+                  ],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-F10",
+                "name": "Door",
+                "validation": "A Door of the Venue of the Scanned Performance (EVT-F16, EVT-R11)",
+                "references": {
+                  "ids": [
+                    "EVT-F16",
+                    "EVT-R11"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F11",
+                "name": "Scanned by",
+                "validation": "The Team member who scanned (ACC-001)",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "ACC-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-F12",
+                "name": "Scanned at",
+                "validation": "A date and time",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F13",
+                "name": "Code read",
+                "validation": "The text read by the camera or typed in, which may not be any Ticket's code",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F14",
+                "name": "Result",
+                "validation": "*Admitted* or *Refused* (ADM-R4)",
+                "references": {
+                  "ids": [
+                    "ADM-R4"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-F15",
+                "name": "Refusal reason",
+                "validation": "*Already checked in*, *Wrong performance*, *Not a ticket we know* or *Ticket no longer valid* (ADM-R4)",
+                "references": {
+                  "ids": [
+                    "ADM-R4"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "intro": "",
+        "groups": [
+          {
+            "title": "Scope and issuing Tickets",
+            "anchor": "scope-and-issuing-tickets",
+            "rules": [
+              {
+                "id": "ADM-R1",
+                "title": "Scope",
+                "body": "Every Ticket belongs to its Holder and to the Organizer whose Performance it is\nfor. An Attendee sees and transfers only the Tickets they hold. A Team member sees only the Tickets\nfor their own Organizer's Performances, and scans only at those.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R2",
+                "title": "One Ticket per person getting in",
+                "body": "When an Order becomes *Confirmed* (SAL-001), one\nTicket is issued for every ticket on it — an Order of four tickets gives four Tickets — each with the\nOrder's Performance, its Order line's Ticket type and the Order's Attendee as Buyer and as its first\nHolder. No Ticket exists without a Confirmed Order.",
+                "engineeringDecisions": [
+                  {
+                    "adr": "ADR-005",
+                    "path": "external-context/docs/adr/005-event-delivery-outbox.md",
+                    "summary": "how a Confirmed Order reliably reaches this domain."
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "SAL-001"
+                  ]
+                }
+              },
+              {
+                "id": "ADM-R3",
+                "title": "Every Ticket has its own code",
+                "body": "No two Tickets share a Ticket code.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Transfers",
+            "anchor": "transfers",
+            "rules": [
+              {
+                "id": "ADM-R11",
+                "title": "What a Transfer does",
+                "body": "The person it is given to becomes the Ticket's Holder, with the\nname and Email address given, at once and without having to accept. The Ticket gets a new Ticket code\n(ADM-R3) and its old code stops admitting anyone (ADM-R4). The Ticket is in the Tickets of the Account\nwith that Email address (ACC-R2); if there is none yet, it appears in the Tickets of the Account later\nregistered with that Email address.",
+                "references": {
+                  "ids": [
+                    "ADM-R3",
+                    "ADM-R4",
+                    "ACC-R2"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R12",
+                "title": "When a Ticket can be transferred",
+                "body": "Each Ticket is transferred on its own; the rest of its\nOrder stays with its Holders. A Ticket can be transferred until the Doors time on its Performance's\nDate, local time at the Venue (EVT-R7), and not once it is Checked in. Whoever holds it can transfer\nit, including someone it was transferred to.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can the recipient of a Transfer transfer the Ticket on? Working answer: yes, as the rules stand — any Holder can, until the Doors time. The PO weighed touts, who would love it, against a friend who cannot go either, and took no position. Open question 4.",
+                    "openQuestion": {
+                      "number": 4
+                    }
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-R7"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R13",
+                "title": "A Transfer moves only the Ticket",
+                "body": "The Order, its Buyer and what was paid stay as they\nwere; the Ticket keeps its Performance and Ticket type. A Transfer costs nothing.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Scanning and checking in",
+            "anchor": "scanning-and-checking-in",
+            "rules": [
+              {
+                "id": "ADM-R4",
+                "title": "What a Scan decides",
+                "body": "A Scan is *Admitted* when the code read is the current Ticket code\nof a Ticket for the Scanned Performance that is not yet Checked in; the Ticket is then Checked in\n(ADM-F8). Any other Scan is *Refused*, with the reason that applies (ADM-F15):\n- *Already checked in* — the Ticket is already Checked in.\n- *Wrong performance* — the Ticket is for another of the Organizer's Performances.\n- *Not a ticket we know* — the code is no Ticket's, or is the Ticket of another Organizer (ADM-R1).\n- *Ticket no longer valid* — the code is a Ticket's earlier code, replaced by a Transfer (ADM-R11).\n\nWhen more than one applies, the first in this list is given. A Checked-in Ticket is never admitted\nagain, by whoever scans and at whichever Door, except as ADM-R7 allows while the phone cannot reach\nthe platform: there is no re-entry through the platform.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "when more than one reason applies, such as an earlier code of a Ticket for another Performance, which one do staff see? Working answer: the first in the list. Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "ADM-F8",
+                    "ADM-F15",
+                    "ADM-R1",
+                    "ADM-R11",
+                    "ADM-R7"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R5",
+                "title": "Every Scan is recorded",
+                "body": "Every Scan is kept, Admitted or Refused, with its Scanned\nPerformance, Door, who scanned, when, the code read, its Result and any Refusal reason (ADM-F9,\nADM-F10, ADM-F11, ADM-F12, ADM-F13, ADM-F14, ADM-F15).",
+                "references": {
+                  "ids": [
+                    "ADM-F9",
+                    "ADM-F10",
+                    "ADM-F11",
+                    "ADM-F12",
+                    "ADM-F13",
+                    "ADM-F14",
+                    "ADM-F15"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R6",
+                "title": "What a Scan shows",
+                "body": "An Admitted Scan shows the Ticket type and the Holder's name; a\nRefused Scan shows its reason, and for *Already checked in* when and by whom the Ticket was Checked\nin. A Scan shows nothing more about the Holder or the Order.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R7",
+                "title": "The door never stops",
+                "body": "When the phone cannot reach the platform, scanning carries on:\nthe queue is not held up, even at the risk of a duplicate getting in.",
+                "clarifications": [
+                  {
+                    "blocker": true,
+                    "text": "how much risk of a duplicate getting in, while a phone has no signal, is acceptable? Pending: engineering is to write up the options and the risk of each in plain words for her sign-off; the answer may change the form of the Ticket code (ADR-009)."
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R8",
+                "title": "Told apart without looking",
+                "body": "An Admitted Scan and a Refused Scan sound different — a\nbeep for each — and the phone vibrates, so staff who have stopped looking at the phone still know.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R9",
+                "title": "When scanning is open",
+                "body": "A Performance can be scanned only from its Doors time until 90\nminutes after its Start time, on its Date (EVT-F9, EVT-F10, EVT-F11); outside that it can't be\nchosen for scanning (ADM-V5).",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "when does scanning open and close, and what do staff see outside it? Working answer: opens at the Doors time and closes 90 minutes after the Start time, and a Performance outside that can't be chosen. Taken from the Lantern Front of house lead's memo, though the rule applies to every Organizer; the Finance manager said \"Doors time, normally\", though for one show the queue was checked against the list earlier. The PO did not decide it on the call. Open question 1.",
+                    "openQuestion": {
+                      "number": 1
+                    }
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-F9",
+                    "EVT-F10",
+                    "EVT-F11",
+                    "ADM-V5"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R10",
+                "title": "Counts",
+                "body": "For a Performance, *Sold* is the number of Tickets issued for it, the\n*Checked-in count* the number of those Checked in, and *Not yet arrived* the difference. They are\nlive and stay available after the Performance, and the Checked-in count is also kept per Door.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "ADM-R14",
+                "title": "Nothing to install",
+                "body": "Scanning works in the phone's own browser: Door staff install\nnothing to scan.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "EVT",
+      "specId": "EVT-001",
+      "title": "Events",
+      "path": "external-context/specs/EVT/events.md",
+      "owns": "Venues and their Doors, Events, Performances, Ticket types, publishing",
+      "context": "An Organizer sells tickets to shows, and shows come in different shapes. The Lantern Theatre Company\nruns a play for three weeks: \"Hamlet\" is one Event with eighteen Performances. Northgate Live mostly\nputs on one-night gigs. DevHarbour Conference has a day one and a day two. It is the same model each\ntime: an Event with one or more Performances, each one a dated occurrence of the Event at its Venue.\n\nEvery pilot venue is standing or unreserved, so all tickets are general admission: a Venue has a\nsingle Capacity, and each Performance is its own house — selling out Friday has nothing to do with\nSaturday. Nobody wants to type \"Standard €28\" eighteen times, so an Organizer sets its Ticket types up\nonce for the Event, and every Performance offers that many of each. What a Performance offers must\nnever add up to more than its Venue holds: overselling a room is how you end up with a fire officer\nat the door. All pilots are in one country, so dates and times are simply local time at the Venue.\n\nThis domain covers what an Organizer puts on: its Venues and the Doors at them, its Events with their\nPerformances and Ticket types, and publishing an Event so the public can see it and buy. It starts once an Organizer\nand its Team exist (Accounts spec, ACC-001) and ends when an Event is Published. Holding, buying and\nselling out are the Sales spec's (SAL-001).",
+      "glossary": [
+        {
+          "title": "Venues and shows",
+          "anchor": "venues-and-shows",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Venue"
+                }
+              ],
+              "definition": "A place where an Organizer holds Performances, such as the Old Tram Depot",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Capacity"
+                }
+              ],
+              "definition": "The most people a Venue lets in at one Performance",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Door"
+                }
+              ],
+              "definition": "A way into a Venue where Tickets are checked, with its own Door name — \"Door 1\", \"Side door\". Not the same as Doors time, which is when people can start coming in, nor the Door list (ADM-001), the printable list of a Performance's Tickets",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ADM-001"
+                ]
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "General admission"
+                }
+              ],
+              "definition": "Tickets with no seat attached: everyone with a ticket stands or sits anywhere in the Venue",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Event"
+                }
+              ],
+              "definition": "A show an Organizer puts on sale — \"Hamlet\", \"Northgate presents Ana Lux\" — at one Venue, with one or more Performances",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Performance"
+                }
+              ],
+              "definition": "One dated occurrence of an Event at its Venue — \"Hamlet, Friday 14th, 19:30\". A conference's \"day one\" is a Performance too",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Doors time"
+                }
+              ],
+              "definition": "When people can start coming in to a Performance, as opposed to its Start time, when the Performance begins. Not a Door, which is a way into the Venue",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "Ticket types and publishing",
+          "anchor": "ticket-types-and-publishing",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Ticket type"
+                }
+              ],
+              "definition": "A kind of ticket an Event sells, with its own name, Price and Quantity — \"Standard €28\", \"Concession €22\", \"Early bird €20\". The box office calls these price levels",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Price"
+                }
+              ],
+              "definition": "What one ticket of a Ticket type costs",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Quantity"
+                }
+              ],
+              "definition": "How many tickets of a Ticket type are on offer (EVT-R5)",
+              "references": {
+                "ids": [
+                  "EVT-R5"
+                ],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Event status"
+                }
+              ],
+              "definition": "Whether an Event is still being set up or can be seen and bought: *Draft* or *Published*. Unrelated to a Ticket type being On sale",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Draft"
+                }
+              ],
+              "definition": "The Event status of an Event its Organizer's Team is still setting up",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Published"
+                }
+              ],
+              "definition": "The Event status of an Event the public can see and buy tickets for",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "Owned by other specs",
+          "anchor": "owned-by-other-specs",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Organizer"
+                }
+              ],
+              "definition": "An organisation that puts events on sale. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Team member"
+                },
+                {
+                  "term": "Owner"
+                },
+                {
+                  "term": "Manager"
+                }
+              ],
+              "definition": "People on an Organizer's Team and their Team roles. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Platform admin"
+                }
+              ],
+              "definition": "TecknoworksTickets' own staff. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Visitor"
+                }
+              ],
+              "definition": "Anyone using TecknoworksTickets without being signed in. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Attendee"
+                }
+              ],
+              "definition": "Anyone signed in with their Account, acting for themselves — buying tickets and holding Tickets, whether bought or transferred to them. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Ticket"
+                },
+                {
+                  "term": "Scan"
+                }
+              ],
+              "definition": "One person's way in to a Performance, and one reading of a code at a Door. Owned by the Admission spec (ADM-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ADM-001"
+                ]
+              },
+              "ownedBy": "ADM-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Order"
+                },
+                {
+                  "term": "Confirmed"
+                },
+                {
+                  "term": "Pending payment"
+                }
+              ],
+              "definition": "An Attendee's purchase for one Performance, and the Order statuses of an Order that is paid for and of one still being paid for. Owned by the Sales spec (SAL-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "SAL-001"
+                ]
+              },
+              "ownedBy": "SAL-001"
+            }
+          ]
+        }
+      ],
+      "useCases": {
+        "intro": "What people can do and look up in this domain. Each use case is either an **action** — something a\nperson does that changes a Venue, an Event, its Performances or its Ticket types — or a **view** —\nsomething a person looks up to decide what to do. Who can lists everyone allowed; anyone not listed\ncannot. Every action and view applies only within the user's scope (EVT-R1). Each entry's\n**Status** is 🟢 Built (everything it states is met), 🟡 Partly built (usable end to end, with a\n**Gaps** line naming the rules or fields not yet met, and a **To reach 🟢** line saying what has to\nchange) or 🔴 Not built. Anywhere in this spec, *❓ Needs PO clarification* marks something the\nproduct owner has not yet clarified; everything unmarked is clarified. **⛔ Blocker** marks the few\nopen points that shape the foundation of the build, where a wrong answer would mean reworking it.",
+        "groups": [
+          {
+            "title": "Setting up Venues and their Doors",
+            "anchor": "setting-up-venues-and-their-doors",
+            "description": "Recording the places an Organizer holds its Performances, so its Events can be set up at them, and\nthe Doors at each where Tickets are checked.",
+            "entries": [
+              {
+                "id": "EVT-A1",
+                "kind": "action",
+                "title": "Add a Venue",
+                "anchor": "evt-a1--add-a-venue",
+                "summary": "Record a place the Organizer holds Performances, with how many people it lets in.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R2"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Venue name (required), Address (required), Capacity (required)",
+                  "items": [
+                    {
+                      "name": "Venue name",
+                      "required": true,
+                      "fieldId": "EVT-F1"
+                    },
+                    {
+                      "name": "Address",
+                      "required": true,
+                      "fieldId": "EVT-F2"
+                    },
+                    {
+                      "name": "Capacity",
+                      "required": true,
+                      "fieldId": "EVT-F3"
+                    }
+                  ]
+                },
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can a Venue be changed once it is added — its name, address or Capacity — and what happens to Events already set up there if its Capacity goes down? Working answer: no, a Venue's name, Address and Capacity can't be changed once added, so changing them is not in this spec yet; its Doors can (EVT-A12). Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-R2",
+                    "EVT-A12"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-V1",
+                "kind": "view",
+                "title": "See the Organizer's Venues",
+                "anchor": "evt-v1--see-the-organizers-venues",
+                "summary": "See the Venues the Organizer has added, to pick one when setting up an Event and to check its Doors.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R2"
+                ],
+                "status": "partlyBuilt",
+                "returns": "for each Venue, its Venue name, Address, Capacity and the Door name of each of its Doors",
+                "gaps": [
+                  "EVT-F16"
+                ],
+                "toReachBuilt": "give each Venue's Door names with it (EVT-F16).",
+                "references": {
+                  "ids": [
+                    "EVT-R2",
+                    "EVT-F16"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A12",
+                "kind": "action",
+                "title": "Set a Venue's Doors",
+                "anchor": "evt-a12--set-a-venues-doors",
+                "summary": "Give a Venue its Doors, the ways in where its Tickets are checked, so each Scan can record which Door\nthe person came through (ADM-001).",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R2",
+                  "EVT-R11"
+                ],
+                "status": "notBuilt",
+                "input": {
+                  "text": "Venue (required), Door name (required, one for each Door)",
+                  "items": [
+                    {
+                      "name": "Venue",
+                      "required": true,
+                      "fieldId": "EVT-F7"
+                    },
+                    {
+                      "name": "Door name (required, one for each Door)",
+                      "required": false
+                    }
+                  ]
+                },
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "who sets up a Venue's Doors? Working answer: the Organizer's Managers and Owner, as for Venues. The PO said only that Doors are \"on the venue\" and \"should be a list\". Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  },
+                  {
+                    "blocker": false,
+                    "text": "can a Venue's Doors be changed later, including once Events there are Published or Tickets are sold? Working answer: yes, at any time. Not discussed; a Venue's name, Address and Capacity can't be changed (EVT-A1). Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-R2",
+                    "EVT-R11",
+                    "EVT-A1"
+                  ],
+                  "specs": [
+                    "ADM-001"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "title": "Setting up an Event",
+            "anchor": "setting-up-an-event",
+            "description": "Creating an Event at one of the Organizer's Venues, giving it its Performances, and setting up the\nTicket types every Performance sells.",
+            "entries": [
+              {
+                "id": "EVT-A2",
+                "kind": "action",
+                "title": "Create an Event",
+                "anchor": "evt-a2--create-an-event",
+                "summary": "Start setting up a show at one of the Organizer's Venues.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R3",
+                  "EVT-R4"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Event name (required), Venue (required), Description, Image",
+                  "items": [
+                    {
+                      "name": "Event name",
+                      "required": true,
+                      "fieldId": "EVT-F4"
+                    },
+                    {
+                      "name": "Venue",
+                      "required": true,
+                      "fieldId": "EVT-F7"
+                    },
+                    {
+                      "name": "Description",
+                      "required": false,
+                      "fieldId": "EVT-F5"
+                    },
+                    {
+                      "name": "Image",
+                      "required": false,
+                      "fieldId": "EVT-F6"
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R3",
+                    "EVT-R4"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A3",
+                "kind": "action",
+                "title": "Change an Event's details",
+                "anchor": "evt-a3--change-an-events-details",
+                "summary": "Change what an Event is called, how it is described and pictured, or where it is held.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R4",
+                  "EVT-R6",
+                  "EVT-R8"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Event name, Description, Image, Venue",
+                  "items": [
+                    {
+                      "name": "Event name",
+                      "required": false,
+                      "fieldId": "EVT-F4"
+                    },
+                    {
+                      "name": "Description",
+                      "required": false,
+                      "fieldId": "EVT-F5"
+                    },
+                    {
+                      "name": "Image",
+                      "required": false,
+                      "fieldId": "EVT-F6"
+                    },
+                    {
+                      "name": "Venue",
+                      "required": false,
+                      "fieldId": "EVT-F7"
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R4",
+                    "EVT-R6",
+                    "EVT-R8"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A4",
+                "kind": "action",
+                "title": "Add a Performance",
+                "anchor": "evt-a4--add-a-performance",
+                "summary": "Add a date and time the Event takes place.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R7",
+                  "EVT-R8"
+                ],
+                "status": "partlyBuilt",
+                "input": {
+                  "text": "Date (required), Start time (required), Doors time (required)",
+                  "items": [
+                    {
+                      "name": "Date",
+                      "required": true,
+                      "fieldId": "EVT-F9"
+                    },
+                    {
+                      "name": "Start time",
+                      "required": true,
+                      "fieldId": "EVT-F10"
+                    },
+                    {
+                      "name": "Doors time",
+                      "required": true,
+                      "fieldId": "EVT-F11"
+                    }
+                  ]
+                },
+                "gaps": [
+                  "EVT-F10",
+                  "EVT-F11"
+                ],
+                "toReachBuilt": "refuse a Performance added without a Start time or a Doors time, instead of quietly treating a missing time as midnight (EVT-F10, EVT-F11).",
+                "references": {
+                  "ids": [
+                    "EVT-R7",
+                    "EVT-R8",
+                    "EVT-F10",
+                    "EVT-F11"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A5",
+                "kind": "action",
+                "title": "Change a Performance",
+                "anchor": "evt-a5--change-a-performance",
+                "summary": "Move a Performance to another date or time.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R7",
+                  "EVT-R8"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Date, Start time, Doors time",
+                  "items": [
+                    {
+                      "name": "Date",
+                      "required": false,
+                      "fieldId": "EVT-F9"
+                    },
+                    {
+                      "name": "Start time",
+                      "required": false,
+                      "fieldId": "EVT-F10"
+                    },
+                    {
+                      "name": "Doors time",
+                      "required": false,
+                      "fieldId": "EVT-F11"
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R7",
+                    "EVT-R8"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A6",
+                "kind": "action",
+                "title": "Remove a Performance",
+                "anchor": "evt-a6--remove-a-performance",
+                "summary": "Take a Performance off the Event.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R8"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "—",
+                  "items": []
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R8"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A7",
+                "kind": "action",
+                "title": "Add a Ticket type",
+                "anchor": "evt-a7--add-a-ticket-type",
+                "summary": "Add a kind of ticket every Performance of the Event sells.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R5",
+                  "EVT-R6",
+                  "EVT-R8",
+                  "EVT-R10"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Ticket type name (required), Price (required), Quantity (required)",
+                  "items": [
+                    {
+                      "name": "Ticket type name",
+                      "required": true,
+                      "fieldId": "EVT-F12"
+                    },
+                    {
+                      "name": "Price",
+                      "required": true,
+                      "fieldId": "EVT-F13"
+                    },
+                    {
+                      "name": "Quantity",
+                      "required": true,
+                      "fieldId": "EVT-F14"
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R5",
+                    "EVT-R6",
+                    "EVT-R8",
+                    "EVT-R10"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A8",
+                "kind": "action",
+                "title": "Change a Ticket type",
+                "anchor": "evt-a8--change-a-ticket-type",
+                "summary": "Change a Ticket type's name, Price or Quantity.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R5",
+                  "EVT-R6",
+                  "EVT-R8"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Ticket type name, Price, Quantity",
+                  "items": [
+                    {
+                      "name": "Ticket type name",
+                      "required": false,
+                      "fieldId": "EVT-F12"
+                    },
+                    {
+                      "name": "Price",
+                      "required": false,
+                      "fieldId": "EVT-F13"
+                    },
+                    {
+                      "name": "Quantity",
+                      "required": false,
+                      "fieldId": "EVT-F14"
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R5",
+                    "EVT-R6",
+                    "EVT-R8"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A9",
+                "kind": "action",
+                "title": "Remove a Ticket type",
+                "anchor": "evt-a9--remove-a-ticket-type",
+                "summary": "Stop offering a kind of ticket for the Event, and remove it from the Event altogether.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R8"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "—",
+                  "items": []
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R8"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-A11",
+                "kind": "action",
+                "title": "Take a Ticket type off sale",
+                "anchor": "evt-a11--take-a-ticket-type-off-sale",
+                "summary": "Stop selling a kind of ticket that *has sales* (EVT-R8), keeping it on the Event for the tickets\nbought.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R8",
+                  "EVT-R10"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "—",
+                  "items": []
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R8",
+                    "EVT-R10"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-V2",
+                "kind": "view",
+                "title": "See the Organizer's Events",
+                "anchor": "evt-v2--see-the-organizers-events",
+                "summary": "See every Event the Organizer has, Draft or Published, to pick one to work on.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R3"
+                ],
+                "status": "partlyBuilt",
+                "returns": "for each Event, its Event name, Venue, Event status, and the Date of each of its Performances",
+                "canFilterBy": [
+                  "Event status"
+                ],
+                "gaps": [
+                  "EVT-F8"
+                ],
+                "toReachBuilt": "let the Team filter its Events by Event status (EVT-F8).",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can Platform admins see an Organizer's Events as its Team does, here and in EVT-V3? Working answer: no. A Draft Event is seen by the Organizer's Team only, as the PO said, and Published Events are open to everyone through EVT-V4 and EVT-V5. Platform admins \"can see every organizer\", which may or may not take in their Events. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-R3",
+                    "EVT-F8",
+                    "EVT-V3",
+                    "EVT-V4",
+                    "EVT-V5"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-V3",
+                "kind": "view",
+                "title": "See an Event as its Team",
+                "anchor": "evt-v3--see-an-event-as-its-team",
+                "summary": "See everything about one of the Organizer's Events, Draft or Published, to check it before and after\npublishing.",
+                "whoCan": [
+                  "Manager",
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R3",
+                  "EVT-R5"
+                ],
+                "status": "built",
+                "returns": "the whole Event, with each of its Performances and Ticket types",
+                "references": {
+                  "ids": [
+                    "EVT-R3",
+                    "EVT-R5"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Publishing and finding what's on",
+            "anchor": "publishing-and-finding-whats-on",
+            "description": "Publishing an Event, and the public finding Events and looking at one before buying.",
+            "entries": [
+              {
+                "id": "EVT-A10",
+                "kind": "action",
+                "title": "Publish an Event",
+                "anchor": "evt-a10--publish-an-event",
+                "summary": "Make a Draft Event Published, so the public can see it and buy tickets for its Performances.",
+                "whoCan": [
+                  "Owner"
+                ],
+                "ruleIds": [
+                  "EVT-R3",
+                  "EVT-R9"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "—",
+                  "items": []
+                },
+                "references": {
+                  "ids": [
+                    "EVT-R3",
+                    "EVT-R9"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-V4",
+                "kind": "view",
+                "title": "Find what's on",
+                "anchor": "evt-v4--find-whats-on",
+                "summary": "See the Published Events, to choose one to look at.",
+                "whoCan": [
+                  "Visitor",
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "EVT-R1"
+                ],
+                "status": "built",
+                "returns": "for each Published Event, its Event name, Image, Venue name, and the Date of each of its Performances",
+                "references": {
+                  "ids": [
+                    "EVT-R1"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-V5",
+                "kind": "view",
+                "title": "See an Event",
+                "anchor": "evt-v5--see-an-event",
+                "summary": "See everything about one Published Event before choosing a Performance and tickets.",
+                "whoCan": [
+                  "Visitor",
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "EVT-R1",
+                  "EVT-R5",
+                  "EVT-R10"
+                ],
+                "status": "built",
+                "returns": "the Event's Event name, Description and Image; its Venue's Venue name and Address; for each Performance its Date, Doors time and Start time; and for each Ticket type that is On sale, its Ticket type name and Price",
+                "references": {
+                  "ids": [
+                    "EVT-R1",
+                    "EVT-R5",
+                    "EVT-R10"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "intro": "The fields of this domain's concepts, each defined once with what makes a value valid. The\ndatabase, domain model, application layer and front end all enforce the same definition and cite\nits ID. Actions and views name a whole concept where they take or return all of it, and its fields\nwhere they use only some. Whether a field is required depends on where it is used: each action's\n*Input* marks what it requires, and rules that span fields set the conditional cases. What a concept\nalways needs is stated with the concept.",
+        "groups": [
+          {
+            "concept": "Venue",
+            "anchor": "venue",
+            "description": "A Venue always has a Venue name, an Address, a Capacity and the Organizer it belongs to. It has no\nDoors until they are set up (EVT-A12).",
+            "fields": [
+              {
+                "id": "EVT-F1",
+                "name": "Venue name",
+                "validation": "Free text — \"Old Tram Depot\"",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F2",
+                "name": "Address",
+                "validation": "Free text",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F3",
+                "name": "Capacity",
+                "validation": "A whole number above zero — 450",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F16",
+                "name": "Door name",
+                "validation": "Free text — \"Door 1\", \"Side door\"; different from the Venue's other Door names",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "concept": "Event",
+            "anchor": "event",
+            "description": "An Event always has an Event name, a Venue, an Event status and the Organizer it belongs to.",
+            "fields": [
+              {
+                "id": "EVT-F4",
+                "name": "Event name",
+                "validation": "Free text — \"Hamlet\"",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F5",
+                "name": "Description",
+                "validation": "Free text",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F6",
+                "name": "Image",
+                "validation": "A picture, in the formats and up to the size engineering sets",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F7",
+                "name": "Venue",
+                "validation": "A Venue (EVT-R4)",
+                "references": {
+                  "ids": [
+                    "EVT-R4"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F8",
+                "name": "Event status",
+                "validation": "*Draft* or *Published* (EVT-R3)",
+                "references": {
+                  "ids": [
+                    "EVT-R3"
+                  ],
+                  "specs": []
+                }
+              }
+            ],
+            "engineeringDecisions": [
+              {
+                "adr": "ADR-008",
+                "path": "external-context/docs/adr/008-event-images.md",
+                "summary": "image formats and size."
+              }
+            ]
+          },
+          {
+            "concept": "Performance",
+            "anchor": "performance",
+            "description": "A Performance always has a Date, a Start time, a Doors time and the Event it belongs to.",
+            "fields": [
+              {
+                "id": "EVT-F9",
+                "name": "Date",
+                "validation": "A calendar date (EVT-R7)",
+                "references": {
+                  "ids": [
+                    "EVT-R7"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F10",
+                "name": "Start time",
+                "validation": "A time of day (EVT-R7)",
+                "references": {
+                  "ids": [
+                    "EVT-R7"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F11",
+                "name": "Doors time",
+                "validation": "A time of day (EVT-R7)",
+                "references": {
+                  "ids": [
+                    "EVT-R7"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "concept": "Ticket type",
+            "anchor": "ticket-type",
+            "description": "A Ticket type always has a Ticket type name, a Price, a Quantity, On sale and the Event it belongs\nto.",
+            "fields": [
+              {
+                "id": "EVT-F12",
+                "name": "Ticket type name",
+                "validation": "Free text — \"Standard\", \"Concession\"; different from the Event's other Ticket type names",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F13",
+                "name": "Price",
+                "validation": "An amount in euros, above zero, to two decimal places — €28.00",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F14",
+                "name": "Quantity",
+                "validation": "A whole number above zero (EVT-R5, EVT-R6, EVT-R8)",
+                "references": {
+                  "ids": [
+                    "EVT-R5",
+                    "EVT-R6",
+                    "EVT-R8"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-F15",
+                "name": "On sale",
+                "validation": "*Yes* or *No* (EVT-R10)",
+                "references": {
+                  "ids": [
+                    "EVT-R10"
+                  ],
+                  "specs": []
+                }
+              }
+            ],
+            "engineeringDecisions": [
+              {
+                "adr": "ADR-006",
+                "path": "external-context/docs/adr/006-money-and-time-on-sqlite.md",
+                "summary": "how Prices, dates and local times are stored."
+              }
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "intro": "",
+        "groups": [
+          {
+            "title": "Scope and Event status",
+            "anchor": "scope-and-event-status",
+            "rules": [
+              {
+                "id": "EVT-R1",
+                "title": "Scope",
+                "body": "Every Venue and every Event belongs to one Organizer. Team members see and act\nonly on their own Organizer's Venues and Events. A *Draft* Event is seen by its own Organizer's\nTeam alone; a *Published* Event is seen by everyone, signed in or not.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-R3",
+                "title": "Event status",
+                "body": "Every new Event starts as *Draft*, and becomes *Published* through\nEVT-A10.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can a Published Event be withdrawn, or go back to Draft? Working answer: no. Not on the list of what can change once Published. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-A10"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Venues and Doors",
+            "anchor": "venues-and-doors",
+            "rules": [
+              {
+                "id": "EVT-R2",
+                "title": "Each Organizer keeps its own Venues",
+                "body": "A Venue belongs to the Organizer that added it and\nis never shared with another Organizer: when Northgate Live and the Saltmarsh Folk Club both put\nshows on at the Old Tram Depot, each keeps its own Venue for it.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-R11",
+                "title": "Doors belong to their Venue",
+                "body": "A Venue's Doors are set up on the Venue, not per\nPerformance or at the door: the Door of every Scan is one of the Doors of the Scanned Performance's\nVenue (ADM-001).",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "ADM-001"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "title": "Events, Performances and Ticket types",
+            "anchor": "events-performances-and-ticket-types",
+            "rules": [
+              {
+                "id": "EVT-R4",
+                "title": "One Venue per Event",
+                "body": "An Event is held at one Venue, which belongs to its own Organizer\n(EVT-R2), and every Performance of the Event is at that Venue.",
+                "references": {
+                  "ids": [
+                    "EVT-R2"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-R5",
+                "title": "Ticket types serve every Performance",
+                "body": "An Event's Ticket types are set up once, for the\nwhole Event. Every Performance offers each Ticket type at the same Price and its full Quantity, on its\nown: what one Performance sells never reduces what another offers.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-R6",
+                "title": "Never more than the Venue holds",
+                "body": "The Quantities of an Event's Ticket types add up to no\nmore than its Venue's Capacity. A Ticket type is not added or changed, and an Event's Venue is not\nchanged, if that would break this.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-R7",
+                "title": "Performance times",
+                "body": "A Performance's Date, Start time and Doors time are local time at the\nVenue. Its Doors time is at or before its Start time. A Performance is added or moved only to a Date\nand Start time still to come.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "must the Doors time be at or before the Start time? Working answer: yes. Inferred from Doors being when people can start coming in. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  },
+                  {
+                    "blocker": false,
+                    "text": "can a Performance be added on a date already past? Working answer: no, only for a date and time still to come. Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "EVT-R8",
+                "title": "What can change once Published",
+                "body": "While an Event is *Draft*, its details, Performances\nand Ticket types can all be changed, added and removed. Once it is *Published*, these hold, where a\nPerformance or Ticket type *has sales* when it has tickets on an Order that is *Confirmed* or\n*Pending payment* (SAL-001):\n\n| Change | Once Published |\n|--------|----------------|\n| Event name, Description, Image | Any time |\n| The Event's Venue | Never |\n| Add a Performance | Allowed (EVT-R7) |\n| Move a Performance to another Date, Start time or Doors time | Only while it has no sales |\n| Remove a Performance | Only while it has no sales |\n| Add a Ticket type | Allowed (EVT-R6) |\n| Change a Ticket type's Price | Allowed; Orders already placed keep their price (SAL-001) |\n| Change a Ticket type's Quantity | Up, within the Venue's Capacity (EVT-R6); down, to no fewer than its tickets on Confirmed or Pending payment Orders for any one Performance |\n| Change a Ticket type's name | Only while it has no sales |\n| Remove a Ticket type | Only while it has no sales; one with sales can be taken off sale instead (EVT-R10) |",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can an Event's Venue be changed once it is Published? Working answer: no. Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  },
+                  {
+                    "blocker": false,
+                    "text": "can a Ticket type be added to a Published Event? Working answer: yes, within the Venue's Capacity. Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  },
+                  {
+                    "blocker": false,
+                    "text": "can a Ticket type that has sales be renamed? Working answer: no. Not discussed; the Event's own name can change any time. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  },
+                  {
+                    "blocker": false,
+                    "text": "do tickets held in someone's checkout count as sales for moving or removing a Performance and removing a Ticket type? Working answer: yes, as they do for lowering a Quantity. Inferred from Quantity not going below what is sold or held. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "EVT-R7",
+                    "EVT-R6",
+                    "EVT-R10"
+                  ],
+                  "specs": [
+                    "SAL-001"
+                  ]
+                }
+              },
+              {
+                "id": "EVT-R10",
+                "title": "Taking a Ticket type off sale",
+                "body": "A Ticket type is On sale when it is added. One that is\ntaken off sale stays on the Event, with the tickets already bought, but the public no longer sees or\nbuys it (SAL-001).",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "SAL-001"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "title": "Publishing",
+            "anchor": "publishing",
+            "rules": [
+              {
+                "id": "EVT-R9",
+                "title": "What an Event needs to be Published",
+                "body": "An Event is not published unless it has an Event\nname, a Description, an Image and a Venue, at least one Performance and at least one Ticket type.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "what must an Event have before it can be published: are a Description and an Image required, and at least one Performance and one Ticket type? Working answer: all of them. Inferred from the PO's description of an Event as having a name, a description, an image, a venue and dates. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "SAL",
+      "specId": "SAL-001",
+      "title": "Sales",
+      "path": "external-context/specs/SAL/sales.md",
+      "owns": "Availability, Holds, Orders and an Attendee's order history, the Booking fee, card Payment, sold out",
+      "context": "Buying a ticket has to be quick for the Attendee and exact for everyone else. An Attendee opens a\nPerformance, picks how many of each Ticket type they want and pays by card. While they pay, those\ntickets are held for them so nobody else can take them; if they wander off, the Hold runs out and the\ntickets go back on sale. At a big on-sale — Northgate's Ana Lux show — hundreds of people try at\nonce and keep refreshing as Holds run out, and a Performance must never sell more than it offers.\n\nThe Attendee pays the Face value of the tickets, which goes to the Organizer, plus a Booking fee,\nwhich TecknoworksTickets keeps. The fee is shown before they pay — a legal requirement, not a\ncourtesy. Card details are taken by the Payment provider itself, so TecknoworksTickets never sees a\ncard number. The Finance manager reconciles every Performance on its own, never an Event as a\nwhole.\n\nThis domain covers buying: what is still available for each Performance, Holds, Orders and their\nPayment, the Booking fee, and when a Performance is sold out. It works from the Events the Events\nspec (EVT-001) publishes, and ends when an Order is Confirmed; the Tickets that come from it are the\nAdmission spec's (ADM-001).",
+      "glossary": [
+        {
+          "title": "Orders and Holds",
+          "anchor": "orders-and-holds",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Order"
+                }
+              ],
+              "definition": "One Attendee's purchase of tickets for one Performance",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Checkout"
+                }
+              ],
+              "definition": "Choosing tickets for one Performance and paying for them, while they are held for the Attendee",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Order line"
+                }
+              ],
+              "definition": "One Ticket type on an Order, with how many tickets of it and their Ticket price",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Hold"
+                }
+              ],
+              "definition": "The tickets of an Order set aside for its Attendee while they pay",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Hold period"
+                }
+              ],
+              "definition": "How long a Hold lasts from the moment the Attendee starts checkout",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Order status"
+                }
+              ],
+              "definition": "Where an Order is in its life: *Pending payment*, *Confirmed* or *Expired*",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Pending payment"
+                }
+              ],
+              "definition": "The Order status of an Order still in checkout: its Hold is running and it is not yet Confirmed",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Confirmed"
+                }
+              ],
+              "definition": "The Order status of an Order that is paid for and holds its tickets (SAL-R2)",
+              "references": {
+                "ids": [
+                  "SAL-R2"
+                ],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Expired"
+                }
+              ],
+              "definition": "The Order status of an Order whose Hold ran out, or was replaced by a newer checkout, before it was Confirmed",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "Availability",
+          "anchor": "availability",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Availability"
+                }
+              ],
+              "definition": "How many tickets of a Ticket type a Performance can still sell",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Sold out"
+                }
+              ],
+              "definition": "A Ticket type at a Performance with no Availability left, or a Performance with nothing left to buy (SAL-R6)",
+              "references": {
+                "ids": [
+                  "SAL-R6"
+                ],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "Fees and payment",
+          "anchor": "fees-and-payment",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Face value"
+                }
+              ],
+              "definition": "What an Order's tickets cost at their Ticket prices, before the Booking fee",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Booking fee"
+                }
+              ],
+              "definition": "What the Attendee pays TecknoworksTickets on an Order (SAL-R8)",
+              "references": {
+                "ids": [
+                  "SAL-R8"
+                ],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Order total"
+                }
+              ],
+              "definition": "What the Attendee pays for an Order, Booking fee included (SAL-R9)",
+              "references": {
+                "ids": [
+                  "SAL-R9"
+                ],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Payment"
+                }
+              ],
+              "definition": "An attempt to pay an Order's total by card through the Payment provider",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Payment provider"
+                }
+              ],
+              "definition": "The card payment company that takes the Attendee's card details and the money",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Paid"
+                }
+              ],
+              "definition": "The Payment result of a Payment the Payment provider took the money for",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Declined"
+                }
+              ],
+              "definition": "The Payment result of a Payment the card was refused for",
+              "references": {
+                "ids": [],
+                "specs": []
+              }
+            },
+            {
+              "names": [
+                {
+                  "term": "Refunded"
+                }
+              ],
+              "definition": "The Payment result of a Payment that was *Paid* and whose money was then given back to the Attendee (SAL-R13)",
+              "references": {
+                "ids": [
+                  "SAL-R13"
+                ],
+                "specs": []
+              }
+            }
+          ]
+        },
+        {
+          "title": "Owned by other specs",
+          "anchor": "owned-by-other-specs",
+          "terms": [
+            {
+              "names": [
+                {
+                  "term": "Visitor"
+                }
+              ],
+              "definition": "Anyone using TecknoworksTickets without being signed in. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Attendee"
+                }
+              ],
+              "definition": "Anyone signed in with their Account, acting for themselves — buying tickets and holding Tickets, whether bought or transferred to them. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Account"
+                }
+              ],
+              "definition": "A person's login to TecknoworksTickets. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Organizer"
+                }
+              ],
+              "definition": "An organisation that puts events on sale. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Finance manager"
+                }
+              ],
+              "definition": "TecknoworksTickets' finance lead, who reconciles what was sold for each Performance. Owned by the Accounts spec (ACC-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ACC-001"
+                ]
+              },
+              "ownedBy": "ACC-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Event"
+                },
+                {
+                  "term": "Performance"
+                }
+              ],
+              "definition": "A show, and one dated occurrence of it. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Ticket type"
+                },
+                {
+                  "term": "Price"
+                },
+                {
+                  "term": "Quantity"
+                }
+              ],
+              "definition": "What a Performance offers and at what Price. Owned by the Events spec (EVT-001); this domain sells against them",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Published"
+                }
+              ],
+              "definition": "An Event the public can see and buy for. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "On sale"
+                }
+              ],
+              "definition": "Whether a Ticket type can still be bought; one taken off sale stays on its Event. Owned by the Events spec (EVT-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "EVT-001"
+                ]
+              },
+              "ownedBy": "EVT-001"
+            },
+            {
+              "names": [
+                {
+                  "term": "Ticket"
+                },
+                {
+                  "term": "Buyer"
+                }
+              ],
+              "definition": "One person's way in to a Performance, issued from a Confirmed Order — not the same as the tickets counted on an Order line — and the Attendee whose Order it was issued from. Owned by the Admission spec (ADM-001)",
+              "references": {
+                "ids": [],
+                "specs": [
+                  "ADM-001"
+                ]
+              },
+              "ownedBy": "ADM-001"
+            }
+          ]
+        }
+      ],
+      "useCases": {
+        "intro": "What people can do and look up in this domain. Each use case is either an **action** — something a\nperson does that changes an Order — or a **view** — something a person looks up to decide what to\ndo. What happens by itself — a Hold running out, Availability going down and back up — is a domain\nrule. Who can lists everyone allowed; anyone not listed cannot. Every action and view applies only\nwithin the user's scope (SAL-R1). Each entry's **Status** is 🟢 Built (everything it states is met),\n🟡 Partly built (usable end to end, with a **Gaps** line naming the rules or fields not yet met, and\na **To reach 🟢** line saying what has to change) or 🔴 Not built. Anywhere in this spec, *❓ Needs\nPO clarification* marks something the product owner has not yet clarified; everything unmarked is\nclarified. **⛔ Blocker** marks the few open points that shape the foundation of the build, where a\nwrong answer would mean reworking it.",
+        "groups": [
+          {
+            "title": "Checking out and paying",
+            "anchor": "checking-out-and-paying",
+            "description": "Choosing tickets for a Performance, having them held, paying for them while they are, and looking\nback at one's Orders.",
+            "entries": [
+              {
+                "id": "SAL-A1",
+                "kind": "action",
+                "title": "Start checkout",
+                "anchor": "sal-a1--start-checkout",
+                "summary": "Choose how many tickets of each Ticket type to buy for one Performance, placing an Order and holding\nthe tickets for the Attendee. Each Ticket type chosen, with its Number of tickets, is one Order line.",
+                "whoCan": [
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "SAL-R2",
+                  "SAL-R3",
+                  "SAL-R4",
+                  "SAL-R5",
+                  "SAL-R6",
+                  "SAL-R7",
+                  "SAL-R8",
+                  "SAL-R9",
+                  "SAL-R15"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "Performance (required), Order line (required, at least one), Ticket type (required, for each Order line), Number of tickets (required, for each Order line)",
+                  "items": [
+                    {
+                      "name": "Performance",
+                      "required": true,
+                      "fieldId": "SAL-F2"
+                    },
+                    {
+                      "name": "Order line (required, at least one)",
+                      "required": false
+                    },
+                    {
+                      "name": "Ticket type (required, for each Order line)",
+                      "required": false
+                    },
+                    {
+                      "name": "Number of tickets (required, for each Order line)",
+                      "required": false
+                    }
+                  ]
+                },
+                "references": {
+                  "ids": [
+                    "SAL-R2",
+                    "SAL-R3",
+                    "SAL-R4",
+                    "SAL-R5",
+                    "SAL-R6",
+                    "SAL-R7",
+                    "SAL-R8",
+                    "SAL-R9",
+                    "SAL-R15"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-V1",
+                "kind": "view",
+                "title": "See an Order in checkout",
+                "anchor": "sal-v1--see-an-order-in-checkout",
+                "summary": "See what is being bought and how long the tickets stay held, to pay before the Hold runs out.",
+                "whoCan": [
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "SAL-R5",
+                  "SAL-R7",
+                  "SAL-R8",
+                  "SAL-R9",
+                  "SAL-R10"
+                ],
+                "status": "built",
+                "returns": "the whole Order, with the Payment result of its latest Payment; and for each Order line its Ticket type, Number of tickets and Ticket price",
+                "references": {
+                  "ids": [
+                    "SAL-R5",
+                    "SAL-R7",
+                    "SAL-R8",
+                    "SAL-R9",
+                    "SAL-R10"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-A2",
+                "kind": "action",
+                "title": "Pay for an Order",
+                "anchor": "sal-a2--pay-for-an-order",
+                "summary": "Pay an Order's total by card through the Payment provider, so the Order is Confirmed.",
+                "whoCan": [
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "SAL-R2",
+                  "SAL-R11",
+                  "SAL-R12",
+                  "SAL-R13"
+                ],
+                "status": "built",
+                "input": {
+                  "text": "—",
+                  "items": []
+                },
+                "references": {
+                  "ids": [
+                    "SAL-R2",
+                    "SAL-R11",
+                    "SAL-R12",
+                    "SAL-R13"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-V4",
+                "kind": "view",
+                "title": "See my Orders",
+                "anchor": "sal-v4--see-my-orders",
+                "summary": "See every Order the Attendee has placed, Expired ones included, to look back at what they bought or\ntried to buy.",
+                "whoCan": [
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "SAL-R2"
+                ],
+                "status": "notBuilt",
+                "returns": "for each of their Orders, its Performance with the Event name and Date (EVT-001), Placed at, Order status and Order total, and for each Order line its Ticket type and Number of tickets",
+                "references": {
+                  "ids": [
+                    "SAL-R2"
+                  ],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "title": "Availability and sales per Performance",
+            "anchor": "availability-and-sales-per-performance",
+            "description": "What the public can still buy for each Performance, and what each Performance has sold.",
+            "entries": [
+              {
+                "id": "SAL-V2",
+                "kind": "view",
+                "title": "See what's left for a Performance",
+                "anchor": "sal-v2--see-whats-left-for-a-performance",
+                "summary": "See whether a Performance, and each of its Ticket types, can still be bought, before starting\ncheckout.",
+                "whoCan": [
+                  "Visitor",
+                  "Attendee"
+                ],
+                "ruleIds": [
+                  "SAL-R6",
+                  "SAL-R14"
+                ],
+                "status": "built",
+                "returns": "for the Performance and for each of its Ticket types that is On sale (EVT-001), whether it is Sold out",
+                "references": {
+                  "ids": [
+                    "SAL-R6",
+                    "SAL-R14"
+                  ],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "SAL-V3",
+                "kind": "view",
+                "title": "See a Performance's sales",
+                "anchor": "sal-v3--see-a-performances-sales",
+                "summary": "See what was sold, and what was refunded, for one Performance, to reconcile it.",
+                "whoCan": [
+                  "Finance manager"
+                ],
+                "ruleIds": [
+                  "SAL-R8",
+                  "SAL-R9",
+                  "SAL-R13"
+                ],
+                "status": "built",
+                "returns": "for each Order that is *Confirmed*, or *Expired* with a *Refunded* Payment (SAL-R13): its Attendee, with their Name and Email address (ACC-001), Placed at, Order status, each Order line's Ticket type, Number of tickets and Ticket price, its Face value, Booking fee and Order total; and for the Performance, over its *Confirmed* Orders only, the number of tickets of each Ticket type and the total Face value and Booking fee",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "what does the Finance manager need on the list of what was sold for each Performance? Working answer: every Confirmed Order with its buyer, tickets and amounts, plus the Performance's totals, and any Expired Order whose money was taken and refunded. The Finance manager asked for \"a list of what was sold per performance\" without saying what is on it. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  },
+                  {
+                    "blocker": false,
+                    "text": "does anyone on the Organizer's Team need this list too? Working answer: no, the Finance manager only. Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "SAL-R13",
+                    "SAL-R8",
+                    "SAL-R9"
+                  ],
+                  "specs": [
+                    "ACC-001"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "intro": "The fields of this domain's concepts, each defined once with what makes a value valid. The\ndatabase, domain model, application layer and front end all enforce the same definition and cite\nits ID. Actions and views name a whole concept where they take or return all of it, and its fields\nwhere they use only some. Whether a field is required depends on where it is used: each action's\n*Input* marks what it requires, and rules that span fields set the conditional cases. What a concept\nalways needs is stated with the concept.",
+        "groups": [
+          {
+            "concept": "Order",
+            "anchor": "order",
+            "description": "An Order always has the Attendee who placed it, a Performance, at least one Order line, an Order\nstatus and the time it was placed.",
+            "fields": [
+              {
+                "id": "SAL-F1",
+                "name": "Attendee",
+                "validation": "The Account that placed the Order (ACC-001) — the Buyer of its Tickets (ADM-001)",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "ACC-001",
+                    "ADM-001"
+                  ]
+                }
+              },
+              {
+                "id": "SAL-F2",
+                "name": "Performance",
+                "validation": "A Performance (EVT-001)",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "SAL-F3",
+                "name": "Placed at",
+                "validation": "The date and time checkout started",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-F4",
+                "name": "Order status",
+                "validation": "*Pending payment*, *Confirmed* or *Expired* (SAL-R2)",
+                "references": {
+                  "ids": [
+                    "SAL-R2"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-F5",
+                "name": "Hold ends at",
+                "validation": "Placed at plus the Hold period (SAL-R5)",
+                "references": {
+                  "ids": [
+                    "SAL-R5"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-F6",
+                "name": "Face value",
+                "validation": "An amount in euros, to two decimal places (SAL-R9)",
+                "references": {
+                  "ids": [
+                    "SAL-R9"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-F7",
+                "name": "Booking fee",
+                "validation": "An amount in euros, to two decimal places (SAL-R8)",
+                "references": {
+                  "ids": [
+                    "SAL-R8"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-F8",
+                "name": "Order total",
+                "validation": "An amount in euros, to two decimal places (SAL-R9)",
+                "references": {
+                  "ids": [
+                    "SAL-R9"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "concept": "Order line",
+            "anchor": "order-line",
+            "description": "An Order line always has a Ticket type, a Number of tickets and a Ticket price.",
+            "fields": [
+              {
+                "id": "SAL-F9",
+                "name": "Ticket type",
+                "validation": "A Ticket type of the Event the Order's Performance belongs to (EVT-001)",
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "SAL-F10",
+                "name": "Number of tickets",
+                "validation": "A whole number from 1 to 8 (SAL-R4)",
+                "references": {
+                  "ids": [
+                    "SAL-R4"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-F11",
+                "name": "Ticket price",
+                "validation": "The Price of one ticket of the Ticket type when the Order was placed (SAL-R7)",
+                "references": {
+                  "ids": [
+                    "SAL-R7"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "concept": "Payment",
+            "anchor": "payment",
+            "description": "A Payment always has the Order it pays, and a Payment result once the Payment provider answers.",
+            "fields": [
+              {
+                "id": "SAL-F12",
+                "name": "Payment result",
+                "validation": "*Paid*, *Declined* or *Refunded* (SAL-R12, SAL-R13)",
+                "references": {
+                  "ids": [
+                    "SAL-R12",
+                    "SAL-R13"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "intro": "",
+        "groups": [
+          {
+            "title": "Scope and Order status",
+            "anchor": "scope-and-order-status",
+            "rules": [
+              {
+                "id": "SAL-R1",
+                "title": "Scope",
+                "body": "Every Order belongs to the Attendee who placed it and to the Organizer whose\nPerformance it is for. An Attendee sees and acts only on their own Orders. The Finance manager sees\nevery Order, for every Organizer.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "does the Finance manager see the sales of every Organizer? Working answer: yes. It depends on the Finance manager's place on the platform, which is open in the Accounts spec (ACC-001). Accounts open question 3 (ACC-001).",
+                    "openQuestion": {
+                      "number": 3,
+                      "spec": "ACC-001"
+                    }
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "ACC-001"
+                  ]
+                }
+              },
+              {
+                "id": "SAL-R2",
+                "title": "Order status follows the Order's life",
+                "body": "An Order is *Pending payment* from the moment\ncheckout starts. It becomes *Confirmed* when a Payment for it comes back *Paid* while its Hold lasts\n(SAL-R12), and *Expired* when its Hold runs out first (SAL-R5) or a newer checkout replaces it\n(SAL-R15). An *Expired* Order becomes *Confirmed* only through a late Payment (SAL-R13). Every Order\nis in exactly one of these at a time.",
+                "references": {
+                  "ids": [
+                    "SAL-R12",
+                    "SAL-R5",
+                    "SAL-R15",
+                    "SAL-R13"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Placing an Order and holding its tickets",
+            "anchor": "placing-an-order-and-holding-its-tickets",
+            "rules": [
+              {
+                "id": "SAL-R3",
+                "title": "What refuses checkout",
+                "body": "Checkout does not start while any of these holds:\n\n| Refused when | Defined in |\n|--------------|-----------|\n| The Performance's Event is not *Published* | EVT-001 |\n| The Order would have no tickets, or more than eight | SAL-R4 |\n| A Ticket type would get more tickets than its Availability for the Performance | SAL-R6 |\n| A Ticket type chosen is not On sale | EVT-001 |\n| The Performance's Date and Start time have passed | — |",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "can tickets still be bought once a Performance has started, or for one already past? Working answer: no, checkout is refused once its Start time has passed. Not discussed. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "SAL-R4",
+                    "SAL-R6"
+                  ],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "SAL-R4",
+                "title": "What one Order holds",
+                "body": "An Order is for one Performance: tickets for another Performance\nneed another Order. It has at least one ticket and at most eight, counted across all its Ticket\ntypes. The limit is per Order: an Attendee may place more than one Order for the same Performance.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R5",
+                "title": "A Hold lasts ten minutes",
+                "body": "Starting checkout holds every ticket on the Order for a Hold\nperiod of ten minutes, and no one else can buy a held ticket. If the Order is not Confirmed by its\nHold ends at, it becomes *Expired* and its tickets are available again.",
+                "engineeringDecisions": [
+                  {
+                    "adr": "ADR-003",
+                    "path": "external-context/docs/adr/003-hold-expiry.md",
+                    "summary": "how a Hold runs out on time."
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R15",
+                "title": "One checkout per Performance",
+                "body": "An Attendee has at most one Order *Pending payment* for\na Performance. Starting checkout for a Performance makes the Attendee's earlier *Pending payment*\nOrder for it *Expired*, freeing its tickets, before the new Order's tickets are held. Orders for\nother Performances are not affected.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R7",
+                "title": "Price at the time",
+                "body": "Each Order line keeps the Ticket type's Price as it was when the\nOrder was placed, whatever happens to the Price afterwards.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Fees and paying",
+            "anchor": "fees-and-paying",
+            "rules": [
+              {
+                "id": "SAL-R8",
+                "title": "The Booking fee",
+                "body": "An Order's Booking fee is €1.50 for each ticket on it, paid by the\nAttendee on top of the Face value. The Face value goes to the Organizer; the Booking fee is\nTecknoworksTickets'.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R9",
+                "title": "What an Order costs",
+                "body": "An Order's Face value is the sum, over its Order lines, of Ticket\nprice times Number of tickets. Its Order total is its Face value plus its Booking fee.",
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R10",
+                "title": "The fee is stated before paying",
+                "body": "Before an Attendee pays, the Order's Face value,\nBooking fee and Order total are stated to them, each separately.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "must VAT be stated separately as well — on the Booking fee, on the Face value, or both? Working answer: no separate VAT. The Finance manager is asking the accountant. Open question 5.",
+                    "openQuestion": {
+                      "number": 5
+                    }
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R11",
+                "title": "Card details stay with the Payment provider",
+                "body": "Card details are entered only with the\nPayment provider. TecknoworksTickets never receives or keeps a card number.",
+                "engineeringDecisions": [
+                  {
+                    "adr": "ADR-004",
+                    "path": "external-context/docs/adr/004-payment-provider-port.md",
+                    "summary": "how card payment through the Payment provider is built."
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R12",
+                "title": "Paying while the Hold lasts",
+                "body": "A Payment is for the Order's full Order total. A Payment\nthat comes back *Paid* before the Order's Hold ends at makes the Order *Confirmed*; one that comes\nback after it follows SAL-R13. A *Declined* Payment leaves the Order *Pending payment*, and the\nOrder can be paid again until its Hold ends at. No Payment is started for an Order that is\n*Confirmed* or *Expired*.",
+                "references": {
+                  "ids": [
+                    "SAL-R13"
+                  ],
+                  "specs": []
+                }
+              },
+              {
+                "id": "SAL-R13",
+                "title": "A Payment that completes after the Hold ran out",
+                "body": "When a Payment for an Order whose\nHold ran out (SAL-R5) comes back *Paid*, the Order becomes *Confirmed* if the Performance still has\nAvailability for every Order line — the same Ticket types, in the same Numbers of tickets, at the\nOrder's own Ticket prices. Nothing on the Order is swapped for something else. Otherwise the Order\nstays *Expired*, the whole Payment is refunded automatically through the Payment provider, its\nPayment result becomes *Refunded*, and the Attendee is told.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "what happens when a Payment comes back Paid for an Order that was replaced by a newer checkout for the same Performance (SAL-R15)? Working answer: it is refunded automatically, as when the tickets are gone, so the Attendee never ends up with both Orders. Not discussed; the late-payment answer covered only a Hold running out. Open question 6.",
+                    "openQuestion": {
+                      "number": 6
+                    }
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "SAL-R5",
+                    "SAL-R15"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          },
+          {
+            "title": "Availability and Sold out",
+            "anchor": "availability-and-sold-out",
+            "rules": [
+              {
+                "id": "SAL-R6",
+                "title": "Availability",
+                "body": "A Performance's Availability for a Ticket type is its Quantity, less the\ntickets of that Ticket type on the Performance's *Confirmed* Orders and on its *Pending payment*\nOrders. It never goes below zero. A Ticket type is *Sold out* for a Performance when its\nAvailability is zero, and the Performance is *Sold out* when every Ticket type it has On sale is —\nwhether their tickets are sold or only held. Either stops being Sold out as soon as its Availability\nis above zero again, for example when a Hold runs out.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "is a Performance Sold out when every Ticket type still On sale has no Availability, even if a Ticket type taken off sale still has some? Working answer: yes, only Ticket types On sale count, since one taken off sale can't be bought (EVT-001). Not discussed; taking a Ticket type off sale came after the sold-out rule. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "engineeringDecisions": [
+                  {
+                    "adr": "ADR-002",
+                    "path": "external-context/docs/adr/002-no-overselling-on-sqlite.md",
+                    "summary": "how overselling is prevented when many checkouts run at once."
+                  }
+                ],
+                "references": {
+                  "ids": [],
+                  "specs": [
+                    "EVT-001"
+                  ]
+                }
+              },
+              {
+                "id": "SAL-R14",
+                "title": "Sold out, not how many are left",
+                "body": "Visitors and Attendees see whether a Performance and\neach of its Ticket types is Sold out (SAL-R6), but not how many tickets are left.",
+                "clarifications": [
+                  {
+                    "blocker": false,
+                    "text": "should the public see Sold out for a single Ticket type (\"Early bird — sold out\") as well as for the whole Performance? Working answer: yes. The PO spoke only of a Performance being sold out. Listed as an assumption in the open questions.",
+                    "isAssumption": true
+                  }
+                ],
+                "references": {
+                  "ids": [
+                    "SAL-R6"
+                  ],
+                  "specs": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

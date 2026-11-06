@@ -1,0 +1,768 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "specs.export.schema.json",
+  "title": "Domain specs JSON export",
+  "description": "The domain specs in external-context/specs/, exported for display in a web app. Mirrors the sdlc-spec-manager format: Context, Glossary, Use Cases (actions and views), Fields, Domain Rules. Prose is kept as Markdown, as written in the spec; the structure the scripts rely on (IDs, status, Who can, Rules lines, markers) is broken out so the app can filter, badge and cross-link without re-parsing Markdown.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "specs"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceCommit": {
+      "description": "Git commit the specs were exported from, so a screen can say which version it shows.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "specs": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/spec"
+      }
+    }
+  },
+  "$defs": {
+    "markdown": {
+      "description": "Text exactly as written in the spec, Markdown included (italics, ADR links). The app renders it; it does not parse it.",
+      "type": "string"
+    },
+    "anchor": {
+      "description": "The GitHub-style heading slug the spec's Contents uses (adm-v1--see-my-tickets), so deep links match the Markdown file.",
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "domainCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}$"
+    },
+    "specRef": {
+      "description": "Another spec, cited by its code (EVT-001).",
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[0-9]{3}$"
+    },
+    "entryId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[AVRF][0-9]+$"
+    },
+    "useCaseId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[AV][0-9]+$"
+    },
+    "fieldId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-F[0-9]+$"
+    },
+    "ruleId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-R[0-9]+$"
+    },
+    "references": {
+      "description": "Every ID and spec code the item's text cites, in order of first appearance — for hover cards and back-links.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ids",
+        "specs"
+      ],
+      "properties": {
+        "ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/entryId"
+          }
+        },
+        "specs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/specRef"
+          }
+        }
+      }
+    },
+    "clarification": {
+      "description": "One *[❓ Needs PO clarification — …]* marker, or a *[⛔ Blocker — ❓ …]* one.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "blocker",
+        "text"
+      ],
+      "properties": {
+        "blocker": {
+          "type": "boolean"
+        },
+        "text": {
+          "$ref": "#/$defs/markdown",
+          "description": "What follows the dash: the question, then the working answer or 'No position yet'."
+        },
+        "openQuestion": {
+          "description": "The open question that already asks it, when the marker cites one ('Open question 5', 'Accounts open question 3 (ACC-001)').",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "number"
+          ],
+          "properties": {
+            "spec": {
+              "$ref": "#/$defs/specRef",
+              "description": "Absent when it is this spec's own open-questions file."
+            },
+            "number": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "isAssumption": {
+          "type": "boolean",
+          "description": "True when the marker says it is 'Listed as an assumption in the open questions'."
+        }
+      }
+    },
+    "engineeringDecision": {
+      "description": "An *Engineering decision: [ADR-…](…) — …* line under an entry, field group or rule.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adr",
+        "summary"
+      ],
+      "properties": {
+        "adr": {
+          "type": "string",
+          "pattern": "^ADR-[0-9]{3}$"
+        },
+        "path": {
+          "type": "string",
+          "description": "Repo-relative path of the ADR file."
+        },
+        "summary": {
+          "$ref": "#/$defs/markdown"
+        }
+      }
+    },
+    "withdrawn": {
+      "description": "[WITHDRAWN yyyy-mm-dd: reason]. A withdrawn ID stays in the export, because scenarios and code may still cite it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "date",
+        "reason"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "reason": {
+          "$ref": "#/$defs/markdown"
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "specId",
+        "title",
+        "path",
+        "context",
+        "glossary",
+        "useCases",
+        "fields",
+        "rules"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/domainCode"
+        },
+        "specId": {
+          "$ref": "#/$defs/specRef"
+        },
+        "title": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "description": "Repo-relative path of the Markdown file."
+        },
+        "owns": {
+          "type": "string",
+          "description": "The 'What it owns' cell from the spec index (specs/README.md)."
+        },
+        "context": {
+          "$ref": "#/$defs/markdown"
+        },
+        "glossary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/glossaryGroup"
+          }
+        },
+        "useCases": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "intro",
+            "groups"
+          ],
+          "properties": {
+            "intro": {
+              "$ref": "#/$defs/markdown"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/useCaseGroup"
+              }
+            }
+          }
+        },
+        "fields": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "intro",
+            "groups"
+          ],
+          "properties": {
+            "intro": {
+              "$ref": "#/$defs/markdown"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/fieldGroup"
+              }
+            }
+          }
+        },
+        "rules": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "intro",
+            "groups"
+          ],
+          "properties": {
+            "intro": {
+              "$ref": "#/$defs/markdown"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ruleGroup"
+              }
+            }
+          }
+        },
+        "extraSections": {
+          "description": "Any ## section beyond the standard five, such as States. Kept as Markdown.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "anchor",
+              "body"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "anchor": {
+                "$ref": "#/$defs/anchor"
+              },
+              "body": {
+                "$ref": "#/$defs/markdown"
+              }
+            }
+          }
+        }
+      }
+    },
+    "glossaryGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "anchor",
+        "terms"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/glossaryTerm"
+          }
+        }
+      }
+    },
+    "glossaryTerm": {
+      "description": "One glossary row. A row may define several terms together (**Sold**, **Checked-in count**, **Not yet arrived**).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "names",
+        "definition",
+        "references"
+      ],
+      "properties": {
+        "names": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "term"
+            ],
+            "properties": {
+              "term": {
+                "type": "string"
+              },
+              "shortForm": {
+                "type": "string",
+                "description": "From **Term** (short form)."
+              }
+            }
+          }
+        },
+        "definition": {
+          "$ref": "#/$defs/markdown"
+        },
+        "ownedBy": {
+          "$ref": "#/$defs/specRef",
+          "description": "Set for terms in the Owned by other specs group."
+        },
+        "clarifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/clarification"
+          }
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        }
+      }
+    },
+    "useCaseGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "anchor",
+        "description",
+        "entries"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "description": {
+          "$ref": "#/$defs/markdown"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/useCase"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "built",
+        "partlyBuilt",
+        "notBuilt"
+      ],
+      "description": "🟢 Built, 🟡 Partly built, 🔴 Not built."
+    },
+    "useCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "anchor",
+        "summary",
+        "whoCan",
+        "ruleIds",
+        "status",
+        "references"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/useCaseId"
+        },
+        "kind": {
+          "enum": [
+            "action",
+            "view"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "summary": {
+          "$ref": "#/$defs/markdown"
+        },
+        "whoCan": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "input": {
+          "description": "Actions only. The Input line as written, plus its items when it names fields.",
+          "$ref": "#/$defs/inputLine"
+        },
+        "returns": {
+          "$ref": "#/$defs/markdown",
+          "description": "Views only. The Returns line as written."
+        },
+        "canFilterBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ruleIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          }
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "gaps": {
+          "description": "🟡 only: the rule or field IDs not met yet.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/entryId"
+          }
+        },
+        "toReachBuilt": {
+          "$ref": "#/$defs/markdown",
+          "description": "🟡 only: the To reach 🟢 line."
+        },
+        "clarifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/clarification"
+          }
+        },
+        "engineeringDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/engineeringDecision"
+          }
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "action"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "input"
+            ],
+            "not": {
+              "required": [
+                "returns"
+              ]
+            },
+            "properties": {
+              "id": {
+                "pattern": "-A[0-9]+$"
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "returns"
+            ],
+            "not": {
+              "required": [
+                "input"
+              ]
+            },
+            "properties": {
+              "id": {
+                "pattern": "-V[0-9]+$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "partlyBuilt"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "gaps",
+              "toReachBuilt"
+            ]
+          },
+          "else": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "gaps"
+                  ]
+                },
+                {
+                  "required": [
+                    "toReachBuilt"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "inputLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "items"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/markdown",
+          "description": "As written: 'Ticket (required), Holder's name (required)', 'a Hold', or '—'."
+        },
+        "items": {
+          "description": "Empty when the line is '—'. One item per name on the line.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "required"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "fieldId": {
+                "$ref": "#/$defs/fieldId",
+                "description": "Resolved by name against this spec's Fields; absent for a whole concept or a name another spec owns."
+              }
+            }
+          }
+        }
+      }
+    },
+    "fieldGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "concept",
+        "anchor",
+        "description",
+        "fields"
+      ],
+      "properties": {
+        "concept": {
+          "type": "string"
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "description": {
+          "$ref": "#/$defs/markdown",
+          "description": "What the concept always has, or what the group is if it is not a concept."
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        },
+        "clarifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/clarification"
+          }
+        },
+        "engineeringDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/engineeringDecision"
+          }
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "references"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/fieldId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "validation": {
+          "$ref": "#/$defs/markdown",
+          "description": "The Allowed values and validation cell. Absent when withdrawn."
+        },
+        "sourceColumn": {
+          "type": "string"
+        },
+        "withdrawn": {
+          "$ref": "#/$defs/withdrawn"
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        }
+      },
+      "if": {
+        "not": {
+          "required": [
+            "withdrawn"
+          ]
+        }
+      },
+      "then": {
+        "required": [
+          "validation"
+        ]
+      }
+    },
+    "ruleGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "anchor",
+        "rules"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rule"
+          }
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "references"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ruleId"
+        },
+        "title": {
+          "type": "string",
+          "description": "The bold name after the ID: 'What a Scan decides'."
+        },
+        "body": {
+          "$ref": "#/$defs/markdown",
+          "description": "Everything after the title, lists included. Absent when withdrawn."
+        },
+        "withdrawn": {
+          "$ref": "#/$defs/withdrawn"
+        },
+        "clarifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/clarification"
+          }
+        },
+        "engineeringDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/engineeringDecision"
+          }
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        }
+      },
+      "if": {
+        "not": {
+          "required": [
+            "withdrawn"
+          ]
+        }
+      },
+      "then": {
+        "required": [
+          "body"
+        ]
+      }
+    }
+  }
+}

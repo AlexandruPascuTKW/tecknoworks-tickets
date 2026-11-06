@@ -1,0 +1,486 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scenarios.export.schema.json",
+  "title": "Acceptance scenarios export",
+  "description": "The acceptance scenarios in external-context/scenarios/, exported for display in a web app. Mirrors the sdlc-scenario-manager format: one file per spec (or per feature, when written from acceptance criteria), its Test data, and its scenarios filed under the action or view they end on. Prose is kept as Markdown, as written; IDs, status, Covers, Use cases and each step's results are broken out so the app can filter, badge, and join scenarios to the specs export (specs.export.schema.json) by ID.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "files"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceCommit": {
+      "description": "Git commit the scenarios were exported from.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "files": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/scenarioFile"
+      }
+    }
+  },
+  "$defs": {
+    "markdown": {
+      "description": "Text exactly as written in the scenario file, Markdown included (quoted labels, italics). The app renders it; it does not parse it.",
+      "type": "string"
+    },
+    "anchor": {
+      "description": "The GitHub-style heading slug the file's Contents uses (sc-adm-004--a-ticket-gets-in-once-…), so deep links match the Markdown file.",
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "domainCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}$"
+    },
+    "specRef": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[0-9]{3}$"
+    },
+    "entryId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[AVRF][0-9]+$"
+    },
+    "useCaseId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[AV][0-9]+$"
+    },
+    "scenarioId": {
+      "type": "string",
+      "pattern": "^SC-[A-Z]{2,5}-[0-9]{3}$"
+    },
+    "status": {
+      "description": "🟢 Built or 🔴 Not built. A scenario passes or it doesn't, so there is no Partly built.",
+      "type": "string",
+      "enum": [
+        "built",
+        "notBuilt"
+      ]
+    },
+    "references": {
+      "description": "Every spec ID and spec code the item's text cites, in order of first appearance — for hover cards and back-links.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ids",
+        "specs"
+      ],
+      "properties": {
+        "ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/entryId"
+          }
+        },
+        "specs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/specRef"
+          }
+        }
+      }
+    },
+    "clarification": {
+      "description": "One *[❓ Needs PO clarification — …]* marker on a Setup or a step — where acceptance criteria left something open.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/markdown"
+        }
+      }
+    },
+    "scenarioFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "title",
+        "path",
+        "source",
+        "testData",
+        "sections"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/domainCode",
+          "description": "The domain code (ADM), or the code the team picked for a feature without a spec (BRW)."
+        },
+        "title": {
+          "type": "string",
+          "description": "From '# Scenarios: <title>'."
+        },
+        "path": {
+          "type": "string",
+          "description": "Repo-relative path of the Markdown file."
+        },
+        "source": {
+          "description": "What the scenarios come from: the '> Spec:' line, or the '> Source:' line of a file written without a spec.",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "specId",
+                "specPath"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "spec"
+                },
+                "specId": {
+                  "$ref": "#/$defs/specRef",
+                  "description": "Joins to specs[].specId in the specs export."
+                },
+                "specPath": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "text"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "acceptanceCriteria"
+                },
+                "text": {
+                  "$ref": "#/$defs/markdown",
+                  "description": "As written: '[JIRA-412](…)' or 'described by the product owner on 2026-11-05'."
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          ]
+        },
+        "lastReviewed": {
+          "type": "string",
+          "format": "date"
+        },
+        "testData": {
+          "$ref": "#/$defs/testData"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "source": {
+            "properties": {
+              "kind": {
+                "const": "spec"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sections": {
+            "items": {
+              "required": [
+                "useCaseId"
+              ],
+              "properties": {
+                "scenarios": {
+                  "items": {
+                    "required": [
+                      "useCases"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "sections": {
+            "items": {
+              "not": {
+                "required": [
+                  "useCaseId"
+                ]
+              },
+              "properties": {
+                "scenarios": {
+                  "items": {
+                    "not": {
+                      "required": [
+                        "useCases"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "testData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intro",
+        "placeholders"
+      ],
+      "properties": {
+        "intro": {
+          "$ref": "#/$defs/markdown",
+          "description": "The prose above the table, including any shape shared by every row ('Performances 4 and 5 are open for scanning now…')."
+        },
+        "placeholders": {
+          "type": "array",
+          "items": {
+            "description": "One Test data row. A row may introduce several placeholders that depend on each other.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "names",
+              "mustBe"
+            ],
+            "properties": {
+              "names": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mustBe": {
+                "$ref": "#/$defs/markdown",
+                "description": "The 'What it must be' cell."
+              }
+            }
+          }
+        }
+      }
+    },
+    "section": {
+      "description": "A '## ADM-A1 — Scan a Ticket' section (from a spec), or a '## Lending an Item' group (without a spec).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "anchor",
+        "scenarios"
+      ],
+      "properties": {
+        "useCaseId": {
+          "$ref": "#/$defs/useCaseId"
+        },
+        "title": {
+          "type": "string",
+          "description": "The heading text after the ID — matches the spec's action or view title."
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "scenarios": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/scenario"
+          }
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "anchor",
+        "isSpine",
+        "covers",
+        "status",
+        "setup",
+        "poFeedback",
+        "steps",
+        "placeholders",
+        "references"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/scenarioId"
+        },
+        "title": {
+          "type": "string",
+          "description": "What is proven, without the 'Spine:' prefix."
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "isSpine": {
+          "type": "boolean",
+          "description": "True for the one end-to-end spine of the file (title began 'Spine:')."
+        },
+        "covers": {
+          "description": "The Covers line: the rules it proves, plus any action or view whose Who can it proves. From a spec, IDs; without one, the rule in plain words or a ticket.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "text",
+            "ids"
+          ],
+          "properties": {
+            "text": {
+              "$ref": "#/$defs/markdown",
+              "description": "As written."
+            },
+            "ids": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/entryId"
+              }
+            }
+          }
+        },
+        "useCases": {
+          "description": "The Use cases line (older files: Commands), primary first. Absent without a spec.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/useCaseId"
+          }
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "setup": {
+          "$ref": "#/$defs/markdown",
+          "description": "Who is acting and what must already be true."
+        },
+        "poFeedback": {
+          "description": "Empty while the line says 'none yet'. Otherwise each quoted comment with its date.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "quote",
+              "date"
+            ],
+            "properties": {
+              "quote": {
+                "type": "string",
+                "description": "The product owner's words, without the quotation marks."
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          }
+        },
+        "clarifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/clarification"
+          },
+          "description": "Markers on the header or Setup."
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/step"
+          }
+        },
+        "placeholders": {
+          "description": "The Test data placeholders the scenario uses, in order of first appearance — so the app can show their rows beside it.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "number",
+        "action",
+        "results",
+        "labels",
+        "isOtherWayIn"
+      ],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "action": {
+          "$ref": "#/$defs/markdown",
+          "description": "The step itself — one action, wrapped lines joined."
+        },
+        "results": {
+          "description": "Each '- →' sub-bullet, without the arrow. Empty for a step that only sets up the next.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/markdown"
+          }
+        },
+        "labels": {
+          "description": "Every text the step quotes, in its action and its results — control labels (\"Door list\", \"Start scanning\") and on-screen values (\"Standard\", \"Admitted\") alike. This is what check_labels.py looks up in the product.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "isOtherWayIn": {
+          "type": "boolean",
+          "description": "True for the 'try it another way than the screen' step that checks a refusal is enforced, not just hidden."
+        },
+        "clarifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/clarification"
+          }
+        }
+      }
+    }
+  }
+}
